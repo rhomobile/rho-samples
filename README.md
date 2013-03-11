@@ -1,4 +1,7 @@
 rho-samples
 ===========
 
-RhoMobile sample applications
+RhoMobile sample applications:
+
+1. sprockets-sandbox: Asset pipeline + handlebars sample rakefile using sprockets
+

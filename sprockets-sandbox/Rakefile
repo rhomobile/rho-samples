@@ -1,0 +1,32 @@
+require "sprockets"
+
+assets = Sprockets::Environment.new
+assets.css_compressor = :yui
+assets.js_compressor = :uglifier
+
+assets.append_path "app/assets/css"
+assets.append_path "app/assets/js"
+
+require 'handlebars_assets'
+HandlebarsAssets::Config.ember = true
+assets.append_path HandlebarsAssets.path
+
+task :assets do
+  assets["application.js"].write_to "public/assets/application.js"
+  assets["application.css"].write_to "public/assets/application.css"
+end
+
+
+#assets = Sprockets::Environment.new
+#assets.append_path "app/assets/js"
+#assets.append_path "app/assets/css"
+#LOOSE_APP_ASSETS = lambda do |path, filename|
+# filename !~ %r~app/assets~  && !%w[.js .css].include?(File.extname(path))
+#end
+#precompile = [LOOSE_APP_ASSETS, /(?:\/|\\|\A)application\.(css|js)$/]
+#
+#task :assets do
+#    assets.each_logical_path(*precompile).each {|path|
+#        assets[path].write_to "output/assets/#{path}"
+#    }
+#end
