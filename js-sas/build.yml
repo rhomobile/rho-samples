@@ -1,0 +1,24 @@
+sdk: "/Users/dipspb/work/rho/rhodes"
+sdkversion: 3.5.0
+name: js-sas
+version: 1.0
+vendor: rhomobile
+build: debug
+bbver: 4.6
+applog: rholog.txt
+iphone:
+  configuration: Release
+  sdk: iphonesimulator6.0
+  provisionprofile:
+  codesignidentity:
+  entitlements:
+  BundleIdentifier: com.rhomobile.js-sas
+  BundleURLScheme: js-sas
+wp:
+  productid: 'fa586990-6e21-0130-bf9e-3c075409010c'
+symbian:
+  uid: '0xeeceaf9f'
+android:
+  version: 2.1
+
+extensions: ["json"]
