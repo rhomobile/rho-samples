@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>EmberDemo</title>
+
+    <script src="/public/jquery/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="/public/handlebars/handlebars.js" type="text/javascript"></script>
+    <script src="/public/ember/ember-1.0.0-rc.1.js" type="text/javascript"></script>
+    <script src="app.js" type="text/javascript"></script>
+
+    <script type="text/x-handlebars" data-template-name="application">
+        Hello, {{firstName}} {{lastName}}<br />
+        <nav>
+            {{#linkTo "index"}}Home{{/linkTo}}
+            {{#linkTo "contributors"}}Contributors{{/linkTo}}
+        </nav>
+        <div>
+            {{outlet}}
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="index">
+        <div>{{title}}</div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="contributors">
+        <ul>
+            {{#each contributor in controller}}
+            <li>{{#linkTo contributor contributor}} {{contributor.login}} {{/linkTo}}</li>
+            {{/each}}
+        </ul>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="contributor">
+        Contributor: {{login}}, contributions: {{contributions}}
+    </script>
+</head>
+<body>
+</body>
+</html>

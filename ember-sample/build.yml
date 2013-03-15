@@ -1,0 +1,24 @@
+#sdk: "/Users/sv/.rvm/gems/ruby-1.9.3-p374/gems/rhodes-4.0.0.beta.4"
+sdkversion: 4.0.0
+name: ember-sample
+version: 1.0
+vendor: rhomobile
+build: debug
+bbver: 6.0
+applog: rholog.txt
+iphone:
+  configuration: Release
+  sdk: iphonesimulator6.0
+  provisionprofile:
+  codesignidentity:
+  entitlements:
+  BundleIdentifier: com.rhomobile.ember-sample
+  BundleURLScheme: ember-sample
+wp:
+  productid: '3456e9c0-6f92-0130-c7f1-3c075403c5b4'
+symbian:
+  uid: '0xeb5954be'
+android:
+  version: 2.1
+
+extensions: ["json"]
