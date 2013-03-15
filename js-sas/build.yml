@@ -1,4 +1,4 @@
-sdk: "/Users/dipspb/work/rho/rhodes"
+#sdk: "/Users/dipspb/work/rho/rhodes"
 sdkversion: 3.5.0
 name: js-sas
 version: 1.0
