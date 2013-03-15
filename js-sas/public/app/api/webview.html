@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rho:WebView</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <script src="/public/jquery/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="/public/jquery/jquery.json-2.3.min.js" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8" src="/public/api/generated/rhoapi.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/public/api/generated/rhoapi-modules.js"></script>
+    
+    <script type="text/javascript">
+    
+    function menuTest()
+    {
+        Rho.WebView['nativeMenu='] = [ { 'item1' : 'do_something'} ]        
+    }    
+    
+    </script>
+    
+</head>
+<body>
+<h1>Rho.WebView</h1>
+
+<a href="#" onclick="menuTest();">Run menu Test</a><br/>
+
+<ul>
+    <li id="Rho_WebView_framework">framework : <span class="result"></span></li>
+    <script type="text/javascript">$("#Rho_WebView_framework span.result").text(Rho.WebView.framework());</script>
+
+    <li id="Rho_WebView_fullScreen">fullScreen : <span class="result"></span></li>
+    <script type="text/javascript">$("#Rho_WebView_fullScreen span.result").text(Rho.WebView.fullScreen());</script>
+    
+    <li id="Rho_WebView_nativeMenu">nativeMenu : <span class="result"></span></li>
+    <script type="text/javascript">$("#Rho_WebView_nativeMenu span.result").text($.toJSON(Rho.WebView.nativeMenu()));</script>
+    
+</ul>
+
+</body>
+</html>
+
