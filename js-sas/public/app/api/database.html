@@ -12,8 +12,7 @@
     
     function dbTest()
     {
-        db = new Rho.Database.SQLite3();
-        db.open("path", "local");
+        db = new Rho.Database.SQLite3("path", "local");
         db.execute("SELECT * FROM object_values", false, [] );
         db.close();
     }    
