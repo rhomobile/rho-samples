@@ -24,6 +24,9 @@
 <a href="#" onclick="menuTest();">Run menu Test</a><br/>
 
 <ul>
+    <li id="typeof_Rho_WebView">Rho.WebView defined : <span class="result"></span></li>
+    <script type="text/javascript">$("#typeof_Rho_WebView span.result").text('function' == typeof Rho.WebView);</script>
+
     <li id="Rho_WebView_framework">framework : <span class="result"></span></li>
     <script type="text/javascript">$("#Rho_WebView_framework span.result").text(Rho.WebView.framework());</script>
 
