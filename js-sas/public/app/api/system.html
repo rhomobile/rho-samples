@@ -128,13 +128,27 @@
     <li id="Rho_System_getStartParams">getStartParams : <span class="result"></span></li>
     <script type="text/javascript">$("#Rho_System_getStartParams span.result").text(Rho.System.getStartParams());</script>
 
-    <li id="Rho_System_exit"><button name="Rho_System_exit">exit()</button> : <span class="result"></span></li>
+    <li id="Rho_System_exit">
+        <button name="Rho_System_exit">exit()</button>
+        : <span class="result"></span></li>
     <script type="text/javascript">
-        $("#Rho_System_exit button").live('click', function(){
+        $("#Rho_System_exit button").live('click', function () {
             $("#Rho_System_exit span.result").text(Rho.System.exit());
         });
     </script>
 
+    <li id="Rho_System_callback">
+        <button name="Rho_System_callback">Callback test</button>
+        : <span class="result"></span></li>
+    <script type="text/javascript">
+        $("#Rho_System_callback button").live('click',
+            function () {
+                Rho.System.getProperty('platform', function () {
+                    $("#Rho_System_callback span.result").text('callback done')
+                });
+
+            });
+    </script>
 </ul>
 </body>
 </html>
