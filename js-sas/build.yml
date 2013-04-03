@@ -1,4 +1,4 @@
-#sdk: "/Users/dipspb/work/rho/rhodes"
+sdk: "/Users/sv/rhomobile/rhodes"
 sdkversion: 3.5.0
 name: js-sas
 version: 1.0
@@ -19,6 +19,6 @@ wp:
 symbian:
   uid: '0xeeceaf9f'
 android:
-  version: 2.1
+  version: 4.0.3
 
 extensions: ["json"]
