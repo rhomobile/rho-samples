@@ -77,10 +77,19 @@
     <li id="Rho_Application_country">country : <span class="result"></span></li>
     <script type="text/javascript">$("#Rho_Application_country span.result").text(Rho.Application.getCountry());</script>
     
+    <li id="Rho_Application_getRhoPlatformVersion">getRhoPlatformVersion : <span class="result"></span></li>
+    <script type="text/javascript">
+        Rho.Application.getRhoPlatformVersion(function(value){
+            alert(value);
+            //$("#Rho_Application_getRhoPlatformVersion span.result").text(value);
+        });
+    </script>
+
 </ul>
 <a href="#" onclick="Rho.Application.setLocale('es', '');">setLocale('es', '')</a><br/>
 <a href="#" onclick="Rho.Application.minimize();">minimize</a><br/>
 <a href="#" onclick="Rho.Application.restore();">restore</a><br/>
+
 <a href="#" onclick="Rho.Application.quit();">quit</a><br/>
 
 </body>

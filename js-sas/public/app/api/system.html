@@ -143,8 +143,8 @@
     <script type="text/javascript">
         $("#Rho_System_callback button").live('click',
             function () {
-                Rho.System.getProperty('platform', function () {
-                    $("#Rho_System_callback span.result").text('callback done')
+                Rho.System.getProperty('platform', function (value) {
+                    $("#Rho_System_callback span.result").text('callback done with "' + value['result'] + '"');
                 });
 
             });
