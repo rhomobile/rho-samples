@@ -1,4 +1,4 @@
-sdk: "/Users/dipspb/work/rho/rhodes"
+sdk: "../../rhodes"
 sdkversion: 3.5.0
 name: js-sas
 version: 1.0
@@ -8,7 +8,7 @@ bbver: 4.6
 applog: rholog.txt
 iphone:
   configuration: Release
-  sdk: iphonesimulator6.0
+  sdk: iphonesimulator6.1
   provisionprofile:
   codesignidentity:
   entitlements:
