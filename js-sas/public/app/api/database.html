@@ -14,51 +14,51 @@
             if (res instanceof Array && "object" == typeof res[0]) {
                 var str = '<table><tr style="text-decoration:underline;">';
                 for (fld in res[0]) {
-                    str = str+'<th>'+fld+'</th>';
+                    str = str + '<th>' + fld + '</th>';
                 }
-                str = str+'</tr>';
+                str = str + '</tr>';
                 for (row in res) {
-                    str = str+'<tr>';
+                    str = str + '<tr>';
                     for (fld in res[row]) {
-                        str = str+'<td>'+res[row][fld]+'</td>';
+                        str = str + '<td>' + res[row][fld] + '</td>';
                     }
-                    str = str+'</tr>';
+                    str = str + '</tr>';
                 }
-                str = str+'</table>';
+                str = str + '</table>';
                 container.html(str);
             } else {
                 container.innerText = 'empty result';
             }
         }
 
-        var queryDrop   = 'DROP TABLE IF EXISTS todo';
+        var queryDrop = 'DROP TABLE IF EXISTS todo';
         var queryCreate = 'CREATE TABLE todo (id INT, task VARCHAR(128))';
-        var queryInit   = 'DROP TABLE IF EXISTS todo ; CREATE TABLE todo (id INT, task VARCHAR(128))';
+        var queryInit = 'DROP TABLE IF EXISTS todo ; CREATE TABLE todo (id INT, task VARCHAR(128))';
         var queryInsert = 'INSERT INTO todo (id, task) VALUES(?, ?)';
         var querySelect = 'SELECT * FROM todo';
 
         function dbInit() {
-            db = new Rho.Database.SQLite3("path", "local");
+            var db = new Rho.Database.SQLite3(Rho.Application.databaseFilePath('local'), 'local');
             db.execute(queryInit, true, []);
             db.close();
         }
 
         var id = 0;
         function dbInsert() {
-            db = new Rho.Database.SQLite3("path", "local");
+            var db = new Rho.Database.SQLite3(Rho.Application.databaseFilePath('local'), 'local');
             db.execute(queryInsert, false, [id, 'task_#' + (id++)]);
             db.close();
         }
 
         function dbSelect() {
-            db = new Rho.Database.SQLite3("path", "local");
+            var db = new Rho.Database.SQLite3(Rho.Application.databaseFilePath('local'), 'local');
             var rows = db.execute(querySelect, false, []);
             db.close();
             reportDbResult('#dbResult', rows);
         }
 
     </script>
-    
+
 </head>
 <body>
 <h1>Rho.Database</h1>
@@ -67,7 +67,11 @@
     <li><a href="#" onclick="dbInit();">Init DB</a><br/></li>
     <li><a href="#" onclick="dbInsert();">Add record</a><br/></li>
     <li><a href="#" onclick="dbSelect();">Read all records</a><br/></li>
-    <li><div>Result:</div><div id="dbResult"></div><div>--------------------------</div></li>
+    <li>
+        <div>Result:</div>
+        <div id="dbResult"></div>
+        <div>--------------------------</div>
+    </li>
 
     <li id="typeof_Rho_Database">Rho.Database defined : <span class="result"></span></li>
     <script type="text/javascript">$("#typeof_Rho_Database span.result").text('function' == typeof Rho.Database);</script>
