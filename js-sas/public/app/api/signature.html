@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Signature Capture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/public/jqmobile/jquery.mobile-1.0.1.min.css">
+    <link rel="stylesheet" href="/public/css/jqmobile-patch.css">
+
+    <script src="/public/jquery/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="/public/jquery/jquery.json-2.3.min.js" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8" src="/public/api/rhoapi-modules.js"></script>
+
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function(){
+            // jQuery-Mobile init options initialization goes here. For example, you may
+            // enable automatically generated 'Back' buttons on headers this way:
+            //$.mobile.page.prototype.options.addBackBtn = true;
+
+            // You can disable (with false value) or change page loading message
+            $.mobile.loadingMessage = false;
+            //$.mobile.loadingMessage = "loading"; // it is default value
+
+            // For documented init options look here:
+            // http://jquerymobile.com/demos/1.0.1/docs/api/globalconfig.html
+
+            // For poorly documented options search for ".prototype.options"
+            // in the jQuery Mobile source code
+
+            // Rhodes custom option!
+            // how long to wait transition end before "loading.." message will be shown
+            $.mobile.loadingMessageDelay = 300; // in ms
+
+            // Uncomment these options in case of performance problem in pages transition
+            //$.mobile.defaultPageTransition = 'none';
+            //$.mobile.defaultDialogTransition = 'none';
+            //$.mobile.ajaxEnabled = false;
+            //$.mobile.pushStateEnabled = false;
+            //$.mobile.loadingMessageDelay = 50; // in ms
+        });
+    </script>
+    <link href="/public/css/iphone.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript">
+        Rho.Log.info("tst!","APP");
+    </script>
+</head>
+<body data-platform="APPLE">
+    <h1>Signature capture</h1>
+    <ul>
+        <div data-role="page">
+            <div data-role="header" data-position="inline">
+                <h1>Test Signature capture</h1>
+            </div>
+
+            <div data-role="content">
+                <ul>
+                    <li id="TakeFullScreen">
+                        <button name="TakeFullScreen">takeFullScreen</button> : <span class="result">x</span>
+                    </li>
+                    <script type="text/javascript">
+                        Rho.Log.info('rdy!','APZ');
+                        $("#TakeFullScreen button").live('click',
+                            function () {
+                                Rho.Log.info('zero!','APZ');
+                                Rho.Signature.takeFullScreen(
+                                { 
+                                    "imageFormat" : "jpg", 
+                                    "penColor" : 0xff0000, 
+                                    "penWidth" : 5, 
+                                    "border" : true, 
+                                    "bgColor" : 0x00ff00 
+                                }, 
+                                function (value) {
+                                    Rho.Log.info('collback!','APZ');
+                                    // var arr = [], p, i = 0;
+                                    // for (p in obj)
+                                    //     arr[i++] = "> " + p + ":" + obj[p];
+                                    // var str = arr.join(', '');
+                                    str = 'ok!';
+                                    $("#TakeFullScreen span.result").text('callback done with "' + str + '"');
+                                }
+                                );
+                            }
+                        );
+                    </script>
+                </ul>
+            </div>
+        </div>
+</body>
+</html>
