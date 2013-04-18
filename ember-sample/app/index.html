@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title>EmberDemo</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <script src="/public/jquery/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="/public/jquery/jquery.json-2.3.js" type="text/javascript"></script>
+    <script src="/public/handlebars/handlebars.js" type="text/javascript"></script>
+    <script src="/public/ember/ember-1.0.0-rc.1.js" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8" src="/public/api/rhoapi-modules.js"></script>
+    <script src="script.js" type="text/javascript"></script>
+
+    <script type="text/x-handlebars" data-template-name="application">
+        <div>
+            {{outlet}}
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="login">
+        <h1>Login</h1>
+        {{#view App.LoginFormView}}
+        <div>
+            <label>
+                Login:
+                {{view Ember.TextField valueBinding="view.login"}}
+            </label>
+        </div>
+        <div>
+            <label>
+                Password:
+                {{view Ember.TextField type="password" valueBinding="view.password"}}
+            </label>
+        </div>
+        <div>
+            <button>Login</button>
+        </div>
+        {{/view}}
+    </script>
+
+
+    <script type="text/x-handlebars" data-template-name="home">
+        <h1>Store</h1>
+        <button {{action doLogout}}>Logout</button>
+
+        <ul>
+            <li>{{#linkTo products}}Products{{/linkTo}}</li>
+            <li>{{#linkTo customers}}Customers{{/linkTo}}</li>
+        </ul>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="products">
+        <h1>Products</h1>
+        <button {{ action goHome }}>Home</button>
+         <div> Products count: {{ products.length }}</div>
+        {{#each product in products }}
+        <div>{{#linkTo product product }} {{ product.name }} {{/linkTo}}</div>
+        {{/each}}
+
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="customers">
+        <h1>Customers</h1>
+        <button {{action goHome}}>Home</button>
+
+        <div> Customers count: {{ customers.length }}</div>
+        {{#each customer in customers }}
+        <div>{{#linkTo customer customer }} {{ customer.name }} {{/linkTo}}</div>
+        {{/each}}
+
+    </script>
+</head>
+<body>
+</body>
+</html>
