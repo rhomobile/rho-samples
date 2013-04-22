@@ -42,9 +42,6 @@
         });
     </script>
     <link href="/public/css/iphone.css" type="text/css" rel="stylesheet"/>
-    <script type="text/javascript">
-        Rho.Log.info("tst!","APP");
-    </script>
 </head>
 <body data-platform="APPLE">
     <h1>Signature capture</h1>
@@ -60,10 +57,8 @@
                         <button name="TakeFullScreen">takeFullScreen</button> : <span class="result">x</span>
                     </li>
                     <script type="text/javascript">
-                        Rho.Log.info('rdy!','APZ');
                         $("#TakeFullScreen button").live('click',
                             function () {
-                                Rho.Log.info('zero!','APZ');
                                 Rho.Signature.takeFullScreen(
                                 { 
                                     "imageFormat" : "jpg", 
@@ -73,13 +68,7 @@
                                     "bgColor" : 0x00ff00 
                                 }, 
                                 function (value) {
-                                    Rho.Log.info('collback!','APZ');
-                                    // var arr = [], p, i = 0;
-                                    // for (p in obj)
-                                    //     arr[i++] = "> " + p + ":" + obj[p];
-                                    // var str = arr.join(', '');
-                                    str = 'ok!';
-                                    $("#TakeFullScreen span.result").text('callback done with "' + str + '"');
+                                    $("#TakeFullScreen span.result").text('callback done with ' + $.toJSON(value));
                                 }
                                 );
                             }

@@ -9,6 +9,7 @@ applog: rholog.txt
 iphone:
   configuration: Release
   sdk: iphonesimulator6.1
+  extensions: ["signature"]
   provisionprofile:
   codesignidentity:
   entitlements:
