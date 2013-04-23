@@ -1,122 +1,99 @@
 App = Ember.Application.create({
-    LOG_TRANSITIONS: true
+    LOG_TRANSITIONS: true,
+    customerModel: Rho.ORM.addModel('Customer'),
+    productModel: Rho.ORM.addModel('Product'),
 });
 
-App.ApplicationController = Ember.Controller.extend({
+App.customerModel.create({'name': "Customer A"});
+App.customerModel.create({'name': "Customer B"});
+App.customerModel.create({'name': "Customer C"});
+App.productModel.create({'name': "Galaxy S3"});
+App.productModel.create({'name': "iPhone 5"});
 
-});
 
 App.Router.map(function () {
-    this.route('choose');
-    this.route('customers');
-    this.route('customer', {path: '/customers/:customer_id'});
+    this.route('/');
+    this.route('initial');
+    this.route('login');
+    this.route('home');
     this.route('products');
     this.route('product', {path: '/products/:product_id'});
-    this.route('contributors');
-    this.route('contributor', {path: '/contributors/:contributor_id'});
+    this.route('customers');
+    this.route('customer', {path: '/customers/:customer_id'});
+
 });
 
-
+App.BlaBlaBlaRoute = Ember.Route.extend({
+    redirect: function () {
+        Rho.Log.info('Is LoggedIn = ' + Rho.RhoConnectClient.isLoggedIn(), 'Store')
+        var path = Rho.RhoConnectClient.isLoggedIn() ? 'home' : 'login';
+        this.transitionTo(path);
+    }
+});
 
 App.IndexRoute = Ember.Route.extend({
     redirect: function () {
-        this.transitionTo('choose');
+        this.transitionTo("initial");
     }
 });
 
-App.ChooseRoute = Ember.Route.extend({
-    setupController: function (controller) {
-        controller.set('title', 'The is the choose controller');
-    },
-});
-
-App.CustomersRoute = Ember.Route.extend({
-    setupController: function (controller) {
-        controller.set('title', 'The is the customers controller');
-    },
-    model: function () {
-        return App.Customer.customers();
+App.InitialController = Ember.Controller.extend({
+    goLogin: function () {
+        this.transitionToRoute('login')
     }
 });
 
-App.ProductsRoute = Ember.Route.extend({
-    setupController: function (controller) {
-        controller.set('title', 'The is the products controller');
-    }, model: function () {
-        return App.Product.products();
-    }
+App.HomeRoute = Ember.Route.extend({
+
 });
 
-
-App.Customer = Ember.Object.extend({
-    id: null,
-    firstName: null,
-    lastName: null,
-    address: null,
-    email: null,
-    phone: null
-});
-App.Customer.reopenClass({
-    _customers: [],
-    customers: function(){return this._customers},
-    addCustomer: function (aCustomer) {
-        this._customers.addObject(aCustomer)
-    },
-    readCustomers: function () {
-        for (var i = 1; i < 10; i++) {
-            this.addCustomer(App.Customer.create({id: i, firstName: "firstName " + i, lastName: "lastName " + i}));
-        }
-    }
-})
-
-App.Product = Ember.Object.extend({
-    id: null,
-    name: null,
-    sku: null,
-    brand: null,
-    price: null,
-    quantity: null
-});
-
-App.Product.reopenClass({
-    _products: [],
-    products: function () {
-        return this._products
-    },
-    addProduct: function (aProduct) {
-        this._products.addObject(aProduct)
-    },
-    readProducts: function () {
-        for (var i = 1; i < 10; i++) {
-            this.addProduct(App.Product.create({id: i, name: "product " + i, brand: "brand " + i}));
-        }
-    }
-});
-
-App.Customer.readCustomers();
-App.Product.readProducts();
-
-App.Contributor = Ember.Object.extend();
-App.Contributor.reopenClass({
-    allContributors: [],
-    all: function () {
-        this.allContributors = [];
-        $.ajax({
-            url: 'https://api.github.com/repos/emberjs/ember.js/contributors',
-            dataType: 'jsonp',
-            context: this,
-            success: function (response) {
-                response.data.forEach(function (contributor) {
-                    this.allContributors.addObject(App.Contributor.create(contributor))
-                }, this)
+App.LoginController = Ember.Controller.extend({
+    doLogin: function (login, password) {
+        var thisController = this;
+        Rho.Log.info("Before login", "JS-Store");
+        Rho.RhoConnectClient.login(login, password, function (value) {
+            Rho.Log.info(value.error_code, "JS-Store");
+            if (value.error_code == 0) {
+                thisController.transitionToRoute('home');
+            } else {
+                thisController.transitionToRoute('index');
             }
-        })
-        return this.allContributors;
+        });
+        Rho.Log.info("After login", "JS-Store");
     }
 });
 
-App.ContributorsRoute = Ember.Route.extend({
-    model: function () {
-        return App.Contributor.all();
+App.LoginFormView = Ember.View.extend({
+    tagName: 'form',
+    login: null,
+    password: null,
+
+    submit: function (event) {
+        event.preventDefault();
+        var login = this.get('login');
+        var password = this.get('password');
+        this.get('controller').doLogin(login, password)
     }
+});
+
+App.HomeController = Ember.Controller.extend({
+    doLogout: function () {
+        Rho.RhoConnectClient.logout();
+        this.transitionToRoute('initial');
+    }
+});
+
+App.ProductsController = Ember.Controller.extend({
+    goHome: function () {
+        this.transitionToRoute('home')
+    },
+    products: App.productModel.find('all')
+
+});
+
+App.CustomersController = Ember.Controller.extend({
+    goHome: function () {
+        this.transitionToRoute('home')
+    },
+    customers: App.customerModel.find('all')
 });
