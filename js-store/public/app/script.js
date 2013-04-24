@@ -1,34 +1,19 @@
 App = Ember.Application.create({
-    LOG_TRANSITIONS: true,
-    customerModel: Rho.ORM.addModel('Customer'),
-    productModel: Rho.ORM.addModel('Product'),
+    LOG_TRANSITIONS: true
 });
-
-App.customerModel.create({'name': "Customer A"});
-App.customerModel.create({'name': "Customer B"});
-App.customerModel.create({'name': "Customer C"});
-App.productModel.create({'name': "Galaxy S3"});
-App.productModel.create({'name': "iPhone 5"});
-
 
 App.Router.map(function () {
     this.route('/');
     this.route('initial');
     this.route('login');
     this.route('home');
-    this.route('products');
-    this.route('product', {path: '/products/:product_id'});
+    this.resource("products", {path: '/products'}, function () {
+        this.route("new")
+    });
+    this.resource("product", { path: "/products/:product_id" }, function () {
+        this.route("/new");
+    });
     this.route('customers');
-    this.route('customer', {path: '/customers/:customer_id'});
-
-});
-
-App.BlaBlaBlaRoute = Ember.Route.extend({
-    redirect: function () {
-        Rho.Log.info('Is LoggedIn = ' + Rho.RhoConnectClient.isLoggedIn(), 'Store')
-        var path = Rho.RhoConnectClient.isLoggedIn() ? 'home' : 'login';
-        this.transitionTo(path);
-    }
 });
 
 App.IndexRoute = Ember.Route.extend({
@@ -81,19 +66,4 @@ App.HomeController = Ember.Controller.extend({
         Rho.RhoConnectClient.logout();
         this.transitionToRoute('initial');
     }
-});
-
-App.ProductsController = Ember.Controller.extend({
-    goHome: function () {
-        this.transitionToRoute('home')
-    },
-    products: App.productModel.find('all')
-
-});
-
-App.CustomersController = Ember.Controller.extend({
-    goHome: function () {
-        this.transitionToRoute('home')
-    },
-    customers: App.customerModel.find('all')
 });
