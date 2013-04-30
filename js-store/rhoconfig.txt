@@ -1,5 +1,5 @@
 # startup page for your application
-start_path = '/public/app/index.html'
+start_path = '/public/app/application.html'
 
 # path to the options page (in this case handled by javascript)
 options_path = '/app/Settings'

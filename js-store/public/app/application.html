@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Store sample</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <script type="text/javascript" src="/public/jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="/public/jquery/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="/public/handlebars/handlebars.js"></script>
+    <script type="text/javascript" src="/public/ember/ember-1.0.0-rc.3.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/public/api/rhoapi-modules.js"></script>
+    <script src="application.js"></script>
+</head>
+<body>
+
+<script type="text/x-handlebars" data-template-name="application">
+    {{outlet}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="welcome">
+    <h3>Store</h3>
+    <button
+    {{action goLogin}}>Login </button>
+</script>
+
+<script type="text/x-handlebars" data-template-name="login">
+    <h3>Login</h3>
+    {{#view App.LoginFormView}}
+    <div>
+        <label>
+            Login:
+        </label>
+
+        <div>
+            {{view Ember.TextField valueBinding="view.login"}}
+        </div>
+    </div>
+    <div>
+        <label>
+            Password:
+        </label>
+
+        <div>
+            {{view Ember.TextField type="password" valueBinding="view.password"}}
+        </div>
+    </div>
+    <div>
+        <div>
+            <button>Login</button>
+        </div>
+        <div>
+            {{/view}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="choose">
+    <h3>Store</h3>
+    <div><button {{action doSync}}> Sync </button></div>
+    <div><button {{action doLogout}}> Logout </button></div>
+    <div><button {{action goProducts}}> Products </button></div>
+    <div><button {{action goCustomers}}> Customers </button></div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="products">
+    {{outlet}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="product">
+    {{outlet}}
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="products/index">
+    <h3>Products</h3>
+    <div><button {{action doNewProduct}}> New </button></div>
+
+    {{#each product in products}}
+        <div>{{#linkTo product product}} {{product.name}} {{/linkTo}}</div>
+    {{/each}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="products/new">
+    <h3>New Product</h3>
+
+    <div>Brand: <b>{{brand}}</b></div>
+    <div>Name: <b>{{name}}</b></div>
+    <div>SKU: <b>{{sku}}</b></div>
+    <div>Price: <b>{{price}}</b></div>
+    <div>qty: <b>{{quantity}}</b></div>
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="product/index">
+    {{#with controllers.product}}
+    <h2>Product: {{brand}} {{prodName}}</h2>
+
+    <div>Brand: <b>{{brand}}</b></div>
+    <div>Name: <b>{{name}}</b></div>
+    <div>SKU: <b>{{sku}}</b></div>
+    <div>Price: <b>{{price}}</b></div>
+    <div>qty: <b>{{quantity}}</b></div>
+    {{/with}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="product/edit">
+    {{#with controllers.product}}
+    <h2>Edit product: {{brand}} {{prodName}}</h2>
+
+    <div>Brand: <b>{{brand}}</b></div>
+    <div>Name: <b>{{prodName}}</b></div>
+    <div>SKU: <b>{{sku}}</b></div>
+    <div>qty: <b>{{qty}}</b></div>
+    {{/with}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="product/delete">
+    {{#with controllers.product}}
+    <h2>Delete product: {{brand}} {{prodName}}</h2>
+
+    <div>Brand: <b>{{brand}}</b></div>
+    <div>Name: <b>{{prodName}}</b></div>
+    <div>SKU: <b>{{sku}}</b></div>
+    <div>qty: <b>{{qty}}</b></div>
+    {{/with}}
+</script>
+
+</body>
+</html>
