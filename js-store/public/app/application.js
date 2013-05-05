@@ -130,11 +130,26 @@ App.EditProductFormView = Ember.View.extend({
     sku: null,
     price: null,
     quantity: null,
+    willInsertElement: function () {
+        var object = this.get('controller').get('model').subject;
+        this.set('brand', object.get('brand'));
+        this.set('name', object.get('name'));
+        this.set('sku', object.get('sku'));
+        this.set('price', object.get('price'));
+        this.set('quantity', object.get('quantity'));
+    },
 
     submit: function (event) {
         event.preventDefault();
-        // some code for update product
-        this.get('controller').transitionToRoute('products.index')
+        var object = this.get('controller').get('model').subject;
+        object.set('brand', this.get('brand'));
+        object.set('name', this.get('name'));
+        object.set('sku', this.get('sku'));
+        object.set('price', this.get('price'));
+        object.set('quantity', this.get('quantity'));
+        //TODO: remove comment when ORM support method "save()"
+        //object.save();
+        this.get('controller').transitionToRoute('product', this.get('controller').get('model'))
     }
 });
 
@@ -203,15 +218,7 @@ App.ProductRoute = Ember.Route.extend({
 
 App.ProductEditRoute = Ember.Route.extend({
     model: function (params) {
-        // need return concrete product, but method "find" not supports select criteria now
-        var _productProxy = null;
-        var _products = App.productModel.find('all');
-        for (var i = 0; i < _products.length; i++) {
-            if (_products[i].get('object') == params.product_id) {
-                _productProxy = ProductProxy.create({subject: _products[i]});
-            }
-        }
-        return  _productProxy;
+        return this.modelFor('product')
     },
     serialize: function (product) {
         return {product_id: product.get('object')}
