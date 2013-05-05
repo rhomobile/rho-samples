@@ -53,10 +53,19 @@
 
 <script type="text/x-handlebars" data-template-name="choose">
     <h3>Store</h3>
-    <div><button {{action doSync}}> Sync </button></div>
-    <div><button {{action doLogout}}> Logout </button></div>
-    <div><button {{action goProducts}}> Products </button></div>
-    <div><button {{action goCustomers}}> Customers </button></div>
+
+    <div>
+        <button
+        {{action doSync}}> Sync </button></div>
+    <div>
+        <button
+        {{action doLogout}}> Logout </button></div>
+    <div>
+        <button
+        {{action goProducts}}> Products </button></div>
+    <div>
+        <button
+        {{action goCustomers}}> Customers </button></div>
 </script>
 
 <script type="text/x-handlebars" data-template-name="products">
@@ -70,55 +79,96 @@
 
 <script type="text/x-handlebars" data-template-name="products/index">
     <h3>Products</h3>
-    <div><button {{action doNewProduct}}> New </button></div>
+
+    <div>
+        <button
+        {{action doNewProduct}}> New </button></div>
 
     {{#each product in products}}
-        <div>{{#linkTo product product}} {{product.name}} {{/linkTo}}</div>
+    <div>{{#linkTo product product}} {{product.name}} {{/linkTo}}</div>
     {{/each}}
 </script>
 
 <script type="text/x-handlebars" data-template-name="products/new">
     <h3>New Product</h3>
+    {{#view App.NewProductFormView}}
 
-    <div>Brand: <b>{{brand}}</b></div>
-    <div>Name: <b>{{name}}</b></div>
-    <div>SKU: <b>{{sku}}</b></div>
-    <div>Price: <b>{{price}}</b></div>
-    <div>qty: <b>{{quantity}}</b></div>
+    <div>
+        <label>Brand:</label>{{view Ember.TextField valueBinding="view.brand"}}
+    </div>
+    <div>
+        <label>Name:</label>{{view Ember.TextField valueBinding="view.name"}}
+    </div>
+    <div>
+        <label>SKU:</label>{{view Ember.TextField valueBinding="view.sku"}}
+    </div>
+    <div>
+        <label>Price:</label>{{view Ember.TextField valueBinding="view.price"}}
+    </div>
+    <div>
+        <label>Quantity:</label>{{view Ember.TextField valueBinding="view.quantity"}}
+    </div>
+    <div>
+        <button>Submit</button>
+    </div>
+    {{/view}}
 </script>
 
 
 <script type="text/x-handlebars" data-template-name="product/index">
-    {{#with controllers.product}}
-    <h2>Product: {{brand}} {{prodName}}</h2>
 
-    <div>Brand: <b>{{brand}}</b></div>
-    <div>Name: <b>{{name}}</b></div>
-    <div>SKU: <b>{{sku}}</b></div>
-    <div>Price: <b>{{price}}</b></div>
-    <div>qty: <b>{{quantity}}</b></div>
+    <div>
+        <button
+        {{action doEditProduct controllers.product.model}}> Edit </button></div>
+    <div>
+        <button
+        {{action doDeleteProduct controllers.product.model}}> Delete </button></div>
+
+    {{#with controllers.product}}
+
+    <h2>Product: {{brand}} {{name}}</h2>
+
+    <div>Brand: {{brand}}</div>
+    <div>Name: {{name}}</div>
+    <div>SKU: {{sku}}</div>
+    <div>Price: {{price}}</div>
+    <div>qty: {{quantity}}</div>
     {{/with}}
 </script>
 
 <script type="text/x-handlebars" data-template-name="product/edit">
-    {{#with controllers.product}}
-    <h2>Edit product: {{brand}} {{prodName}}</h2>
 
-    <div>Brand: <b>{{brand}}</b></div>
-    <div>Name: <b>{{prodName}}</b></div>
-    <div>SKU: <b>{{sku}}</b></div>
-    <div>qty: <b>{{qty}}</b></div>
-    {{/with}}
+    <h3>Edit Product</h3>
+    {{#view App.EditProductFormView}}
+
+    <div>
+        <label>Brand:</label>{{view Ember.TextField valueBinding="view.brand"}}
+    </div>
+    <div>
+        <label>Name:</label>{{view Ember.TextField valueBinding="view.name"}}
+    </div>
+    <div>
+        <label>SKU:</label>{{view Ember.TextField valueBinding="view.sku"}}
+    </div>
+    <div>
+        <label>Price:</label>{{view Ember.TextField valueBinding="view.price"}}
+    </div>
+    <div>
+        <label>Quantity:</label>{{view Ember.TextField valueBinding="view.quantity"}}
+    </div>
+    <div>
+        <button>Submit</button>
+    </div>
+    {{/view}}
 </script>
-
 <script type="text/x-handlebars" data-template-name="product/delete">
     {{#with controllers.product}}
-    <h2>Delete product: {{brand}} {{prodName}}</h2>
+    <h2>Delete product: {{brand}} {{name}}</h2>
 
     <div>Brand: <b>{{brand}}</b></div>
     <div>Name: <b>{{prodName}}</b></div>
     <div>SKU: <b>{{sku}}</b></div>
-    <div>qty: <b>{{qty}}</b></div>
+    <div>qty: <b>{{quantity}}</b></div>
     {{/with}}
 </script>
 
