@@ -15,13 +15,11 @@
 <script type="text/x-handlebars" data-template-name="application">
     {{outlet}}
 </script>
-
 <script type="text/x-handlebars" data-template-name="welcome">
     <h3>Store</h3>
     <button
     {{action goLogin}}>Login </button>
 </script>
-
 <script type="text/x-handlebars" data-template-name="login">
     <h3>Login</h3>
     {{#view App.LoginFormView}}
@@ -50,8 +48,7 @@
         <div>
             {{/view}}
 </script>
-
-<script type="text/x-handlebars" data-template-name="choose">
+<script type="text/x-handlebars" data-template-name="home">
     <h3>Store</h3>
 
     <div>
@@ -67,28 +64,29 @@
         <button
         {{action goCustomers}}> Customers </button></div>
 </script>
-
 <script type="text/x-handlebars" data-template-name="products">
     {{outlet}}
 </script>
-
 <script type="text/x-handlebars" data-template-name="product">
     {{outlet}}
 </script>
-
-
 <script type="text/x-handlebars" data-template-name="products/index">
     <h3>Products</h3>
 
     <div>
         <button
-        {{action doNewProduct}}> New </button></div>
+        {{action home}}> Home </button>
+    </div>
+    <div>
+        <button
+        {{action doNewProduct}}> New </button>
+    </div>
+
 
     {{#each product in products}}
     <div>{{#linkTo product product}} {{product.name}} {{/linkTo}}</div>
     {{/each}}
 </script>
-
 <script type="text/x-handlebars" data-template-name="products/new">
     <h3>New Product</h3>
     {{#view App.NewProductFormView}}
@@ -113,20 +111,21 @@
     </div>
     {{/view}}
 </script>
-
-
 <script type="text/x-handlebars" data-template-name="product/index">
-
-    <div>
-        <button
-        {{action doEditProduct controllers.product.model}}> Edit </button></div>
-    <div>
-        <button
-        {{action doDeleteProduct controllers.product.model}}> Delete </button></div>
 
     {{#with controllers.product}}
 
-    <h2>Product: {{brand}} {{name}}</h2>
+    <h3>{{name}}</h3>
+
+    <div>
+        <button
+        {{action back}}> Back </button>
+    </div>
+
+    <div>
+        <button
+        {{action doEditProduct model}}> Edit </button>
+    </div>
 
     <div>Brand: {{brand}}</div>
     <div>Name: {{name}}</div>
@@ -135,11 +134,23 @@
     <div>qty: {{quantity}}</div>
     {{/with}}
 </script>
-
 <script type="text/x-handlebars" data-template-name="product/edit">
 
-    <h3>Edit Product</h3>
     {{#view App.EditProductFormView}}
+
+    <h3>Edit {{view.name}}</h3>
+
+    <div>
+        <button
+        {{action doCancel controllers.product.model}}> Cancel </button>
+    </div>
+
+    <div>
+        <button
+        {{action doDeleteProduct controllers.product.model}}> Delete </button>
+    </div>
+
+
 
     <div>
         <label>Brand:</label>{{view Ember.TextField valueBinding="view.brand"}}
@@ -171,6 +182,139 @@
     <div>qty: <b>{{quantity}}</b></div>
     {{/with}}
 </script>
+
+
+<!-- ------------------------------------ -->
+
+<script type="text/x-handlebars" data-template-name="customers">
+    {{outlet}}
+</script>
+<script type="text/x-handlebars" data-template-name="customer">
+    {{outlet}}
+</script>
+<script type="text/x-handlebars" data-template-name="customers/index">
+    <h3>Customers</h3>
+
+    <div>
+        <button
+        {{action home}}> Home </button>
+    </div>
+    <div>
+        <button
+        {{action doNewCustomer}}> New </button>
+    </div>
+
+
+    {{#each customer in customers}}
+    <div>{{#linkTo customer customer}} {{customer.first}} {{customer.last}} {{/linkTo}}</div>
+    {{/each}}
+</script>
+<script type="text/x-handlebars" data-template-name="customers/new">
+    <h3>New Customer</h3>
+    {{#view App.NewCustomerFormView}}
+
+    <div>
+        <label>First:</label>{{view Ember.TextField valueBinding="view.first"}}
+    </div>
+    <div>
+        <label>Last:</label>{{view Ember.TextField valueBinding="view.last"}}
+    </div>
+    <div>
+        <label>Email:</label>{{view Ember.TextField valueBinding="view.email"}}
+    </div>
+    <div>
+        <label>Phone:</label>{{view Ember.TextField valueBinding="view.phone"}}
+    </div>
+    <div>
+        <label>Address:</label>{{view Ember.TextField valueBinding="view.address"}}
+    </div>
+    <div>
+        <label>City:</label>{{view Ember.TextField valueBinding="view.city"}}
+    </div>
+    <div>
+        <button>Submit</button>
+    </div>
+    {{/view}}
+</script>
+<script type="text/x-handlebars" data-template-name="customer/index">
+
+    {{#with controllers.customer}}
+
+    <h3>{{name}}</h3>
+
+    <div>
+        <button
+        {{action back}}> Back </button>
+    </div>
+
+    <div>
+        <button
+        {{action doEditCustomer model}}> Edit </button>
+    </div>
+
+    <div>First: {{first}}</div>
+    <div>Last: {{last}}</div>
+    <div>Email: {{email}}</div>
+    <div>Phone: {{phone}}</div>
+    <div>Address: {{address}}</div>
+    <div>City: {{city}}</div>
+    {{/with}}
+</script>
+<script type="text/x-handlebars" data-template-name="customer/edit">
+
+    {{#view App.EditCustomerFormView}}
+
+    <h3>Edit {{view.first}} {{view.last}}</h3>
+
+    <div>
+        <button
+        {{action doCancel controllers.customer.model}}> Cancel </button>
+    </div>
+
+    <div>
+        <button
+        {{action doDeleteCustomer controllers.customer.model}}> Delete </button>
+    </div>
+
+
+
+    <div>
+        <label>First:</label>{{view Ember.TextField valueBinding="view.first"}}
+    </div>
+    <div>
+        <label>Last:</label>{{view Ember.TextField valueBinding="view.last"}}
+    </div>
+    <div>
+        <label>Email:</label>{{view Ember.TextField valueBinding="view.email"}}
+    </div>
+    <div>
+        <label>Phone:</label>{{view Ember.TextField valueBinding="view.phone"}}
+    </div>
+    <div>
+        <label>Address:</label>{{view Ember.TextField valueBinding="view.address"}}
+    </div>
+    <div>
+        <label>City:</label>{{view Ember.TextField valueBinding="view.city"}}
+    </div>
+    <div>
+        <button>Submit</button>
+    </div>
+    {{/view}}
+</script>
+<script type="text/x-handlebars" data-template-name="customer/delete">
+    {{#with controllers.customer}}
+    <h2>Delete customer: {{first}} {{last}}</h2>
+
+    <div>First: {{first}}</div>
+    <div>Last: {{last}}</div>
+    <div>Email: {{email}}</div>
+    <div>Phone: {{phone}}</div>
+    <div>Address: {{address}}</div>
+    <div>City: {{city}}</div>
+    {{/with}}
+</script>
+
+
 
 </body>
 </html>
