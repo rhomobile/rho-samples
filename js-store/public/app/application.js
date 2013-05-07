@@ -210,8 +210,7 @@ App.ProductEditRoute = Ember.Route.extend({
     },
     events: {
         doDeleteProduct: function (params) {
-            alert("This stub while method destroy() don't work");
-            //params.subject.destroy();
+            params.subject.destroy();
             this.controller.transitionToRoute('products.index');
         },
         doCancel: function (params) {
@@ -247,6 +246,7 @@ App.EditProductFormView = Ember.View.extend({
     price: null,
     quantity: null,
     willInsertElement: function () {
+        this.get('controller').get('model').tag = '123';
         var object = this.get('controller').get('model').subject;
         this.set('brand', object.get('brand'));
         this.set('name', object.get('name'));
@@ -257,15 +257,17 @@ App.EditProductFormView = Ember.View.extend({
 
     submit: function (event) {
         event.preventDefault();
-        var object = this.get('controller').get('model').subject;
-        object.set('brand', this.get('brand'));
-        object.set('name', this.get('name'));
-        object.set('sku', this.get('sku'));
-        object.set('price', this.get('price'));
-        object.set('quantity', this.get('quantity'));
-        //TODO: remove comment when ORM support method "save()"
-        //object.save();
-        this.get('controller').transitionToRoute('product', this.get('controller').get('model'))
+        var productProxy = this.get('controller').get('model');
+        var product = productProxy.subject;
+        product.set('brand', this.get('brand'));
+        product.set('name', this.get('name'));
+        product.set('sku', this.get('sku'));
+        product.set('price', this.get('price'));
+        product.set('quantity', this.get('quantity'));
+        product.save();
+        //TODO: it's weird, but productProxy.set('subject', object) not updated computed properties as expected
+        productProxy = ProductProxy.create({"subject": product});
+        this.get('controller').transitionToRoute('product', productProxy)
     }
 });
 
@@ -348,8 +350,7 @@ App.CustomerEditRoute = Ember.Route.extend({
     },
     events: {
         doDeleteCustomer: function (params) {
-            alert("This stub while method destroy() don't work");
-            //params.subject.destroy();
+            params.subject.destroy();
             this.controller.transitionToRoute('customers.index');
         },
         doCancel: function (params) {
@@ -400,16 +401,18 @@ App.EditCustomerFormView = Ember.View.extend({
 
     submit: function (event) {
         event.preventDefault();
-        var object = this.get('controller').get('model').subject;
-        object.set('first', this.get('first'));
-        object.set('last', this.get('last'));
-        object.set('email', this.get('email'));
-        object.set('phone', this.get('phone'));
-        object.set('address', this.get('address'));
-        object.set('city', this.get('city'));
-        //TODO: remove comment when ORM support method "save()"
-        //object.save();
-        this.get('controller').transitionToRoute('customer', this.get('controller').get('model'))
+        var customerProxy = this.get('controller').get('model');
+        var customer = customerProxy.subject;
+        customer.set('first', this.get('first'));
+        customer.set('last', this.get('last'));
+        customer.set('email', this.get('email'));
+        customer.set('phone', this.get('phone'));
+        customer.set('address', this.get('address'));
+        customer.set('city', this.get('city'));
+        customer.save();
+        //TODO: it's weird, but customerProxy.set('subject', object) not updated computed properties as expected
+        customerProxy = CustomerProxy.create({"subject": customer});
+        this.get('controller').transitionToRoute('product', customerProxy);
     }
 });
 
