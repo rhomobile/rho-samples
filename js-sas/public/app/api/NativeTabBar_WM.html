@@ -10,7 +10,10 @@
     <script type="text/javascript">
 
         function tabbarCreate() {
-            Rho.NativeTabbar.create( [ {'label':'tab1', 'action':'/public/app/index.html', 'reload':true}, {'label':'tab2', 'action':'javascript:tabbarCallback2();'} ], {'hiddenTabs': true, 'createOnDemand' : true});
+            //Rho.NativeTabbar.create( [ {'label':'tab1', 'action':'/public/app/index.html', 'reload':true}, {'label':'tab2', 'action':'javascript:tabbarCallback2();'} ], {'hiddenTabs': true, 'createOnDemand' : true});
+            
+            Rho.NativeTabbar.create( [ {'label':'Page1', 'action':'/public/app/api/NativeTabBar_Page1.html'}, {'label':'Page2', 'action':'/public/app/api/NativeTabBar_Page2.html'} ], {'hiddenTabs': true, 'createOnDemand' : true});
+            
         }
         function tabbarSwitch( nTab ) {
             Rho.NativeTabbar.switchTab(nTab);
