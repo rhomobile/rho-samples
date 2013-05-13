@@ -45,8 +45,8 @@
         <div>
             <button>Login</button>
         </div>
-        <div>
-            {{/view}}
+    </div>
+    {{/view}}
 </script>
 <script type="text/x-handlebars" data-template-name="home">
     <h3>Store</h3>
@@ -151,7 +151,6 @@
     </div>
 
 
-
     <div>
         <label>Brand:</label>{{view Ember.TextField valueBinding="view.brand"}}
     </div>
@@ -204,8 +203,25 @@
         {{action doNewCustomer}}> New </button>
     </div>
 
+    {{#view App.CustomerSearchFormView}}
+    <div>
+        <label>
+            Search:
+        </label>
 
-    {{#each customer in customers}}
+        <div>
+            {{view Ember.TextField valueBinding="view.query"}}
+        </div>
+    </div>
+    <div>
+        <div>
+            <button>Search</button>
+        </div>
+    </div>
+    {{/view}}
+
+
+    {{#each customer in content}}
     <div>{{#linkTo customer customer}} {{customer.first}} {{customer.last}} {{/linkTo}}</div>
     {{/each}}
 </script>
@@ -277,7 +293,6 @@
     </div>
 
 
-
     <div>
         <label>First:</label>{{view Ember.TextField valueBinding="view.first"}}
     </div>
@@ -313,7 +328,6 @@
     <div>City: {{city}}</div>
     {{/with}}
 </script>
-
 
 
 </body>

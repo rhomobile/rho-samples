@@ -7,7 +7,11 @@ App = Ember.Application.create({
 if (App.productModel.find('all').length == 0) {
     App.productModel.create({name: "Galaxy S3", sku: '5678', brand: 'Samsung', price: 199, quantity: 2 });
     App.productModel.create({name: "iPhone 5", sku: '1234', brand: 'Apple', price: 219, quantity: 3 });
+
+
 }
+
+App.customerModel.find('all', {condition: {first: 'Tim'}});
 
 if (App.customerModel.find('all').length == 0) {
     App.customerModel.create({first: "Tim", last: "Cook", email: "tim@apple.com", phone: "+1234567890", address: "1 Infinity Loop", city: 'Cupertino' });
@@ -96,7 +100,7 @@ App.Router.map(function () {
 
 App.IndexRoute = Ember.Route.extend({
     redirect: function () {
-        this.transitionTo("home");
+        this.transitionTo("welcome");
     }
 });
 
@@ -290,14 +294,14 @@ App.ProductDeleteController = Ember.ObjectController.extend({
 /* ++++++++++++++++++++++++++++++++++++ */
 
 App.CustomersIndexRoute = Ember.Route.extend({
-    model: function (params) {
-        var _readedCustomers = App.customerModel.find('all');
-        var _customers = [];
-        for (var i = 0; i < _readedCustomers.length; i++) {
-            var _customerProxy = CustomerProxy.create({subject: _readedCustomers[i]});
-            _customers.pushObject(_customerProxy);
+    setupController: function (controller) {
+        var readedCustomers = App.customerModel.find('all');
+        var customerProxies = [];
+        for (var i = 0; i < readedCustomers.length; i++) {
+            var customerProxy = CustomerProxy.create({subject: readedCustomers[i]});
+            customerProxies.pushObject(customerProxy);
         }
-        return {customers: _customers}
+        controller.set('content', customerProxies);
     },
     events: {
         home: function () {
@@ -359,6 +363,16 @@ App.CustomerEditRoute = Ember.Route.extend({
     }
 });
 
+App.CustomerSearchFormView = Ember.View.extend({
+    tagName: 'form',
+    query: null,
+
+    submit: function (event) {
+        event.preventDefault();
+        this.get('controller').search(this.get('query'));
+    }
+});
+
 App.NewCustomerFormView = Ember.View.extend({
     tagName: 'form',
     first: null,
@@ -416,9 +430,31 @@ App.EditCustomerFormView = Ember.View.extend({
     }
 });
 
+
+
+App.CustomersIndexController = Ember.ObjectController.extend({
+    needs: ['customer'],
+    search: function (query) {
+        var _readedCustomers = [];
+        if ((query == null) || (query.length  == 0)){
+            _readedCustomers = App.customerModel.find('all');
+        }
+        else {
+            _readedCustomers = App.customerModel.find('all', {conditions: {first: query}});
+        }
+        var _customers = [];
+        for (var i = 0; i < _readedCustomers.length; i++) {
+            var _customerProxy = CustomerProxy.create({subject: _readedCustomers[i]});
+            _customers.pushObject(_customerProxy);
+        }
+        this.set('content', _customers);
+    }
+});
+
 App.CustomerIndexController = Ember.ObjectController.extend({
     needs: ['customer']
 });
+
 
 App.CustomerController = Ember.ObjectController.extend({
     needs: ['customer']
