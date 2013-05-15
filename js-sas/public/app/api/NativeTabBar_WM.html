@@ -12,12 +12,26 @@
         function tabbarCreate() {
             //Rho.NativeTabbar.create( [ {'label':'tab1', 'action':'/public/app/index.html', 'reload':true}, {'label':'tab2', 'action':'javascript:tabbarCallback2();'} ], {'hiddenTabs': true, 'createOnDemand' : true});
             
-            Rho.NativeTabbar.create( [ {'label':'Page1', 'action':'/public/app/api/NativeTabBar_Page1.html'}, {'label':'Page2', 'action':'/public/app/api/NativeTabBar_Page2.html'} ], {'hiddenTabs': true, 'createOnDemand' : true});
+            Rho.NativeTabbar.create( [ 
+                {'label':'MainPage', 'action':'/public/app/api/NativeTabBar_MainPage.html'},
+                {'label':'Page1', 'action':'/public/app/api/NativeTabBar_Page1.html'}, 
+                {'label':'Page2', 'action':'/public/app/api/NativeTabBar_Page2.html'} ], 
+              {'hiddenTabs': true, 'createOnDemand' : true});
+              
+            Rho.Application.nativeMenu = [
+                { 'Home': 'javascript:goHome()'}
+            ];
             
+            Rho.NativeTabbar.switchTab(0);              
         }
+
         function tabbarSwitch( nTab ) {
             Rho.NativeTabbar.switchTab(nTab);
         }
+        function goHome( ) {
+            Rho.NativeTabbar.switchTab(0);
+        }
+        
         function tabbarRemove() {
         }
 
@@ -30,14 +44,21 @@
 
     </script>
 
+    <script type="text/javascript">
+      $(document).ready(function(){
+            tabbarCreate();            
+       });
+    </script>        
+
 </head>
 <body>
 <h1>Rho.NativeTabbar</h1>
 
 <a href="#" onclick="tabbarCreate();">Create NativeTabbar</a><br/>
-<a href="#" onclick="tabbarSwitch(0);">Switch to Tab 0</a><br/>
-<a href="#" onclick="tabbarSwitch(1);">Switch to Tab 1</a><br/>
+<a href="#" onclick="tabbarSwitch(1);">Switch to Tab 0</a><br/>
+<a href="#" onclick="tabbarSwitch(2);">Switch to Tab 1</a><br/>
 <a href="#" onclick="tabbarRemove();">Remove Tabbar</a><br/>
+<a href="#" onclick="goHome();">Home</a><br/>
 
 </body>
 </html>
