@@ -102,7 +102,7 @@
     <div class="ui-header">
         <h3>New</h3>
         <button class="btn btn-small ui-btn-left"
-        {{action cancel}}>Cancel</button>
+        {{action doCancel}}>Cancel</button>
 
     </div>
     {{#view App.NewProductFormView class="form-horizontal"}}
@@ -231,16 +231,7 @@
     </div>
     {{/view}}
 </script>
-<script type="text/x-handlebars" data-template-name="product/delete">
-    {{#with controllers.product}}
-    <h2>Delete product: {{brand}} {{name}}</h2>
 
-    <div>Brand: <b>{{brand}}</b></div>
-    <div>Name: <b>{{prodName}}</b></div>
-    <div>SKU: <b>{{sku}}</b></div>
-    <div>qty: <b>{{quantity}}</b></div>
-    {{/with}}
-</script>
 
 <script type="text/x-handlebars" data-template-name="customers">
     {{outlet}}
@@ -249,63 +240,85 @@
     {{outlet}}
 </script>
 <script type="text/x-handlebars" data-template-name="customers/index">
-    <h3>Customers</h3>
+    <div class="ui-header">
+        <h3>Customers</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action home}}>Home</button>
 
-    <div>
-        <button
-        {{action home}}> Home </button>
-    </div>
-    <div>
-        <button
-        {{action doNewCustomer}}> New </button>
+        <button class="btn btn-small ui-btn-right"
+        {{action doNewCustomer}}>New</button>
     </div>
 
-    {{#view App.CustomerSearchFormView}}
-    <div>
-        <label>
-            Search:
+    {{#view App.CustomerSearchFormView class="form-horizontal"}}
+    <div class="group-control">
+        <label class="control-label">
+            Query:
         </label>
 
-        <div>
+        <div class="controls">
             {{view Ember.TextField valueBinding="view.query"}}
         </div>
     </div>
-    <div>
-        <div>
-            <button>Search</button>
+    <div class="group-control">
+        <div class="controls">
+            <button class="btn">Search</button>
         </div>
     </div>
     {{/view}}
 
+    <ul class="nav nav-pills nav-stacked">
+        {{#each customer in content}}
+        <li>{{#linkTo customer customer}} {{customer.first}} {{customer.last}} {{/linkTo}}</li>
+        {{/each}}
+    </ul>
 
-    {{#each customer in content}}
-    <div>{{#linkTo customer customer}} {{customer.first}} {{customer.last}} {{/linkTo}}</div>
-    {{/each}}
 </script>
 <script type="text/x-handlebars" data-template-name="customers/new">
-    <h3>New Customer</h3>
-    {{#view App.NewCustomerFormView}}
 
-    <div>
-        <label>First:</label>{{view Ember.TextField valueBinding="view.first"}}
+    <div class="ui-header">
+        <h3>New customer</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action doCancel}}>Cancel</button>
+
     </div>
-    <div>
-        <label>Last:</label>{{view Ember.TextField valueBinding="view.last"}}
+
+    {{#view App.NewCustomerFormView class="form-horizontal"}}
+
+    <div class="control-group">
+        <label class="control-label">First:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.first"}}</div>
     </div>
-    <div>
-        <label>Email:</label>{{view Ember.TextField valueBinding="view.email"}}
+    <div class="control-group">
+        <label class="control-label">Last:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.last"}}</div>
     </div>
-    <div>
-        <label>Phone:</label>{{view Ember.TextField valueBinding="view.phone"}}
+    <div class="control-group">
+        <label class="control-label">Email:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.email"}}</div>
     </div>
-    <div>
-        <label>Address:</label>{{view Ember.TextField valueBinding="view.address"}}
+
+    <div class="control-group">
+        <label class="control-label">Phone:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.phone"}}</div>
     </div>
-    <div>
-        <label>City:</label>{{view Ember.TextField valueBinding="view.city"}}
+    <div class="control-group">
+        <label class="control-label">Address:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.address"}}</div>
     </div>
-    <div>
-        <button>Submit</button>
+    <div class="control-group">
+        <label class="control-label">City:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.city"}}</div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn btn-success">Submit</button>
+        </div>
     </div>
     {{/view}}
 </script>
@@ -313,79 +326,108 @@
 
     {{#with controllers.customer}}
 
-    <h3>{{name}}</h3>
+    <div class="ui-header">
+        <h3>{{first}}}</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action back}}>Back</button>
 
-    <div>
-        <button
-        {{action back}}> Back </button>
+        <button class="btn btn-small ui-btn-right"
+        {{action doEditCustomer model}}>Edit</button>
+
     </div>
 
-    <div>
-        <button
-        {{action doEditCustomer model}}> Edit </button>
-    </div>
 
-    <div>First: {{first}}</div>
-    <div>Last: {{last}}</div>
-    <div>Email: {{email}}</div>
-    <div>Phone: {{phone}}</div>
-    <div>Address: {{address}}</div>
-    <div>City: {{city}}</div>
+    <div class="item-list">
+        <div class="item">
+            <span class="item-name">First</span>
+
+            <div class="item-value">{{first}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">Last</span>
+
+            <div class="item-value">{{last}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">Email</span>
+
+            <div class="item-value">{{email}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">Phone</span>
+
+            <div class="item-value">{{phone}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">Address</span>
+
+            <div class="item-value">{{address}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">City</span>
+
+            <div class="item-value">{{city}}</div>
+        </div>
+    </div>
     {{/with}}
 </script>
 <script type="text/x-handlebars" data-template-name="customer/edit">
 
-    {{#view App.EditCustomerFormView}}
+    {{#view App.EditCustomerFormView class="form-horizontal"}}
 
-    <h3>Edit {{view.first}} {{view.last}}</h3>
+    <div class="ui-header">
+        <h3>Edit {{view.first}} {{view.last}}</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action doCancel controllers.customer.model}}>Cancel</button>
 
-    <div>
-        <button
-        {{action doCancel controllers.customer.model}}> Cancel </button>
-    </div>
-
-    <div>
-        <button
+        <button class="btn btn-small ui-btn-right"
         {{action doDeleteCustomer controllers.customer.model}}> Delete </button>
     </div>
 
+    <div class="control-group">
+        <label class="control-label">First:</label>
 
-    <div>
-        <label>First:</label>{{view Ember.TextField valueBinding="view.first"}}
+        <div class="controls">{{view Ember.TextField valueBinding="view.first"}}</div>
     </div>
-    <div>
-        <label>Last:</label>{{view Ember.TextField valueBinding="view.last"}}
+    <div class="control-group">
+        <label class="control-label">Last:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.last"}}</div>
     </div>
-    <div>
-        <label>Email:</label>{{view Ember.TextField valueBinding="view.email"}}
+    <div class="control-group">
+        <label class="control-label">
+            Email:
+        </label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.email"}}
+        </div>
     </div>
-    <div>
-        <label>Phone:</label>{{view Ember.TextField valueBinding="view.phone"}}
+    <div class="control-group">
+        <label class="control-label">
+            Phone:
+        </label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.phone"}}
+        </div>
     </div>
-    <div>
-        <label>Address:</label>{{view Ember.TextField valueBinding="view.address"}}
+    <div class="control-group">
+        <label class="control-label">Address:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.address"}}
+        </div>
     </div>
-    <div>
-        <label>City:</label>{{view Ember.TextField valueBinding="view.city"}}
+    <div class="control-group">
+        <label class="control-label">City:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.city"}}</div>
     </div>
-    <div>
-        <button>Submit</button>
+    <div class="control-group">
+        <div class="controls">
+            <button>Update</button>
+        </div>
     </div>
     {{/view}}
 </script>
-<script type="text/x-handlebars" data-template-name="customer/delete">
-    {{#with controllers.customer}}
-    <h2>Delete customer: {{first}} {{last}}</h2>
-
-    <div>First: {{first}}</div>
-    <div>Last: {{last}}</div>
-    <div>Email: {{email}}</div>
-    <div>Phone: {{phone}}</div>
-    <div>Address: {{address}}</div>
-    <div>City: {{city}}</div>
-    {{/with}}
-</script>
-
 <script src="/public/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

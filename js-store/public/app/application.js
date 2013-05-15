@@ -426,7 +426,7 @@ App.EditCustomerFormView = Ember.View.extend({
         customer.save();
         //TODO: it's weird, but customerProxy.set('subject', object) not updated computed properties as expected
         customerProxy = CustomerProxy.create({"subject": customer});
-        this.get('controller').transitionToRoute('product', customerProxy);
+        this.get('controller').transitionToRoute('customer', customerProxy);
     }
 });
 
