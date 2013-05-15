@@ -33,7 +33,8 @@
 <script type="text/x-handlebars" data-template-name="login">
     <div class="ui-header">
         <h3>Login</h3>
-        <button class="btn btn-small ui-btn-left">Back</button>
+        <button class="btn btn-small ui-btn-left"
+        {{action goBack}}>Back</button>
     </div>
     {{#view App.LoginFormView class="form-horizontal"}}
     <div class="control-group">
@@ -71,7 +72,7 @@
     </div>
 
 
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-tabs nav-stacked">
         <li>{{#linkTo products}} Products {{/linkTo}}</li>
         <li>{{#linkTo customers}} Customers {{/linkTo}}</li>
     </ul>
@@ -92,7 +93,7 @@
         <button class="btn btn-small ui-btn-right"
         {{action doNewProduct}}>New</button>
     </div>
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-tabs nav-stacked">
         {{#each product in products}}
         <li>{{#linkTo product product}} {{product.name}} {{/linkTo}}</li>
         {{/each}}
@@ -266,7 +267,7 @@
     </div>
     {{/view}}
 
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-tabs nav-stacked">
         {{#each customer in content}}
         <li>{{#linkTo customer customer}} {{customer.first}} {{customer.last}} {{/linkTo}}</li>
         {{/each}}

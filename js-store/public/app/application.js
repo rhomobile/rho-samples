@@ -112,6 +112,9 @@ App.WelcomeController = Ember.Controller.extend({
 
 
 App.LoginController = Ember.Controller.extend({
+    goBack: function () {
+        this.transitionToRoute('welcome');
+    },
     doLogin: function (login, password) {
         var thisController = this;
         Rho.RhoConnectClient.login(login, password, function (value) {
@@ -219,6 +222,14 @@ App.ProductEditRoute = Ember.Route.extend({
         },
         doCancel: function (params) {
             this.controller.transitionToRoute('product', params)
+        }
+    }
+});
+
+App.ProductsNewRoute = Ember.Route.extend({
+    events: {
+        doCancel: function (params) {
+            this.controller.transitionToRoute('products')
         }
     }
 });
@@ -363,6 +374,14 @@ App.CustomerEditRoute = Ember.Route.extend({
     }
 });
 
+App.CustomersNewRoute = Ember.Route.extend({
+    events: {
+        doCancel: function (params) {
+            this.controller.transitionToRoute('customers')
+        }
+    }
+});
+
 App.CustomerSearchFormView = Ember.View.extend({
     tagName: 'form',
     query: null,
@@ -431,12 +450,11 @@ App.EditCustomerFormView = Ember.View.extend({
 });
 
 
-
 App.CustomersIndexController = Ember.ObjectController.extend({
     needs: ['customer'],
     search: function (query) {
         var _readedCustomers = [];
-        if ((query == null) || (query.length  == 0)){
+        if ((query == null) || (query.length == 0)) {
             _readedCustomers = App.customerModel.find('all');
         }
         else {
