@@ -13,7 +13,7 @@
             //Rho.NativeTabbar.create( [ {'label':'tab1', 'action':'/public/app/index.html', 'reload':true}, {'label':'tab2', 'action':'javascript:tabbarCallback2();'} ], {'hiddenTabs': true, 'createOnDemand' : true});
             
             Rho.NativeTabbar.create( [ 
-                {'label':'MainPage', 'action':'/public/app/api/NativeTabBar_MainPage.html'},
+                {'label':'MainPage', 'action':'/public/app/api/NativeTabBar_MainPage.html', 'useCurrentViewForTab':true},
                 {'label':'Page1', 'action':'/public/app/api/NativeTabBar_Page1.html'}, 
                 {'label':'Page2', 'action':'/public/app/api/NativeTabBar_Page2.html'} ], 
               {'hiddenTabs': true, 'createOnDemand' : true});
@@ -44,14 +44,14 @@
 
     </script>
 
-    <script type="text/javascript">
-      $(document).ready(function(){
+    <script type="text/javascript"> 
+      $(document).ready(function(){ 
             tabbarCreate();            
-       });
-    </script>        
+       }); 
+    </script>   
 
 </head>
-<body>
+<body">
 <h1>Rho.NativeTabbar</h1>
 
 <a href="#" onclick="tabbarCreate();">Create NativeTabbar</a><br/>
