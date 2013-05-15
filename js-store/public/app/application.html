@@ -3,11 +3,19 @@
 <head>
     <title>JS Store sample</title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-    <script type="text/javascript" src="/public/jquery/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="/public/jquery/jquery.json-2.4.js"></script>
-    <script type="text/javascript" src="/public/handlebars/handlebars.js"></script>
-    <script type="text/javascript" src="/public/ember/ember-1.0.0-rc.3.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/public/api/rhoapi-modules.js"></script>
+
+    <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="style.css" rel="stylesheet" media="screen">
+
+    <script src="/public/jquery/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="/public/jquery/jquery.json-2.4.js" type="text/javascript"></script>
+
+
+    <script src="/public/handlebars/handlebars.js" type="text/javascript"></script>
+    <script src="/public/ember/ember-1.0.0-rc.3.js" type="text/javascript"></script>
+
+    <script src="/public/api/rhoapi-modules.js" type="text/javascript" charset="utf-8"></script>
+
     <script src="application.js"></script>
 </head>
 <body>
@@ -16,54 +24,60 @@
     {{outlet}}
 </script>
 <script type="text/x-handlebars" data-template-name="welcome">
-    <h3>Store</h3>
-    <button
-    {{action goLogin}}>Login </button>
+    <div class="ui-header">
+        <h3>Store</h3>
+    </div>
+    <button class="btn btn-block"
+    {{action goLogin }}>Login </button>
 </script>
 <script type="text/x-handlebars" data-template-name="login">
-    <h3>Login</h3>
-    {{#view App.LoginFormView}}
-    <div>
-        <label>
-            Login:
+    <div class="ui-header">
+        <h3>Login</h3>
+        <button class="btn btn-small ui-btn-left">Back</button>
+    </div>
+    {{#view App.LoginFormView class="form-horizontal"}}
+    <div class="control-group">
+        <label class="control-label">
+            Login
         </label>
 
-        <div>
+        <div class="controls">
             {{view Ember.TextField valueBinding="view.login"}}
         </div>
     </div>
-    <div>
-        <label>
-            Password:
+    <div class="control-group">
+        <label class="control-label">
+            Password
         </label>
 
-        <div>
+        <div class="controls">
             {{view Ember.TextField type="password" valueBinding="view.password"}}
         </div>
     </div>
-    <div>
-        <div>
-            <button>Login</button>
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn">Login</button>
         </div>
     </div>
     {{/view}}
 </script>
 <script type="text/x-handlebars" data-template-name="home">
-    <h3>Store</h3>
+    <div class="ui-header">
+        <h3>Store</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action doSync}}>Sync</button>
+        <button class="btn btn-small ui-btn-right"
+        {{action doLogout}}>Logout</button>
+    </div>
 
-    <div>
-        <button
-        {{action doSync}}> Sync </button></div>
-    <div>
-        <button
-        {{action doLogout}}> Logout </button></div>
-    <div>
-        <button
-        {{action goProducts}}> Products </button></div>
-    <div>
-        <button
-        {{action goCustomers}}> Customers </button></div>
+
+    <ul class="nav nav-pills nav-stacked">
+        <li>{{#linkTo products}} Products {{/linkTo}}</li>
+        <li>{{#linkTo customers}} Customers {{/linkTo}}</li>
+    </ul>
+
 </script>
+
 <script type="text/x-handlebars" data-template-name="products">
     {{outlet}}
 </script>
@@ -71,43 +85,59 @@
     {{outlet}}
 </script>
 <script type="text/x-handlebars" data-template-name="products/index">
-    <h3>Products</h3>
-
-    <div>
-        <button
-        {{action home}}> Home </button>
+    <div class="ui-header">
+        <h3>Products</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action home}}>Home</button>
+        <button class="btn btn-small ui-btn-right"
+        {{action doNewProduct}}>New</button>
     </div>
-    <div>
-        <button
-        {{action doNewProduct}}> New </button>
-    </div>
-
-
-    {{#each product in products}}
-    <div>{{#linkTo product product}} {{product.name}} {{/linkTo}}</div>
-    {{/each}}
+    <ul class="nav nav-pills nav-stacked">
+        {{#each product in products}}
+        <li>{{#linkTo product product}} {{product.name}} {{/linkTo}}</li>
+        {{/each}}
+    </ul>
 </script>
 <script type="text/x-handlebars" data-template-name="products/new">
-    <h3>New Product</h3>
-    {{#view App.NewProductFormView}}
+    <div class="ui-header">
+        <h3>New</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action cancel}}>Cancel</button>
 
-    <div>
-        <label>Brand:</label>{{view Ember.TextField valueBinding="view.brand"}}
     </div>
-    <div>
-        <label>Name:</label>{{view Ember.TextField valueBinding="view.name"}}
+    {{#view App.NewProductFormView class="form-horizontal"}}
+
+    <div class="control-group">
+        <label class="control-label">Brand:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.brand"}}</div>
     </div>
-    <div>
-        <label>SKU:</label>{{view Ember.TextField valueBinding="view.sku"}}
+
     </div>
-    <div>
-        <label>Price:</label>{{view Ember.TextField valueBinding="view.price"}}
+    <div class="control-group">
+        <label class="control-label">Name:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.name"}}</div>
     </div>
-    <div>
-        <label>Quantity:</label>{{view Ember.TextField valueBinding="view.quantity"}}
+    <div class="control-group">
+        <label class="control-label">SKU:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.sku"}}</div>
     </div>
-    <div>
-        <button>Submit</button>
+    <div class="control-group">
+        <label class="control-label">Price:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.price"}}</div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Quantity:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.quantity"}}</div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn btn-success">Submit</button>
+        </div>
     </div>
     {{/view}}
 </script>
@@ -115,59 +145,89 @@
 
     {{#with controllers.product}}
 
-    <h3>{{name}}</h3>
+    <div class="ui-header">
+        <h3>{{name}}}</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action back}}>Back</button>
 
-    <div>
-        <button
-        {{action back}}> Back </button>
-    </div>
-
-    <div>
-        <button
+        <button class="btn btn-small ui-btn-right"
         {{action doEditProduct model}}> Edit </button>
+
+    </div>
+    <div class="item-list">
+        <div class="item">
+            <span class="item-name">Brand:</span>
+
+            <div class="item-value">{{brand}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">Name:</span>
+
+            <div class="item-value">{{name}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">SKU:</span>
+
+            <div class="item-value">{{sku}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">Price:</span>
+
+            <div class="item-value">${{price}}</div>
+        </div>
+        <div class="item">
+            <span class="item-name">qty:</span>
+
+            <div class="item-value">{{quantity}}</div>
+        </div>
     </div>
 
-    <div>Brand: {{brand}}</div>
-    <div>Name: {{name}}</div>
-    <div>SKU: {{sku}}</div>
-    <div>Price: {{price}}</div>
-    <div>qty: {{quantity}}</div>
     {{/with}}
 </script>
 <script type="text/x-handlebars" data-template-name="product/edit">
 
-    {{#view App.EditProductFormView}}
+    {{#view App.EditProductFormView class="form-horizontal"}}
 
-    <h3>Edit {{view.name}}</h3>
+    <div class="ui-header">
+        <h3>Edit {{view.name}}</h3>
+        <button class="btn btn-small ui-btn-left"
+        {{action doCancel controllers.product.model}}>Cancel</button>
 
-    <div>
-        <button
-        {{action doCancel controllers.product.model}}> Cancel </button>
-    </div>
-
-    <div>
-        <button
+        <button class="btn btn-small ui-btn-right"
         {{action doDeleteProduct controllers.product.model}}> Delete </button>
     </div>
 
+    <div class="control-group">
+        <label class="control-label">Brand:</label>
 
-    <div>
-        <label>Brand:</label>{{view Ember.TextField valueBinding="view.brand"}}
+        <div class="controls">{{view Ember.TextField valueBinding="view.brand"}}</div>
     </div>
-    <div>
-        <label>Name:</label>{{view Ember.TextField valueBinding="view.name"}}
+
     </div>
-    <div>
-        <label>SKU:</label>{{view Ember.TextField valueBinding="view.sku"}}
+    <div class="control-group">
+        <label class="control-label">Name:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.name"}}</div>
     </div>
-    <div>
-        <label>Price:</label>{{view Ember.TextField valueBinding="view.price"}}
+    <div class="control-group">
+        <label class="control-label">SKU:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.sku"}}</div>
     </div>
-    <div>
-        <label>Quantity:</label>{{view Ember.TextField valueBinding="view.quantity"}}
+    <div class="control-group">
+        <label class="control-label">Price:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.price"}}</div>
     </div>
-    <div>
-        <button>Submit</button>
+    <div class="control-group">
+        <label class="control-label">Quantity:</label>
+
+        <div class="controls">{{view Ember.TextField valueBinding="view.quantity"}}</div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn btn-success">Submit</button>
+        </div>
     </div>
     {{/view}}
 </script>
@@ -181,9 +241,6 @@
     <div>qty: <b>{{quantity}}</b></div>
     {{/with}}
 </script>
-
-
-<!-- ------------------------------------ -->
 
 <script type="text/x-handlebars" data-template-name="customers">
     {{outlet}}
@@ -329,6 +386,6 @@
     {{/with}}
 </script>
 
-
+<script src="/public/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

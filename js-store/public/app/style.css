@@ -1,0 +1,40 @@
+body {
+
+}
+
+.ui-header {
+    margin-top: 0px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    background-color: steelblue;
+}
+
+.ui-header .ui-btn-left {
+    position: absolute;
+    left: 10px;
+    top: 1.5em;
+}
+
+.ui-header .ui-btn-right {
+    position: absolute;
+    right: 10px;
+    top: 1.5em;
+}
+
+.item-list {
+
+}
+
+.item {
+    margin-left: 1em;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-value {
+
+}
+
