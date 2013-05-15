@@ -19,8 +19,9 @@
               {'hiddenTabs': true, 'createOnDemand' : true});
               
             Rho.Application.nativeMenu = [
-                { 'Home': 'javascript:goHome()'}
+                { 'Home': 'javascript:goHome()'} , {'Exit': 'javascript:onExit()' }
             ];
+
             
             Rho.NativeTabbar.switchTab(0);              
         }
