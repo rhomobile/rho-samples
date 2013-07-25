@@ -1,7 +1,21 @@
+var productModelSpec = function(model){
+        model.modelName('Product'),
+        model.property("key");
+        model.set("partition","local");
+};
+
+var customerModelSpec = function(model){
+    model.modelName('Product'),
+        model.property("key");
+    model.set("partition","local");
+};
+
+
+
 App = Ember.Application.create({
     LOG_TRANSITIONS: true,
-    productModel: Rho.ORM.addModel('Product'),
-    customerModel: Rho.ORM.addModel('Customer')
+    productModel: Rho.ORM.addModel(productModelSpec),
+    customerModel: Rho.ORM.addModel(customerModelSpec)
 });
 
 if (App.productModel.find('all').length == 0) {

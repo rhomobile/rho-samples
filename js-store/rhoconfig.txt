@@ -48,7 +48,7 @@ LastVisitedPage = ''
 # sync server url, typically this will look like 'http://<hostname>:<port>/application'
 # for example: 'http://localhost:9292/application'
 #syncserver = ''
-syncserver = 'http://rhodes-store-server.herokuapp.com/application'
+syncserver = 'http://rhodes-store-server.herokuapp.com'
 
 # geo location inactivity timeout (in seconds)
 #geo_location_inactivity_timeout = 30
