@@ -1,0 +1,23 @@
+sdkversion: 4.0.0
+name: BarcodeExample
+version: '1.0'
+vendor: rhomobile
+build: debug
+bbver: '6.0'
+applog: rholog.txt
+iphone:
+  configuration: Release
+  sdk: iphonesimulator6.0
+  provisionprofile: ''
+  codesignidentity: ''
+  entitlements: ''
+  BundleIdentifier: com.rhomobile.barcodeexample
+  BundleURLScheme: barcodeexample
+wp:
+  productid: b3a5d690-dce1-0130-db11-3c07547b3491
+symbian:
+  uid: '0xee2cd5b5'
+android:
+  version: 2.2.3
+app_type: rhoelements
+extensions: ["sensor"]

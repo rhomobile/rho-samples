@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <title>Rho Barbones Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <script src="/public/api/rhoapi-modules.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="/public/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+        
+</head>
+<script type="text/javascript">
+//The myScanner will start with the 'best scanner' on the device
+// ex. 2D Imager
+// But when I enumerate, I will look for the camera scanner and
+// use that one
+var myScanner = Rho.Barcode.getDefault();
+
+	scanners = Rho.Barcode.enumerate();
+	// Barcode.enumerate will return an Array of Barcode objects
+ 	for (var i=0; i<scanners.length; i++) {
+		var scanner = scanners[i];
+        if(scanner.friendlyName == 'Camera Scanner')
+        {
+            myScanner = scanner; 
+        }
+	}
+
+function barcode_enable()
+{
+    if(Rho.System.isMotorolaDevice)
+    {
+        Rho.Barcode.enable( {} , function (e){
+                //here is where the callback will occur
+                // e is a Barcode callback return object
+                // callback params
+                //data : STRING The data decoded by the scanner or imaging device
+                //source : STRING The source device and human readable decoder type of the decoded barcode or symbol
+                //type : STRING Hex value representing the decoder type
+                //time : STRING The time at which the decode occurred (hh:mm:ss)
+                //length : STRING The length of the decoded barcode or symbol
+                //direction : STRINGThe direction the barcode was scanned, either forward, reverse or unavailable
+                $('ul').html('<li>' + e.data + '</li>');
+                $('ul').append('<li>' + e.source + '</li>');
+                $('ul').append('<li>' + e.type + '</li>');
+                $('ul').append('<li>' + e.time + '</li>');
+                $('ul').append('<li>' + e.length + '</li>');
+                $('ul').append('<li>' + e.direction + '</li>');
+            }
+        );
+    }
+    else
+    {
+        alert('Barcode.enable only works on MSI devices. Use Barcode.take instead');
+    }
+
+}
+
+function barcode_enable_myscanner()
+{
+    if(Rho.System.isMotorolaDevice)
+    {
+        //using the instance object
+        myScanner.enable( {} , function (e){
+                //here is where the callback will occur
+                // e is a Barcode callback return object
+                // callback params
+                //data : STRING The data decoded by the scanner or imaging device
+                //source : STRING The source device and human readable decoder type of the decoded barcode or symbol
+                //type : STRING Hex value representing the decoder type
+                //time : STRING The time at which the decode occurred (hh:mm:ss)
+                //length : STRING The length of the decoded barcode or symbol
+                //direction : STRINGThe direction the barcode was scanned, either forward, reverse or unavailable
+                $('ul').html('<li>' + e.data + '</li>');
+                $('ul').append('<li>' + e.source + '</li>');
+                $('ul').append('<li>' + e.type + '</li>');
+                $('ul').append('<li>' + e.time + '</li>');
+                $('ul').append('<li>' + e.length + '</li>');
+                $('ul').append('<li>' + e.direction + '</li>');
+            }
+        );
+    }
+    else
+    {
+        alert('Barcode.enable only works on MSI devices. Use Barcode.take instead');
+    }
+
+}
+    
+</script>
+<body>
+<button onClick="barcode_enable()">Enable Default</button>
+<button onClick="barcode_enable_myscanner()">Enable Instance</button>
+
+
+<div>
+	<ul>
+	</ul>
+</div>
+</body>
+
+</html>
