@@ -10,7 +10,7 @@ var productModelSpec = function(model){
 };
 
 var customerModelSpec = function(model){
-  model.modelName('Product');
+  model.modelName('Customer');
   if(rhoconnectExists()) {
     model.enable('sync');    
   }
@@ -26,14 +26,14 @@ App = Ember.Application.create({
 // Some fixture data if we aren't using RhoConnect
 if(!rhoconnectExists()) {
   App.productModel.create({
-    name: "Galaxy S3", 
+    name: "Galaxy S3 +++",
     sku: '5678', 
     brand: 'Samsung', 
     price: 199, 
     quantity: 2 
   });
   App.productModel.create({
-    name: "iPhone 5", 
+    name: "iPhone 5 +++",
     sku: '1234', 
     brand: 'Apple', 
     price: 219, 
@@ -352,14 +352,14 @@ App.ProductDeleteController = Ember.ObjectController.extend({
 /* ++++++++++++++++++++++++++++++++++++ */
 
 App.CustomersIndexRoute = Ember.Route.extend({
-  setupController: function (controller) {
-    var readedCustomers = App.customerModel.find('all');
-    var customerProxies = [];
-    for (var i = 0; i < readedCustomers.length; i++) {
-      var customerProxy = CustomerProxy.create({subject: readedCustomers[i]});
-      customerProxies.pushObject(customerProxy);
+  model: function (params) {
+    var _readedCustomers = App.customerModel.find('all');
+    var _customers = [];
+    for (var i = 0; i < _readedCustomers.length; i++) {
+      var _customerProxy = CustomerProxy.create({subject: _readedCustomers[i]});
+      _customers.pushObject(_customerProxy);
     }
-    controller.set('content', customerProxies);
+    return {customers: _customers};
   },
   events: {
     home: function () {
