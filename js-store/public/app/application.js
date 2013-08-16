@@ -122,6 +122,7 @@ App.Router.map(function () {
   this.route('welcome');
   this.route('login');
   this.route('home');
+  this.route('wait');
   this.resource('products', function () {
     this.resource('product', {path: ":product_id"}, function () {
       this.route('edit');
@@ -160,8 +161,14 @@ App.LoginController = Ember.Controller.extend({
     if(rhoconnectExists()) {
       Rho.RhoConnectClient.login(login, password, function (value) {
         if (value.error_code == 0) {
-          thisController.transitionToRoute('home');
+          Rho.RhoConnectClient.setNotification('*', function(value){
+              if (value.status == 'complete') {
+                  Rho.RhoConnectClient.clearNotification('*');
+                  thisController.transitionToRoute('home');
+              }
+          })
           Rho.RhoConnectClient.doSync();
+          thisController.transitionToRoute('wait');
         } else {
           thisController.transitionToRoute('login');
         }
