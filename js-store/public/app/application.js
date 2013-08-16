@@ -199,7 +199,17 @@ App.HomeRoute = Ember.Route.extend({
       this.controller.transitionToRoute('welcome');
     },
     doSync: function () {
-      Rho.RhoConnectClient.doSync();
+        var thisRoute = this;
+        thisRoute.controller.transitionToRoute('wait');
+        Rho.RhoConnectClient.setNotification('*', function(value){
+            console.dir(value);
+            if (value.status == 'complete') {
+                Rho.RhoConnectClient.clearNotification('*');
+                thisRoute.controller.transitionToRoute('home');
+            }
+        });
+        Rho.RhoConnectClient.doSync();
+
     },
     goProducts: function () {
       this.controller.transitionToRoute('products.index')
