@@ -1,0 +1,33 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Determine camera properties", :description => "
+    Default camera properties
+  " }
+  %>
+
+  <%= render :partial => "/partials/language_tabs" %>
+
+  <div data-role="content">
+    <div class="sample ruby">
+      <ul data-role="listview">
+      
+      <% @properties.each_pair do |name,value| %>
+        <li><%= name %> : <%= value %></li>
+      <% end %>
+      
+      </ul>
+ 
+    </div>
+    <div class="sample javascript">
+      <a href="#" onclick="KitchenSink.Samples.Camera.determine_camera_capabilities()" data-role="button">Get properties</a>
+      
+      <div id="camera_capabilities">
+      </div>
+    </div>    
+  </div>
+
+</div>

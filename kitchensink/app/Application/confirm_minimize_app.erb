@@ -1,0 +1,26 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Minimize application", :description => "
+      Exit the application
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    <% if (Rho::System.platform == "WINDOWS" || Rho::System.platform == "WINDOWS_DESKTOP") %> 
+      <div class="sample ruby">
+        <a data-role="button" href="<%= url_for :action => :minimize_app %>">Minimize application</a>
+      </div>
+      
+      <div class="sample javascript">
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Application.minimize_app()">Minimize application</a>    
+      </div>
+    <% else %>
+       Minimize application is supported only on Windows Mobile and Windows Destop
+    <% end %>
+  </div>
+
+</div>

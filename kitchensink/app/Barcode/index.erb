@@ -1,0 +1,27 @@
+<div data-role="page">
+
+    
+  <div data-role="header" data-position="inline">
+    <h1>Barcode samples</h1>
+  </div>
+
+  <div data-role="content">
+    <h2>Ruby</h2>
+    <ul data-role="listview">
+      <li><a href="<%= url_for :action => :scan_using_default_scanner %>">Scan using default scanner</a></li>
+      <li><a href="<%= url_for :action => :choose_scanner %>">Select scanner to use</a></li>
+      <li><a href="<%= url_for :action => :set_symbology %>">Set symbology</a></li>
+      <li><a href="<%= url_for :action => :control_properties %>">Control scanner properties</a></li>
+      <li><a href="<%= url_for :action => :change_audible_options %>">Change audible options</a></li>
+    </ul>
+  <h2>Javascript</h2>
+  <ul data-role="listview">
+    <li><a href="#" onclick="KitchenSink.Samples.Barcode.scan_using_default_scanner()">Scan using default scanner</a></li>
+    <li><a href="#" onclick="KitchenSink.Samples.Barcode.choose_scanner()">Select scanner to use</a></li>
+    <li><a href="#" onclick="KitchenSink.Samples.Barcode.set_symbology()">Set symbology</a></li>
+    <li><a href="#" onclick="KitchenSink.Samples.Barcode.control_properties()">Control scanner properties</a></li>
+    <li><a href="#" onclick="KitchenSink.Samples.Barcode.change_audible_options()">Change audible options</a></li>
+  </ul>
+    
+  </div>
+</div>

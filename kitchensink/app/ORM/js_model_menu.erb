@@ -1,0 +1,32 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "JS Model operations", :description => "
+      Define models and create objects in Javascript
+    " }
+    %>
+
+      <div class="sample javascript">
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.ORM.create_model()">Initialize model</a>
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.ORM.refresh_view()">Load products</a>
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.ORM.create_object()">Create product</a>
+        
+        <div id="products_table" style="width: 100%">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+  </div>

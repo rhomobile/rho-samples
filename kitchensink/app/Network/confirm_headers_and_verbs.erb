@@ -1,0 +1,24 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Headers and verbs", :description => "
+      GET and POST with HTTP headers
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a data-role="button" href="<%= url_for :action => :get %>">GET</a>
+      <a data-role="button" href="<%= url_for :action => :post %>">POST</a>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Network.get()">GET</a>
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Network.post()">POST</a>
+    </div>
+  </div>
+</div>

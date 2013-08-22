@@ -1,0 +1,22 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Connecting to the card reader", :description => "
+      This example opens the card reader
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a data-role="button" href="<%= url_for(:action => :connect) %>">Connecting to the card reader</a>
+     </div>
+    
+    <div class="sample javascript">
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.CardReader.connect()">Connecting to the card reader</a>
+    </div>
+
+  </div>

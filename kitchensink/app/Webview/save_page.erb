@@ -1,0 +1,26 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Save the page", :description => "
+      Save current page to file system. It supports only on Android.
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    <% if Rho::System.platform == "ANDROID" %> 
+      <div class="sample ruby">
+        <a href="<%= url_for :action => :save %>" data-role="button">Save the page</a>  
+      </div>
+      
+      <div class="sample javascript">
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Webview.savePage()">Save the page</a>    
+      </div>
+    <% else %>
+       Save the page is supported only on Android
+    <% end %>
+    
+    
+  </div

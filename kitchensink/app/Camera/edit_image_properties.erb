@@ -1,0 +1,44 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Set camera properties", :description => "
+    Image capture properties can be fine-tuned for your use case
+  " }
+  %>
+
+  <%= render :partial => "/partials/language_tabs" %>
+
+
+    <form action ="<%= url_for(:action => :set_image_properties) %>">
+      <div data-role="controlgroup">
+        Compression format
+        <label><input type="radio" name="compressionFormat" value="jpg" checked>JPG</label>
+        <label><input type="radio" name="compressionFormat" value="png">PNG</label>
+      </div>
+      
+      <div data-role="controlgroup">
+        Resolution
+        <% first = true
+          @valid_sizes.each do |resolution| %>
+          <label><input type="radio" name="resolution" value="<%= resolution["width"] %>x<%= resolution["height"] %>"  <%= first ? "checked" : "" %>><%= resolution["width"] %>x<%= resolution["height"] %></label>
+        <% first = false 
+          end %>
+        
+      </div>
+      
+      <div class="sample ruby">      
+            <input type="submit" data-role="button" value="Set properties">
+      </div>
+      
+      <div class="sample javascript">
+            <a href="#" onclick="KitchenSink.Samples.Camera.set_image_properties()" data-role="button">Set properties</a>
+      </div>
+      
+    </form>
+
+
+  
+</div>

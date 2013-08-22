@@ -1,0 +1,27 @@
+<div data-role="page">
+
+    
+  <div data-role="header" data-position="inline">
+    <h1>Cardreader samples</h1>
+  </div>
+
+  <div data-role="content">
+    <h2>Ruby</h2>
+    <ul data-role="listview">
+      <li><a href="<%= url_for(:action => :connect) %>">Connecting to the card reader</a></li>
+      <li><a href="#">Reading card data</a></li>
+      <li><a href="<%= url_for(:action => :set_properties) %>">Setting card reader properties</a></li>
+      <li><a href="#">More - see http://edgedocs.rhomobile.com/rhoelements/cardreader/#htmljavascript-examples for inspiration</a></li>      
+    </ul>
+    
+    <h2>Javascript</h2>
+    <ul data-role="listview">
+      <li><a href="#" onclick="KitchenSink.Samples.CardReader.connect()">Connecting to the card reader</a></li>
+      <li><a href="#">Reading card data</a></li>
+      <li><a href="#" onclick="KitchenSink.Samples.CardReader.setProperties()">Setting card reader properties</a></li>
+      <li><a href="#">More - see http://edgedocs.rhomobile.com/rhoelements/cardreader/#htmljavascript-examples for inspiration</a></li>      
+    </ul>
+    
+  </div>
+
+</div>

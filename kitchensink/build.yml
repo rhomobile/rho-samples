@@ -1,0 +1,31 @@
+sdkversion: "4.0.0"
+name: "Kitchen Sink"
+version: 1.0
+vendor: "rhomobile"
+build: "debug"
+bbver: 6.0
+applog: "rholog.txt"
+iphone:
+  configuration: "Release"
+  sdk: "iphonesimulator6.1"
+  provisionprofile: 
+  codesignidentity: 
+  entitlements: 
+  BundleIdentifier: "com.rhomobile.rhodes-app"
+  BundleURLScheme: "rhodes-app"
+wp:
+  productid: "689a2850-8ff7-0130-db8c-38f6b118e4ff"
+wm:
+  sdk: "Windows Mobile 6.5.3 Professional DTK (ARMV4I)"
+symbian:
+  uid: "0xe8a1ed84"
+android:
+  version: "2.3.3"
+extensions:
+  - mediaplayer
+  - screenorientation
+  - sensor
+capabilities:
+  - camera
+  - calendar
+app_type: "rhoelements"

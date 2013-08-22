@@ -1,0 +1,27 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Install / uninstall other applications", :description => "
+      This example will show you how to install/uninstall application
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "WINDOWS") %> 
+      <div class="sample ruby">
+        <a href="<%= url_for :action => :install_app %>" data-role="button">Install application</a>
+        <a href="<%= url_for :action => :uninstall_app %>" data-role="button">Uninstall application</a>
+       </div>
+      
+      <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.System.install_app()">Install application</a>  
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.System.uninstall_app()">Uninstall application</a>  
+      </div>
+    <% else %>
+      Install / uninstall method is supported only on Android , Windows Mobile and Windows Destop
+    <% end %>
+  </div>    
+</div>

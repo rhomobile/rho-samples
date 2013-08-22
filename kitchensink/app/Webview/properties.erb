@@ -1,0 +1,82 @@
+<div data-role="page">
+
+    
+  <div data-role="header" data-position="inline">
+    <h1>Control webview properties</h1>
+  </div>
+
+  <div data-role="content">
+	  <h2>Ruby</h2>
+    <ul data-role="listview">
+    <li><a href="<%= url_for :action => :setproperties %>">Set properties</a></li>
+    </ul>
+    <h2>Javascript</h2>
+	  <ul data-role="listview">
+	    <li><a href="#" onclick="acceptLanguage()">Accept Language</a></li>
+	    <li><a href="#" onclick="activeTab()">Active Tab</a></li>
+	    <li><a href="#" onclick="cacheSize()">Cache Size</a></li>
+	    <li><a href="#" onclick="enableCache()">Enable Cache</a></li>
+	    <li><a href="#" onclick="enablePageLoad()">Enable PageLoad Indication</a></li>
+	    <li><a href="#" onclick="enableWebPlugins()">Enable Web Plugins</a></li>
+	    <li><a href="#" onclick="enableFullScreen()">Enable Full Screen</a></li>
+		<li><a href="#" onclick="enableWebPlugins()">Enable Web Plugins</a></li>
+	  </ul>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  
+function acceptLanguage() {
+	Rho.WebView.acceptLanguage="en-US";
+	myvar = Rho.WebView.acceptLanguage;
+	alert(myvar);
+}
+
+function activeTab() {
+	myvar = Rho.WebView.activeTab;
+	alert(myvar);
+}
+
+function cacheSize() {
+	myvar = Rho.WebView.cacheSize;
+	alert(myvar);
+}
+
+function enableCache() {
+	Rho.WebView.enableCache=true;
+	myvar = Rho.WebView.enableCache();
+	alert(myvar);
+}
+
+function enablePageLoad() {
+  Rho.WebView.enablePageLoadingIndication=true;
+  myvar = Rho.WebView.enablePageLoadingIndication;
+  alert(myvar);
+}
+
+function enableWebPlugins() {
+ Rho.WebView.enableWebPlugins=true;
+ myvar = Rho.WebView.enableWebPlugins();
+ alert(myvar);
+}
+
+function enableFullScreen() {
+ Rho.WebView.fullScreen=true;
+ myvar = Rho.WebView.fullScreen();
+ alert(myvar);
+}
+
+
+
+   function setProperties() {
+  /*  
+    TODO: WebView JS API not implemented yet
+    
+    Rho.WebView.fullScreen = !Rho.WebView.fullScreen;    
+    Rho.WebView.navigate("<%= url_for :action => :showrequest %>");
+  */
+  }
+</script>
+
+<script type="text/javascript" charset="utf-8" src="/public/js/rho_javascript_api.js"></script>

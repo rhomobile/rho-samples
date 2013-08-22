@@ -1,0 +1,23 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Interacting with Webview - execute_js", :description => "
+      This example will show you how to interact with Javascript code via execute_js
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+       <a href="<%= url_for :action => :execute_code %>" data-role="button">Execute javascript</a>   
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Webview.executeJavascript()">Interacting with Webview - execute_js</a>    
+    </div>
+    
+    
+  </div>

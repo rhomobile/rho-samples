@@ -1,0 +1,36 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Accelerometer test", :description => "
+      Play with the accelerometer! See the values change as you tilt your device in all directions
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a href="<%= url_for(:action => :start_accelerometer_test) %>" data-role="button">Start accelerometer</a>
+      <a href="<%= url_for(:action => :stop_accelerometer_test) %>" data-role="button">Stop accelerometer</a>
+      
+      <p>Last accelerometer values:</p>
+      <p>X: <span class="accelerometer_x"><%= @accelerometer_x %></span></p>
+      <p>Y: <span class="accelerometer_y"><%= @accelerometer_y %></span></p>
+      <p>Z: <span class="accelerometer_z"><%= @accelerometer_z %></span></p>
+    </div>
+    
+    <div class="sample javascript">
+      <a href="#" onclick="KitchenSink.Samples.Sensors.start_accelerometer()" data-role="button">Start accelerometer</a>
+      <a href="#" onclick="KitchenSink.Samples.Sensors.stop_accelerometer()" data-role="button">Stop accelerometer</a>
+      
+      <p>Last accelerometer values:</p>
+      <p>X: <span class="accelerometer_x"></span></p>
+      <p>Y: <span class="accelerometer_y"></span></p>
+      <p>Z: <span class="accelerometer_z"></span></p>
+
+    </div>
+    
+  </div>
+</div>

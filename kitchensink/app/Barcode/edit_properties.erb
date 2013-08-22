@@ -1,0 +1,58 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Control scanner properties", :description => "
+    There are over 200 properties to fine-tune the barcode scanner functionality and adapt it to suit your application.
+    Almost all properties depend on the scanner hardware for support, please check the documentation to see if your device
+    supports a particular setting
+
+  " }
+  %>
+  <% if (Rho::System.isMotorolaDevice) %> 
+    <%= render :partial => "/partials/language_tabs" %>
+
+
+      <form action ="<%= url_for(:action => :set_properties) %>">
+        <div data-role="controlgroup">
+          Aim Type
+          <label><input type="radio" name="aimType" value="trigger" checked>Trigger</label>
+          <label><input type="radio" name="aimType" value="timedHold">Timed hold</label>
+          <label><input type="radio" name="aimType" value="timedRelease">Timed release</label>
+          <label><input type="radio" name="aimType" value="presentation">Presentation</label>
+          <label><input type="radio" name="aimType" value="pressAndRelease">Press and release</label>
+          <label><input type="radio" name="aimType" value="continuousRead">Continuous read</label>
+        </div>
+        
+        <div data-role="controlgroup">
+          Aim Mode
+          <label><input type="radio" name="aimMode" value="none" checked>None</label>
+          <label><input type="radio" name="aimMode" value="dot">Dot</label>
+          <label><input type="radio" name="aimMode" value="slab">Slab</label>
+          <label><input type="radio" name="aimMode" value="reticle">Reticle</label>
+        </div>
+        
+        <div data-role="controlgroup">
+          Beam width
+          <label><input type="radio" name="beamWidth" value="normal" checked>Normal</label>
+          <label><input type="radio" name="beamWidth" value="narrow">Narrow</label>
+          <label><input type="radio" name="beamWidth" value="wide">Wide</label>
+        </div>      
+        
+        <div class="sample ruby">      
+              <input type="submit" data-role="button" value="Set properties">
+        </div>
+        
+        <div class="sample javascript">
+              <a href="#" onclick="KitchenSink.Samples.Barcode.set_properties()" data-role="button">Control properties</a>
+        </div>
+        
+      </form>
+
+  <% else %>
+    Advanced scanner properties are only supported on Motorola Solutions devices
+  <% end %>
+  
+</div>

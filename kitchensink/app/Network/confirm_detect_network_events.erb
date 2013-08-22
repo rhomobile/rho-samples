@@ -1,0 +1,28 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Start detecting network events", :description => "
+      This example will show how to start detecting the network events
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS") %>
+      <div class="sample ruby">
+          <a href="<%= url_for :action => :start_status_notify %>" data-role="button">Start detecting network events</a>
+          <a href="<%= url_for :action => :stop_status_notify %>" data-role="button">Stop detecting network events</a>
+      </div>
+      
+      <div class="sample javascript">
+            <a href="#" data-role="button" onclick="KitchenSink.Samples.Network.start_status_notify()">Start detecting network events</a>
+            <a href="#" data-role="button" onclick="KitchenSink.Samples.Network.stop_status_notify()">Stop detecting network events</a>
+      </div>
+    <% else %>
+      Start detecting network event is supported on Android, IOS and Windows Mobile
+    <% end %>
+    
+  </div>
+</div>

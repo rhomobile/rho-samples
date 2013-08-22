@@ -1,0 +1,24 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Set symbology", :description => "
+    Enabling only a subset of all recognized symbologies can speed up recognition
+  " }
+  %>
+  <% if (Rho::System.isMotorolaDevice) %> 
+    <%= render :partial => "/partials/language_tabs" %>
+
+    <div class="sample ruby">
+          <a href="<%= url_for(:action => :scan_using_default_scanner) %>" data-role="button">Set symbology</a> 
+    </div>
+
+    <div class="sample javascript">
+          <a href="#" onclick="KitchenSink.Samples.Barcode.set_symbology()" data-role="button">Set symbology</a>
+    </div>
+  <% else %>
+  Controlling the symbology is only supported on Motorola Solutions devices
+  <% end %>  
+</div>

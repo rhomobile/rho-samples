@@ -1,0 +1,24 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Capture video", :description => "
+      The default video capture object on the device is enabled when click capture video button      
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+
+    <div class="sample ruby">
+      <a href="<%= url_for :action => :capture_video %>" data-role="button">capture video</a>
+    </div>
+
+    <div class="sample javascript">
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Videocapture.capture_video()">capture video</a>
+    </div>
+
+  </div>
+
+</div>

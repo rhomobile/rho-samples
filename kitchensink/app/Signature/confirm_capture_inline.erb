@@ -1,0 +1,28 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Capture inline", :description => "
+      Capture a signature on the same screen
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a href="<%= url_for(:action => :capture_inline) %>" data-role="button">Show signature pad</a>
+      <a href="<%= url_for(:action => :capture_inline_docapture) %>" data-role="button">Capture</a>
+      <a href="<%= url_for(:action => :capture_inline_cancel) %>" data-role="button">Cancel</a>
+    </div>
+    
+    <div class="sample javascript">
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Signature.capture_inline()">Show signature pad</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Signature.capture_inline_docapture()">Capture</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Signature.capture_inline_cancel()">Cancel</a>
+    </div>
+    
+    <img id="signature-image"/>    
+  </div>
+</div>

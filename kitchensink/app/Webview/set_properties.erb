@@ -1,0 +1,32 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Controlling Webview properties", :description => "
+      This example will show you how to control the webview properties
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <ul>
+        <li>Fullscreen: <%= @fullScreen %></li>
+        <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE") %> 
+          <li>Current URL: <%= @currentURL %></li>
+        <% end %>
+        <li>Current Location: <%= @currentLocation %></li>
+      </ul>
+      <a href="<%= url_for(:action => :toggle_fullscreen) %>" data-role="button">Toggle fullscreen</a>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Webview.getProperties()">Get Webview properties</a>
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Webview.toggleFullscreen()">Toggle fullscreen</a>
+    </div>
+    
+    
+  </div>
+</div>

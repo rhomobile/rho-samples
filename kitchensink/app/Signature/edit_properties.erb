@@ -1,0 +1,62 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Set properties", :description => "
+      Set the signature pad's properties
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <form action ="<%= url_for(:action => :set_properties) %>">
+        <input type="submit" value="Take signature">
+        
+        <div data-role="controlgroup">
+          Background color
+          <label><input type="radio" name="bgColor" value="#FFFFFF" checked>White</label>
+          <label><input type="radio" name="bgColor" value="#000000">Black</label>
+          <label><input type="radio" name="bgColor" value="#00FF00">Green</label>
+          <label><input type="radio" name="bgColor" value="#0000FF">Blue</label>        
+        </div>
+        
+        <div data-role="controlgroup">
+          Pen color
+          <label><input type="radio" name="penColor" value="#000000" checked>Black</label>          
+          <label><input type="radio" name="penColor" value="#FFFFFF">White</label>
+          <label><input type="radio" name="penColor" value="#00FF00">Green</label>
+          <label><input type="radio" name="penColor" value="#0000FF">Blue</label>        
+        </div>
+
+        <label><input type="checkbox" name="change_orientation" value="yes">Change orientation</label>        
+
+      </form>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Signature.set_properties()">Take signature</a>
+          <img class="signature" src="">
+          <div data-role="controlgroup">
+            Background color
+            <label><input type="radio" name="bgColor" value="FFFFFF" checked>White</label>
+            <label><input type="radio" name="bgColor" value="000000">Black</label>
+            <label><input type="radio" name="bgColor" value="00FF00">Green</label>
+            <label><input type="radio" name="bgColor" value="0000FF">Blue</label>        
+          </div>
+          
+          <div data-role="controlgroup">
+            Pen color
+            <label><input type="radio" name="penColor" value="000000" checked>Black</label>          
+            <label><input type="radio" name="penColor" value="FFFFFF">White</label>
+            <label><input type="radio" name="penColor" value="00FF00">Green</label>
+            <label><input type="radio" name="penColor" value="0000FF">Blue</label>        
+          </div>
+          
+          <label><input type="checkbox" name="change_orientation" value="yes">Change orientation</label>          
+    </div>
+    
+    
+  </div>

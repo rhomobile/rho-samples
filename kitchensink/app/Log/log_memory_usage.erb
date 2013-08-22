@@ -1,0 +1,30 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Logging memory usage", :description => "
+      This example will show you the memory usage of Log
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    <% if Rho::System.platform != "WP8"  %>
+      Memory usage log: <span class="memory_usage_log_status"><%= @memory_period > 0 ? "Enabled" : "Disabled" %></span>
+          
+      <div class="sample ruby">
+        <a href="<%= url_for :action => :start_logging_memory_usage %>" data-role="button">Start logging</a>
+        <a href="<%= url_for :action => :stop_logging_memory_usage %>" data-role="button">Stop logging</a> 
+      </div>
+      
+      <div class="sample javascript"> 
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Log.start_logging_memory_usage()">Start logging</a></li>
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Log.stop_logging_memory_usage()">Stop logging</a></li>
+      </div>
+    <% else %>
+       Logging memory usage is not supported on WP8
+    <% end %>
+    
+    
+  </div>

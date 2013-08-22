@@ -1,0 +1,31 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Choose scanner", :description => "
+    
+  " }
+  %>
+
+  <%= render :partial => "/partials/language_tabs" %>
+
+  <div data-role="content">
+    <div class="sample ruby">
+      <% $scanners.each_with_index do |scanner, index| %>
+        <a href="<%= url_for(:action => :scan_using_chosen_scanner, :query => {:scanner_index => index}) %>" data-role="button"><%= scanner.friendlyName %></a> 
+      <% end %>
+    </div>
+      
+    <div class="sample javascript">
+
+      <div class="scanner_list">
+      </div>
+      
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Barcode.enumerate_scanners()">Enumerate scanners</a>      
+    </div>
+      
+  </div>
+
+</div>

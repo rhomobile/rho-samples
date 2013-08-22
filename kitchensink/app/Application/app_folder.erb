@@ -1,0 +1,32 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Get application folders", :description => "
+      There are times when you need access to files bundled with your application, or to write files to a safe folder. This example shows how to retrieve each of the several important folders available
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <ul>
+        <li>App folder: <%= @app_folder %></li>
+        <li>Apps bundle folder: <%= @apps_bundle_folder %></li>
+        <li>Database blob folder: <%= @database_blob_folder %></li>
+        <li>Public folder: <%= @public_folder %></li>
+        <li>User folder: <%= @user_folder %></li>
+      </ul>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Application.app_folder()">Get app folders</a>    
+    </div>
+    
+    
+  </div>
+
+
+</div>

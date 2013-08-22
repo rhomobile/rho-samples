@@ -1,0 +1,26 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Select capture video resolution", :description => "
+      The resolution of the video file to be captured. Default is high.     
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+
+    <div class="sample ruby">
+      <a href="<%= url_for :action => :capture_video_with_resolution , :query => {:resolution => 'low'}%>" data-role="button">Low Resolution</a>
+      <a href="<%= url_for :action => :capture_video_with_resolution , :query => {:resolution => 'high'} %>" data-role="button">High Resolution</a>
+    </div>
+
+    <div class="sample javascript">
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Videocapture.select_resolution('low')">Low Resolution</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Videocapture.select_resolution('high')">High Resolution</a>
+    </div>
+
+  </div>
+
+</div>

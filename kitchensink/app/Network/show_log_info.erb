@@ -1,0 +1,27 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Show log", :description => "
+      This example will show you the Log information
+      
+      
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <ul>
+        <li><a href="<%= url_for :action => :show_log %>">Show log</a></li>
+      </ul>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Log.show_log()">Show log</a>
+    </div>
+    
+    
+  </div>

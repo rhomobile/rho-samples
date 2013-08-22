@@ -1,0 +1,31 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Create toolbar", :description => "
+      Create Native Toolbar
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a href="<%= url_for :action => :create_toolbar %>" data-role="button">Create Toolbar</a>
+      <a href="<%= url_for :action => :remove_toolbar %>" data-role="button">Remove Toolbar</a>
+    </div>
+    
+    <div class="sample javascript">
+		<ul style="display:none" class="toolbarurls">
+			<li><a href="<%= Rho::Application.startURI %>"/></li>
+			<li><a href="callback:<%= url_for(:action => :show_alert) %>"/></li>
+			<li><a href="callback:<%= url_for(:action => :remove_toolbar) %>"/></li>
+		</ul>
+    	
+	  <a href="#" data-role="button" onclick="KitchenSink.Samples.NativeToolbar.createToolbar()">Create Toolbar</a>
+	  <a href="#" data-role="button" onclick="KitchenSink.Samples.NativeToolbar.removeToolbar()">Remove Toolbar</a>
+    </div>
+    
+    
+  </div>

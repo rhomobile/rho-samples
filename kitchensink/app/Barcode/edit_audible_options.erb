@@ -1,0 +1,46 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Edit audible options", :description => "
+    You can customize or eliminate the beep that the device emits when a barcode is recognized. Support and valid ranges for these values depend on the device.
+  " }
+  %>
+
+  <% if (Rho::System.isMotorolaDevice) %> 
+
+  <%= render :partial => "/partials/language_tabs" %>
+
+
+    <form action ="<%= url_for(:action => :set_audible_options) %>">
+      <label for="sider-volume">
+        Decode volume:
+      </label>
+      <input type="range" name="decodeVolume" id="slider-volume" min="0" max="5" value="3">
+      
+      <label for="sider-frequency">
+        Tone frequency:
+      </label>
+      <input type="range" name="decodeFrequency" id="slider-frequency" min="2000" max="10000" value="3000">
+
+      <label for="sider-duration">
+        Tone duration (milliseconds):
+      </label>
+      <input type="range" name="decodeDuration" id="slider-duration" min="500" max="3000" step="100" value="1000">
+
+      <div class="sample ruby">      
+            <input type="submit" data-role="button" value="Set audible options">
+      </div>
+      
+      <div class="sample javascript">
+            <a href="#" onclick="KitchenSink.Samples.Barcode.set_audible_options()" data-role="button">Set audible options</a>
+      </div>
+      
+    </form>
+  <% else %>
+    Audible options are only available on Motorola Solutions devices
+  <% end %>
+  
+</div>

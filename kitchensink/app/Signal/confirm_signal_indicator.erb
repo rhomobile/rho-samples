@@ -1,0 +1,41 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Working with the Signal indicator", :description => "
+      The Signal API can be used to display a persistent indicator of wireless signal strength.
+    " }
+    %>
+
+  <% if (Rho::System.platform != "APPLE ") %>
+    <%= render :partial => "/partials/language_tabs" %>
+    <form action ="<%= url_for(:action => :show_signal_icon) %>">
+      <div data-role="controlgroup">
+      Layout
+      <label><input type="radio" name="iconLayout" value="left" checked>Left</label>
+      <label><input type="radio" name="iconLayout" value="right" >Right</label>
+      <label><input type="radio" name="iconLayout" value="up" >Up</label>
+      <label><input type="radio" name="iconLayout" value="down" >Down</label>
+      </div>
+    <div class="sample ruby">
+      <input type="submit" data-role="button" value="Show Signal Icon">
+      <a href="<%= url_for :action => :hide_signal_icon %>" data-role="button">Hide Signal Icon</a>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Signal.show_signal_icon()">Show signal icon</a>
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Signal.hide_signal_icon()">Hide signal icon</a>  
+    </div>
+    
+    </form>
+
+  <% else %>
+    The signal indicator is not supported on iOS
+  <% end %>
+  
+  </div>
+
+
+</div>

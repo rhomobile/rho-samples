@@ -1,0 +1,32 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "ScreenOrientation - change orientations ", :description => "
+      This example will change the orientation
+       " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <% if (Rho::System.platform != "APPLE ") %>
+      <div class="sample ruby">
+        Set device orientation
+    		<a href="<%= url_for :action => :left_handed_position %>" data-role="button">Left handed</a>
+      	<a href="<%= url_for :action => :right_handed_position %>" data-role="button">Right handed</a>
+      	<a href="<%= url_for :action => :normal_position %>" data-role="button">Normal (default)</a>
+  			<a href="<%= url_for :action => :upside_down_position %>" data-role="button">Upside down</a>
+      </div>
+      
+      <div class="sample javascript">
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Screenorientation.left_handed()">Left handed</a>
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Screenorientation.right_handed()">Right handed</a>
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Screenorientation.normal()">Normal (default)</a>
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Screenorientation.upside_down()">Upside down</a>
+      </div>
+    <% else %>
+      Changing the screen orientation is not supported on iOS
+    <% end %>
+</div>

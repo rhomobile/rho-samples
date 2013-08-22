@@ -1,0 +1,26 @@
+<div data-role="page" class="filesample">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Show key state icons", :description => "
+      Display icons for the hardware key modifiers (Shift, Alt, Ctrl, Fn, Caps lock, Num lock, Orange key)
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a data-role="button" href="<%= url_for :action => show_keystates_top %>">Show key states (top)</a>
+      <a data-role="button" href="<%= url_for :action => show_keystates_bottom %>">Show key states (bottom)</a>      
+      <a data-role="button" href="<%= url_for :action => hide_keystates %>">Hide key states</a>
+    </div>
+    
+    <div class="sample javascript">
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Keystate.show_keystates()">Show key states</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Keystate.hide_keystates()">Hide key states</a>
+    </div>
+    
+    
+  </div>

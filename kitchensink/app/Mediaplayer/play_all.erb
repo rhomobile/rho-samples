@@ -1,0 +1,26 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Mediaplayer- Show all ringtones and play them", :description => "
+      It will list all the ringtones available on the device and show them in an HTML list. When a ringtone is clicked, it will be played.    
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+
+    <div class="sample ruby">
+      <ul>
+         <a data-role="button" href="<%= url_for :action => :all_ringtones %>">Show all ringtones</a>
+      </ul>
+    </div>
+    
+    <div class="sample javascript">
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Mediaplayer.showRingtones()">Show all ringtones</a>    
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,22 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Zipping files", :description => "
+      This example will show you how to zip files
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a href="<%= url_for :action => :zip_files %>" data-role="button">Zip files</a> 
+    </div>
+    
+    <div class="sample javascript">
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.System.zip()">Zipping files</a>    
+    </div>
+  </div>
+</div>

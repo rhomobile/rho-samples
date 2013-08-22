@@ -1,0 +1,29 @@
+<div data-role="page">
+
+    
+  <div data-role="header" data-position="inline">
+    <h1>System samples</h1>
+  </div>
+
+  <div data-role="content">
+ <h2>Ruby</h2>
+    <ul data-role="listview">
+      <li><a href="<%= url_for :action => :capabilities %>">Get device capabilities</a></li>
+      <li><a href="<%= url_for :action => :install_or_uninstall_app %>">Install / uninstall other applications</a></li>
+      <li><a href="<%= url_for :action => :get_version_info %>">Detecting version information</a></li>
+      <li><a href="<%= url_for :action => :local_serverport %>">LocalServerPort for debug purposes</a></li>
+      <li><a href="<%= url_for :action => :zip %>">Zipping files</a></li>      
+    </ul>
+
+	<h2>Javascript</h2>
+	    <ul data-role="listview">
+	      <li><a href="#" onclick="KitchenSink.Samples.System.capabilities()">Get device capabilities</a></li>
+	      <li><a href="#" onclick="KitchenSink.Samples.System.install_or_uninstall_app()">Install / uninstall other applications</a></li>
+	      <li><a href="#" onclick="KitchenSink.Samples.System.get_version_info()">Detecting version information</a></li>
+	      <li><a href="#" onclick="KitchenSink.Samples.System.local_serverport()">LocalServerPort for debug purposes</a></li>
+	      <li><a href="#" onclick="KitchenSink.Samples.System.zip()">Zipping files</a></li>      
+	    </ul>
+  </div>
+
+</div>
+

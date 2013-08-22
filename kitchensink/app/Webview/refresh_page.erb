@@ -1,0 +1,24 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Refresh the page", :description => "
+      Refresh the current page
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a data-role="button" href="<%= url_for :action => :refresh %>">Refresh the page</a></li>  
+    </div>
+    
+    <div class="sample javascript">
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Webview.refresh()">Refresh the page</a>    
+    </div>
+    
+    
+  </div>
+</div>

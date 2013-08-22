@@ -1,0 +1,339 @@
+<div class="navmenu">
+  <input class="navmenu_searchbox" type="search">
+  
+  <div class="navmenu_sections" data-role="collapsible-set" data-inset="false">
+  
+  
+    <div data-role="collapsible" data-filter="application folders locale quit minimize restore">
+      <h3>Application</h3>
+
+      <ul data-role="listview" data-inset="true">
+        <li><a href="<%= url_for :controller => :Application, :action => :app_folder %>">Get folders where items are stored</a></li>
+        <li><a href="<%= url_for :controller => :Application, :action => :confirm_quit_app %>">Quit the application</a></li>
+        <li><a href="<%= url_for :controller => :Application, :action => :confirm_minimize_app %>">Minimize the application</a></li>
+        <li><a href="<%= url_for :controller => :Application, :action => :confirm_restore_app %>">Restore the application</a></li>
+      </ul>
+    </div>
+  
+        
+    <div data-role="collapsible" data-filter="barcode scanner symbology ean qr beep sound">
+      <h3>Barcode</h3>
+      
+      <ul data-role="listview" data-inset="true">
+        <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS") && !Rho::System.isRhoSimulator %>
+          <% if !Rho::Barcode.enumerate.empty? %>
+            <li><a href="<%= url_for :controller => :Barcode, :action => :confirm_scan_using_default_scanner %>">Scan using default scanner</a></li>
+            <li><a href="<%= url_for :controller => :Barcode, :action => :choose_scanner %>">Choose scanner to use</a></li>
+            <li><a href="<%= url_for :controller => :Barcode, :action => :confirm_set_symbology %>">Set symbology</a></li>
+            <li><a href="<%= url_for :controller => :Barcode, :action => :edit_properties %>">Control scanner properties</a></li>
+            <li><a href="<%= url_for :controller => :Barcode, :action => :edit_audible_options %>">Change audible options</a></li>
+          <% else %>
+            <li>Device does not have a Barcode</li>
+          <% end %>
+        <% else %>
+          <li>Barcode is supported only on Android, IOS and Windows Mobile</li>  
+        <% end %>
+      </ul>
+    </div>
+
+    <div data-role="collapsible" data-filter="battery status indicator">
+      <h3>Battery</h3>
+
+      <ul data-role="listview" data-inset="true">
+        <li><a href="<%= url_for :controller => :Battery, :action => :confirm_battery_status %>">Retrieve the Battery status</a></li>
+        <li><a href="<%= url_for :controller => :Battery, :action => :confirm_battery_indicator %>">Working with the Battery indicator</a></li>
+      </ul>
+    </div>
+  
+<%
+=begin
+%>
+    <div data-role="collapsible" data-filter="camera picture image gallery">
+      <h3>Camera</h3>
+      
+      <ul data-role="listview" data-inset="true">
+        <% if Rho::System.hasCamera %>
+          <li><a href="<%= url_for :controller => :Camera, :action => :confirm_take_picture_with_default_camera %>">Take a picture with default camera/settings</a></li>
+          <li><a href="<%= url_for :controller => :Camera, :action => :choose_camera %>">Choose camera to use</a></li>
+          <li><a href="<%= url_for :controller => :Camera, :action => :determine_camera_capabilities %>">Determine camera capabilities</a></li>
+          <li><a href="<%= url_for :controller => :Camera, :action => :edit_image_properties %>">Control image properties</a></li>
+          <li><a href="<%= url_for :controller => :Camera, :action => :confirm_select_picture_from_gallery %>">Select picture from gallery</a></li>
+          <li><a href="<%= url_for :controller => :Camera, :action => :confirm_take_picture_and_save_it_to_gallery %>">Take picture and save it to the gallery</a></li>
+        <% else %>
+          <li>Device does not have Camera</li>
+        <% end %>
+      </ul>
+    </div>
+<%
+=end
+%>
+ 
+    <div data-role="collapsible"  data-filter="cardreader card reader msr magnetic stripe credit identification">
+      <h3>Card reader</h3>
+      
+      <ul data-role="listview" data-inset="true">
+      <% if (Rho::System.platform == "ANDROID" ||  Rho::System.platform == "WINDOWS") &&  (Rho::System.isMotorolaDevice && !Rho::System.isRhoSimulator )%>   
+        <% if !Rho::CardReader.enumerate.empty? %>
+          <li><a href="<%= url_for(:controller => :Cardreader, :action => :open_cardreader) %>">Connecting to the card reader</a></li>
+          <li><a href="<%= url_for(:controller => :Cardreader, :action => :properties) %>">Setting card reader properties</a></li>
+        <% else %>
+          <li>Device does not have a Cardreader</li>
+        <% end %>
+      <% else %>
+         <li>Card reader is supported only on Android and Windows Mobile. It is available only on Motorola Solutions devices.</li>
+      <% end %> 
+     </ul>
+      
+    </div>
+       
+    
+    <div data-role="collapsible" data-filter="database rhom db import export seed transactions sql commit rollback">
+      <h3>Database</h3>
+      
+      <ul data-role="listview" data-inset="true">
+        <li><a href="<%= url_for :controller => :Database, :action => :confirm_init_db %>">Init DB</a></li>
+        <li><a href="<%= url_for :controller => :Database, :action => :confirm_export_db %>">Export</a></li>    
+        <li><a href="<%= url_for :controller => :Database, :action => :confirm_import_db %>">Import</a></li>
+        <li><a href="<%= url_for :controller => :Database, :action => :confirm_seed_db %>">Seed</a></li>
+        <li><a href="<%= url_for :controller => :Database, :action => :confirm_transactions %>">Transactions</a></li>
+      </ul>
+    </div>
+
+    <div data-role="collapsible"  data-filter="keycapture keyboard">
+      <h3>Keycapture</h3>
+      
+      <ul data-role="listview" data-inset="true">
+         <li><a href="<%= url_for :controller => :Keycapture, :action => :index %>">Capture hardware keys</a></li>
+      </ul>
+    </div>
+
+    <div data-role="collapsible"  data-filter="keystate keyboard shift alt control ctrl fn function caps lock num orange">
+      <h3>Keystate</h3>
+      
+      <ul data-role="listview" data-inset="true">
+        <% if Rho::System.platform == "WINDOWS" && (Rho::System.isMotorolaDevice && !Rho::System.isRhoSimulator) %>
+          <li><a href="<%= url_for :controller => :Keystate, :action => :index %>">Show key state icons</a></li>
+        <% else %>
+          <li>Keystate is only supported on a subset of Motorola Solutions' Windows Mobile.</li>
+        <% end %>
+      </ul>
+    </div>
+    
+    <div data-role="collapsible"  data-filter="log info warning debug memory usage read clean category categories">
+      <h3>Log</h3>
+      
+     <ul data-role="listview" data-inset="true">
+         <li><a href="<%= url_for :controller => :Log, :action => :logging_categories %>">Logging categories</a></li>
+         <li><a href="<%= url_for :controller => :Log, :action => :log_memory_usage %>">Logging memory usage</a></li>
+         <li><a href="<%= url_for :controller => :Log, :action => :confirm_send_log_file %>">Logging to remote location</a></li>
+         <li><a href="<%= url_for :controller => :Log, :action => :confirm_show_log %>">Show log</a></li>
+         <li><a href="<%= url_for :controller => :Log, :action => :confirm_read_log %>">Read log file</a></li>
+         <li><a href="<%= url_for :controller => :Log, :action => :confirm_clean_log_file %>">Clean log file</a></li>
+       </ul>
+       
+    </div>
+
+    
+    <div data-role="collapsible"  data-filter="sound mediaplayer ringtone mp3 wav audio">
+      <h3>Mediaplayer</h3>
+      
+      <ul data-role="listview" data-inset="true">
+        <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS") && !Rho::System.isRhoSimulator %>
+          <li><a href="<%= url_for :controller => :Mediaplayer, :action => :load_ringtones %>">Play ringtones</a></li>
+        <% else %>
+          <li>Mediaplayer is supported on Android, iOS and Windows Mobile</li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div data-role="collapsible"  data-filter="nativetabbar tabbar tab bar">
+      <h3>Native Menubar</h3>
+    
+      <ul data-role="listview" data-inset="true">
+        <% if (Rho::System.platform == "WINDOWS") %>
+          <li><a href="<%= url_for :controller => :NativeMenubar, :action => :menubar_menu %>">Addding to the menu bar</a></li>
+        <% else %>
+          <li>This sample is only available on Windows Mobile</li>
+        <% end %> 
+      </ul>
+    </div>
+
+    <div data-role="collapsible"  data-filter="nativetabbar tabbar tab bar">
+      <h3>Native Tabbar</h3>
+
+      <ul data-role="listview" data-inset="true">
+        <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS") %>
+          <li><a href="<%= url_for :controller => :NativeTabbar, :action => :tabbar_menu %>">Create Tabbar</a></li>
+        <% else %>
+          <li>Native Tabbar is supported on Android, iOS and Windows Mobile</li>
+        <% end %> 
+      </ul>
+    </div>
+   
+    <div data-role="collapsible"  data-filter="nativetoolbar">
+      <h3>Native Toolbar</h3>
+      
+      <ul data-role="listview" data-inset="true">
+        <% if Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS" %>
+          <li><a href="<%= url_for :controller => :NativeToolbar, :action => :toolbar_menu %>">Create Toolbar</a></li>
+        <% else %>
+          <li>Native Tabbar is supported on Android, iOS and Windows Mobile</li>
+        <% end %> 
+      </ul>
+    </div>
+
+    <div data-role="collapsible"  data-filter="navbar navigation bar ios iphone native">
+      <h3>Navbar</h3>
+      
+       <ul data-role="listview" data-inset="true">
+        <% if Rho::System.platform == "APPLE" %>
+          <li><a href="<%= url_for :controller => :Navbar, :action => :navbar_menu %>">Create Navbar</a></li>
+        <% else %>
+          <li>Navbar is supported only on IOS</li>
+        <% end %>
+       </ul>
+    </div>
+    
+    <div data-role="collapsible"  data-filter="network wifi 3g cdma hsdpa gprs wireless connection upload download http authentication">
+      <h3>Network</h3>
+      
+       <ul data-role="listview" data-inset="true">
+        <li><a href="<%= url_for :controller => :Network, :action => :confirm_network_availability %>">Detect network availability</a></li>
+        <li><a href="<%= url_for :controller => :Network, :action => :confirm_detect_network_events %>">Detect network events</a></li>
+        <li><a href="<%= url_for :controller => :Network, :action => :confirm_upload %>">Upload file</a></li>
+        <li><a href="<%= url_for :controller => :Network, :action => :confirm_download %>">Download file</a></li>
+        <li><a href="<%= url_for :controller => :Network, :action => :confirm_headers_and_verbs %>">Using http headers and verbs</a></li>
+        <li><a href="<%= url_for :controller => :Network, :action => :confirm_basic_auth %>">Basic authentication</a></li>      
+      </ul>
+    </div>
+    
+    <div data-role="collapsible"  data-filter="notification alert popup beep">
+      <h3>Notification</h3>
+    
+      <ul data-role="listview" data-inset="true">
+        <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS" || Rho::System.platform == "WINDOWS_DESKTOP" ) %>
+            <li><a href="<%= url_for :controller => :Notification, :action => :notification_menu %>">Notifications</a></li>
+        <% else %>
+          <li>Notification is supported only on Android, IOS, Windows Mobile and Windows Destop</li>li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div data-role="collapsible"  data-filter="filesystem open read write close directory folder storage sdcard">
+      <h3>RhoFile</h3>
+      
+      <ul data-role="listview" data-inset="true">
+         <li><a href="<%= url_for :controller => :File, :action => :browse_filesystem %>">Browse filesystem</a></li>
+      </ul>
+    </div>
+
+    <div data-role="collapsible"  data-filter="ORM object relational mapper database sql model reset">
+      <h3>ORM</h3>
+    
+       <ul data-role="listview" data-inset="true">
+            <li><a href="<%= url_for :controller => :ORM, :action => :js_model_menu %>">JS Model operations</a></li>
+       </ul>
+    </div>
+
+    <div data-role="collapsible"  data-filter="screenorientation autorotate callback change">
+        <h3>Screen orientation</h3>
+        
+        <ul data-role="listview" data-inset="true">
+          <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS") && !Rho::System.isRhoSimulator %>
+            <li><a href="<%= url_for :controller => :Screenorientation, :action => :auto_rotate %>">Auto-rotate</a></li>
+            <li><a href="<%= url_for :controller => :Screenorientation, :action => :confirm_set_callback %>">Detect changes</a></li> 
+            <li><a href="<%= url_for :controller => :Screenorientation, :action => :change_orientations %>">Change orientation</a></li> 
+          <% else %>
+            <li>Screen orientation is supported on Android, iOS and Windows Mobile</li>
+          <% end %>  
+        </ul>
+    </div>
+
+    
+    <div data-role="collapsible"  data-filter="sensors accelerometer">
+        <h3>Sensors</h3>
+        
+        <ul data-role="listview" data-inset="true">
+          <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS") && !Rho::System.isRhoSimulator %>
+            <li><a href="<%= url_for :controller => :Sensors, :action => :accelerometer_test %>">Accelerometer</a></li>
+          <% else %>
+            <li>Sensors are supported on Android, iOS and Windows Mobile</li>
+          <% end %>  
+        </ul>
+    </div>
+
+    <div data-role="collapsible" data-filter="signal strength indicator">
+      <h3>Signal</h3>
+
+      <ul data-role="listview" data-inset="true">
+        <li><a href="<%= url_for :controller => :Signal, :action => :confirm_signal_status %>">Retrieve the Signal status</a></li>
+        <li><a href="<%= url_for :controller => :Signal, :action => :confirm_signal_indicator %>">Working with the Signal indicator</a></li>
+      </ul>
+    </div>
+
+<% 
+=begin
+%>  
+    <div data-role="collapsible"  data-filter="signature capture fullscreen full-screen full screen inline line handwriting hand writing">
+      <h3>Signature</h3>
+      
+      <ul data-role="listview" data-inset="true">
+        <% if Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS" %>
+          <li><a href="<%= url_for :controller => :Signature, :action => :edit_properties %>">Set capture properties</a></li>
+          <li><a href="<%= url_for :controller => :Signature, :action => :confirm_capture_datauri %>">Capture to dataURI</a></li>
+          <li><a href="<%= url_for :controller => :Signature, :action => :confirm_capture_inline %>">Capture in a window (responsive)</a></li>
+        <% else %>
+            <li>Signature is supported on Android, iOS and Windows Mobile</li>
+          <% end %>  
+      </ul>
+      
+    </div>
+<%
+=end
+%>
+
+    <div data-role="collapsible"  data-filter="system capabilities install uninstall version server port local zip unzip">
+     <h3>System</h3>
+     
+     <ul data-role="listview" data-inset="true">
+       <li><a href="<%= url_for :controller => :System, :action => :capabilities %>">Get device capabilities</a></li>
+       <li><a href="<%= url_for :controller => :System, :action => :confirm_install_app %>">Install / uninstall other applications</a></li>
+       <li><a href="<%= url_for :controller => :System, :action => :get_version %>">Detecting version information</a></li>
+       <li><a href="<%= url_for :controller => :System, :action => :get_local_serverport %>">LocalServerPort for debug purposes</a></li>
+       <li><a href="<%= url_for :controller => :System, :action => :confirm_zip %>">Zipping files</a></li>      
+     </ul>
+        
+    </div>
+<%
+=begin
+%>    
+    <div data-role="collapsible"  data-filter="video capture capture the video and save it">
+      <h3>Videocapture</h3>
+     
+      <ul data-role="listview" data-inset="true">
+        <% if Rho::System.isRhoSimulator ? Rho::System.isRhoSimulator : !Rho::Videocapture.enumerate.empty? %>  
+          <li><a href="<%= url_for :controller => :Videocapture, :action => :index %>">Capture 1-minute video</a></li>
+          <li><a href="<%= url_for :controller => :Videocapture, :action => :select_resolution %>">Set capture resolution</a></li>
+        <% else %>
+            <li>Device does not have cameras for captuing video</li>
+        <% end %> 
+      </ul>
+        
+    </div>
+<%
+=end
+%>
+    <div data-role="collapsible"  data-filter="webview web view execute javascript navigate refresh save">
+      <h3>Webview</h3>
+
+      <ul data-role="listview" data-inset="true">
+        <li><a href="<%= url_for :controller => :Webview, :action => :set_properties %>">Controlling Webview properties</a></li>
+        <li><a href="<%= url_for :controller => :Webview, :action => :call_js %>">Executing javascript</a></li> 
+        <li><a href="<%= url_for :controller => :Webview, :action => :navigate %>">Navigating to pages</a></li>    
+        <li><a href="<%= url_for :controller => :Webview, :action => :refresh_page %>">Refreshing the page</a></li>  
+        <li><a href="<%= url_for :controller => :Webview, :action => :save_page %>">Saving the page</a></li>    
+      </ul>
+    </div>
+
+  </div>
+</div>

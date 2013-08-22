@@ -1,0 +1,32 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Retrieve the Battery status", :description => "
+      Retrieve the current battery level. If a callback is provided to retrieve the battery then it will be called periodically at a frequency determined by the trigger property.
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    <form action ="<%= url_for(:action => :battery_status) %>">
+      <div data-role="controlgroup">
+      Trigger
+      <label><input type="radio" name="trigger" value="periodic" checked>Periodic</label>
+      <label><input type="radio" name="trigger" value="system">System</label>
+      </div>
+
+      <div class="sample ruby">
+        <input type="submit" data-role="button" value="Battery status">
+      </div>
+      
+      <div class="sample javascript">
+            <a href="#" data-role="button" onclick="KitchenSink.Samples.Battery.battery_status()">Battery status</a>    
+      </div>
+    </form>
+    
+  </div>
+
+
+</div>

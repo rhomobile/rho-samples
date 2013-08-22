@@ -1,0 +1,25 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Native Menu bar", :description => "
+      Native menu bar 
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a href="<%= url_for :action => :create_menuitems %>" data-role="button">Create Menu items</a>
+      <a href="<%= url_for :action => :remove_menuitems %>" data-role="button">Remove Menu items</a>
+    </div>
+    
+    <div class="sample javascript">
+  	  <a href="#" data-role="button" onclick="KitchenSink.Samples.NativeMenubar.create_menuitems()">Create Menu items</a>
+  	  <a href="#" data-role="button" onclick="KitchenSink.Samples.NativeMenubar.remove_menuitems()">Remove Menu items</a>
+    </div>
+    
+    
+  </div>

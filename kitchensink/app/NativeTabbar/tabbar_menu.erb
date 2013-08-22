@@ -1,0 +1,37 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Create tabbar", :description => "
+      Create Native Tabbar
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <% if (Rho::System.get_property('platform') == 'APPLE') || (Rho::System.get_property('platform') == 'ANDROID') %> 
+        <div class="sample ruby">
+          <a href="<%= url_for :action => :create_tabbar %>" data-role="button">Create Tabbar</a>
+          <a href="<%= url_for :action => :switch_tab %>" data-role="button">Switch tab</a>
+          <a href="<%= url_for :action => :remove_tabbar %>" data-role="button">Remove Tabbar</a>
+        </div>
+        
+        <div class="sample javascript">
+    		<ul style="display:none" class="tabbarurls">
+    			<li><a href="<%= url_for(Rho::Application.startURI) %>"/></li>
+    			<li><a href="<%= url_for(:action => :tabbar_menu) %>"/></li>
+    			<li><a href="http://example.com"/></li>
+          <li><a href="<%= url_for(:action => :remove_tabbar) %>"/></li>
+    		</ul>
+        	
+    	  <a href="#" data-role="button" onclick="KitchenSink.Samples.NativeTabbar.createTabbar()">Create Tabbar</a>
+    	  <a href="#" data-role="button" onclick="KitchenSink.Samples.NativeTabbar.switchTab()">Switch Tab</a>
+    	  <a href="#" data-role="button" onclick="KitchenSink.Samples.NativeTabbar.removeTabbar()">Remove Tabbar</a>
+        </div>
+    <% else %>
+        NativeTabbar is a native Android / iOS API and is only available on those platforms
+    <% end %>
+    
+  </div>

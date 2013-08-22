@@ -1,0 +1,22 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Scan with default scanner", :description => "
+    Getting started with barcode scanning is very straightforward. If you do not need to customize the defaults, you need very little code.    
+  " }
+  %>
+
+  <%= render :partial => "/partials/language_tabs" %>
+
+  <div class="sample ruby">
+        <a href="<%= url_for(:action => :scan_using_default_scanner) %>" data-role="button">Scan</a> 
+  </div>
+
+  <div class="sample javascript">
+        <a href="#" onclick="KitchenSink.Samples.Barcode.scan_using_default_scanner()" data-role="button">Scan</a>
+  </div>
+  
+</div>

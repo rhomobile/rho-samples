@@ -1,0 +1,33 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Get device capabilities", :description => "
+      This example will show you the capabilities available for the current device
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <ul>
+      <li>Motorola device: <%= @is_motorola_device %></li>
+      <li>Calendar: <%= @has_calendar %></li>
+      <li>Camera: <%= @has_camera %></li>
+      <li>Cell network: <%= @has_cell_network %></li>
+      <li>WiFi: <%= @has_wifi_network %></li>
+     <li>Network: <%= @has_network %></li>
+     <li>SQLite: <%= @has_sqlite %></li>
+     <li>Touchscreen: <%= @has_touchscreen %></li>
+      </ul>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.System.capabilities()">Get system capabilities</a>    
+    </div>
+    
+    
+  </div>
+</div>

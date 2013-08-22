@@ -1,0 +1,24 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "HTTP Basic auth", :description => "
+    HTTP Basic authentication
+  " }
+  %>
+
+  <%= render :partial => "/partials/language_tabs" %>
+
+  <div data-role="content">
+    <div class="sample ruby">
+      <a href="<%= url_for(:action => :do_basic_auth) %>" data-role="button">Attempt basic auth</a>
+    </div>
+    
+    <div class="sample javascript">
+      <a href="#" onclick="KitchenSink.Samples.Network.basic_auth()" data-role="button">Attempt basic auth</a>
+    </div>
+  </div>
+
+</div>

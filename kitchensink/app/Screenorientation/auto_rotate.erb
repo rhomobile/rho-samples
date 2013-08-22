@@ -1,0 +1,25 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "ScreenOrientation - autorotate", :description => "
+      This example will enables or disables autorotation of the screen orientation when the device is rotated.
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+        Autorotation <%= @is_auto_rotated ? "enabled" : "disabled" %> 
+        <a href="<%= url_for(:action => :toggle_autorotation) %>" data-role="button">Toggle autorotation</a> 
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Screenorientation.toggle_autorotation()">Toggle autorotation</a>
+    </div>
+    
+    
+  </div>
+</div>

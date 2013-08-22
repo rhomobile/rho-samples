@@ -1,0 +1,34 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Create navbar", :description => "
+      Create Native Navbar
+    " }
+    %>
+    <% if (Rho::System.get_property('platform') == 'APPLE') %>
+      <%= render :partial => "/partials/language_tabs" %>
+    
+
+      <div class="sample ruby">
+        <a href="<%= url_for :action => :create_navbar %>" data-role="button">Create Navbar</a>
+        <a href="<%= url_for :action => :remove_navbar %>" data-role="button">Remove Navbar</a>
+      </div>
+      
+      <div class="sample javascript">
+  		<ul style="display:none" class="navbarurls">
+  			<li><a href="<%= url_for(Rho::Application.startURI) %>"/></li>
+  			<li><a href="<%= url_for(:action => :navbar_menu) %>"/></li>
+  			<li><a href="http://example.com"/></li>
+  		</ul>
+      	
+  	  <a href="#" data-role="button" onclick="KitchenSink.Samples.Navbar.createNavbar()">Create Navbar</a>
+  	  <a href="#" data-role="button" onclick="KitchenSink.Samples.Navbar.removeNavbar()">Remove Navbar</a>
+      </div>
+    
+		<% else %>
+		  Navbar is a native iOS API and is only available on Apple devices
+		<% end %>
+  </div>

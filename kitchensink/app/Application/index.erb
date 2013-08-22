@@ -1,0 +1,25 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head", :locals => {:title => "Application"} %>
+
+<div data-role="content">
+	  <h2>Ruby</h2>
+    <ul data-role="listview">
+      <li><a href="<%= url_for :action => :app_folder %>">Get folders where items are stored</a></li>
+      <li><a href="<%= url_for :action => :set_locale %>">Set locale</a></li>
+      <li><a href="<%= url_for :action => :quit_app %>">Quit the application</a></li>
+      <li><a href="<%= url_for :action => :minimize_app %>">Minimize the application</a></li>
+      <li><a href="<%= url_for :action => :restore_app %>">Restore the application</a></li>      
+    </ul>
+      <h2>Javascript</h2>
+    <ul data-role="listview">
+      <li><a href="#" onclick="KitchenSink.Samples.Application.app_folder()">Get folders where items are stored</a></li>
+      <li><a href="#" onclick="KitchenSink.Samples.Application.set_locale()">Set locale</a></li>
+      <li><a href="#" onclick="KitchenSink.Samples.Application.quit_app()">Quitting the application</a></li>
+      <li><a href="#" onclick="KitchenSink.Samples.Application.minimize_app()">Minimizing the application</a></li>
+      <li><a href="#" onclick="KitchenSink.Samples.Application.restore_app()">Restoring the application</a></li>      
+    </ul>
+  </div>
+  
+</div>
+

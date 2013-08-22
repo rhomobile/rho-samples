@@ -1,0 +1,42 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+ <%= render :partial => "/partials/example_header", :locals => {:title => "Mediaplayer- Show all ringtones and play them", :description => "
+      Click on a ringtone to play it    
+    " }
+    %>
+
+  <%= render :partial => "/partials/language_tabs" %>
+  <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "WINDOWS")  %>
+    <div data-role="content">
+
+      <div class="sample ruby">  	
+      	<% unless $ringtones %>
+      	  No ring tones
+      	<% else %>
+        	<% $ringtones.each do |ringtone| %>
+            <a href="<%= url_for :action => :play, :query => { :name => ringtone["name"] } %>" data-role="button">
+              <%= ringtone["name"] %>
+            </a><br/>
+      	  <% end %>
+      	<% end %>
+    	</div>
+      	
+    	<div class="sample javascript">
+    	  <a href="#" onclick="KitchenSink.Samples.Mediaplayer.list_ringtones()" data-role="button">List ringtones</a>
+    	  
+    	  <a style="display:none" class="stop_ringtone" href="#" onclick="KitchenSink.Samples.Mediaplayer.stop_ringtone()" data-role="button">Stop playing</a>
+
+        <ul class="ringtone_list">
+        </ul>
+        
+
+    	</div>
+    </div>
+  <% else %>
+    Show all ringtones and play them  is supported only on Android and Windows Mobile
+  <% end %>
+
+</div>

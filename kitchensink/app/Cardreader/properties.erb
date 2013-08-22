@@ -1,0 +1,23 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Setting card reader properties", :description => "
+      Setting card reader properties example
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a data-role="button" href="<%= url_for(:action => :set_properties) %>">Setting card reader properties</a>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.CardReader.setProperties()">Setting card reader properties</a>
+    </div>
+    
+    
+  </div>

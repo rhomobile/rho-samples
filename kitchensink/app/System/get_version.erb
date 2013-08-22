@@ -1,0 +1,25 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Detecting version information", :description => "
+      This example will show you the version information of the application
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <ul>
+        <li>Version Information: <%= @version_info %></li>
+      </ul>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.System.get_version_info()">Detecting version information</a>    
+    </div>
+    
+    
+  </div>

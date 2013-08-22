@@ -1,0 +1,23 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Retrieve the signal status", :description => "
+      Retrieve the current wireless signal strength and information.
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+      <div class="sample ruby">
+        <a href="<%= url_for(:action => :signal_status) %>" data-role="button" value="Signal status">Signal status</a>
+      </div>
+      
+      <div class="sample javascript">
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Signal.signal_status()">Signal status</a>    
+      </div>
+  </div>
+
+
+</div>

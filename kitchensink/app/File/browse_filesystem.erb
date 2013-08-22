@@ -1,0 +1,47 @@
+<div data-role="page" class="filesample">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Browse filesystem", :description => "
+      View all folders and files in the application bundle
+      
+      
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      Folders:
+      <!-- TODO: move from RhoFile to File when implemented -->
+        <a data-role="button" href="<%= url_for :action=> :browse_filesystem, :query => {:start_from_path => Rho::RhoFile.dirname(@start_from_path)} %>">[One level up]</a>      
+        <% @folders.each do |folder| %>
+            <a data-role="button" href="<%= url_for :action=> :browse_filesystem, :query => {:start_from_path => Rho::RhoFile.join(@start_from_path,folder)} %>"><%= folder %></a> 
+        <% end %>
+        
+      Files:
+      <ul>
+        <% @files.each do |file| %>
+          <li><%= file %></li>
+        <% end %>
+      </ul>
+    </div>
+    
+    <div class="sample javascript">
+      Folders:
+      <ul class="folders">
+      </ul>
+      
+      Files:
+      <ul class="files">
+      </ul>
+      
+      <script type="text/javascript">
+        KitchenSink.Samples.File.browse_filesystem();
+      </script>
+    </div>
+    
+    
+  </div>

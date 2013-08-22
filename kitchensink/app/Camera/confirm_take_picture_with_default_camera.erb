@@ -1,0 +1,23 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Take picture with default camera", :description => "
+    Take a picture with the default camera of the device
+  " }
+  %>
+
+  <%= render :partial => "/partials/language_tabs" %>
+
+  <div data-role="content">
+    <div class="sample ruby">
+          <a href="<%= url_for(:action => :take_picture_with_default_camera) %>" data-role="button">Take picture</a> 
+    </div>
+    <div class="sample javascript">
+      <a href="#" onclick="KitchenSink.Samples.Camera.take_picture_with_default_camera()" data-role="button">Take picture</a>
+    </div>    
+  </div>
+
+</div>

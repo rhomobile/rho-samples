@@ -1,0 +1,27 @@
+<div data-role="page" class="filesample">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Capture hardware keys", :description => "
+      Display icons for the hardware key modifiers (Shift, Alt, Ctrl, Fn, Caps lock, Num lock, Orange key)
+    " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS") && !Rho::System.isRhoSimulator %>
+      <div class="sample ruby">
+        <a data-role="button" href="<%= url_for :action => :start_keycapture %>">Start key capture</a>
+        <a data-role="button" href="<%= url_for :action => :stop_keycapture %>">Stop key capture</a>      
+      </div>
+      
+      <div class="sample javascript">
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Keycapture.start_keycapture()">Start key capture</a>
+        <a href="#" data-role="button" onclick="KitchenSink.Samples.Keycapture.stop_keycapture()">Stop key capture</a>
+      </div>
+    <% else %>
+      Capture hardware keys is supported only on Android, IOS and Windows Mobile
+    <% end %>
+    
+  </div>
