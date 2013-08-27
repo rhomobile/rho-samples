@@ -17,7 +17,7 @@ class BatteryController < Rho::RhoController
   end
 
   def show_battery_icon
-  	Rho::Battery.showIcon({color:'#FF0000',layout: @params['iconLayout']})
+  	Rho::Battery.showIcon({:left => 0, :top=> 40, :color => '#FF0000', :layout => @params['iconLayout']})
   	redirect :confirm_battery_indicator
   end
 
