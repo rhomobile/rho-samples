@@ -47,7 +47,8 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
         // In that case, we will disable all decoders...
         Rho.Barcode.allDecoders = false;
         // ... and enable only the one we are interested in:
-        Rho.Barcode.upca = true;
+        var set_symbology = _read_properties_from_form();
+        Rho.Barcode.setProperty(set_symbology["symbology"],true);
         // All other barcode symbologies will be ignored
         this.scan_using_default_scanner();
     }

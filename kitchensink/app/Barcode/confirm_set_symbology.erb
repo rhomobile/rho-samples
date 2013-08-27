@@ -10,15 +10,23 @@
   %>
   <% if (Rho::System.isMotorolaDevice) %> 
     <%= render :partial => "/partials/language_tabs" %>
+      <form action ="<%= url_for(:action => :set_symbology) %>">
+        <div data-role="controlgroup">
+          Choose symbology
+          <label><input type="radio" name="symbology" value="upca" checked>upca</label>
+          <label><input type="radio" name="symbology" value="code128">code128</label>
+          <label><input type="radio" name="symbology" value="qrCode">qrCode</label>
+        </div>
+        
+        <div class="sample ruby">
+          <input type="submit" data-role="button" value="Set symbology">
+        </div>
 
-    <div class="sample ruby">
-          <a href="<%= url_for(:action => :scan_using_default_scanner) %>" data-role="button">Set symbology</a> 
-    </div>
-
-    <div class="sample javascript">
+        <div class="sample javascript">
           <a href="#" onclick="KitchenSink.Samples.Barcode.set_symbology()" data-role="button">Set symbology</a>
-    </div>
+        </div>
+      </form>
   <% else %>
-  Controlling the symbology is only supported on Motorola Solutions devices
+    Controlling the symbology is only supported on Motorola Solutions devices
   <% end %>  
 </div>

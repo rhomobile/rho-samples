@@ -42,11 +42,21 @@ class BarcodeController < Rho::RhoController
     # In that case, we will disable all decoders...
     Rho::Barcode.allDecoders = false
     # ... and enable only the one we are interested in:
-    Rho::Barcode.upca = true
+    get_symbology
     # All other barcode symbologies will be ignored
     scan_using_default_scanner      
   end
   
+  def get_symbology
+    if @params["symbology"] == "upca"
+      Rho::Barcode.upca = true
+    elsif @params["symbology"] == "code128"
+      Rho::Barcode.code128=true
+    else
+      Rho::Barcode.qrCode=true
+    end
+  end
+
   def control_properties_sample
     # There are over 200 properties to fine-tune the barcode scanner functionality and adapt it to suit your application.
     # Almost all properties depend on the scanner hardware for support, please check the documentation to see if your device
