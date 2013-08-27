@@ -7,7 +7,10 @@
   <%= render :partial => "/partials/example_header", :locals => {:title => "Control scanner properties", :description => "
     There are over 200 properties to fine-tune the barcode scanner functionality and adapt it to suit your application.
     Almost all properties depend on the scanner hardware for support, please check the documentation to see if your device
-    supports a particular setting
+    supports a particular setting. When you click the \"Set and scan\" button, the barcode scanner will be configured as per
+    the options in the form below and a barcode scan will start. Properties will have no effect on camera scanners, a hardware
+    scanner is required. These features are only available on selected high-end, industrial-strength MSI scanners, if you see
+    no difference after selecting different values, your scanner may not support them.
 
   " }
   %>
@@ -42,11 +45,11 @@
         </div>      
         
         <div class="sample ruby">      
-              <input type="submit" data-role="button" value="Set properties">
+              <input type="submit" data-role="button" value="Set and scan">
         </div>
         
         <div class="sample javascript">
-              <a href="#" onclick="KitchenSink.Samples.Barcode.set_properties()" data-role="button">Control properties</a>
+              <a href="#" onclick="KitchenSink.Samples.Barcode.set_properties()" data-role="button">Set and scan</a>
         </div>
         
       </form>
