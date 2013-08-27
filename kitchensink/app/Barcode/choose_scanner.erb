@@ -14,7 +14,7 @@
   <div data-role="content">
     <div class="sample ruby">
       <% $scanners.each_with_index do |scanner, index| %>
-        <a href="<%= url_for(:action => :scan_using_chosen_scanner, :query => {:scanner_index => index}) %>" data-role="button"><%= scanner.friendlyName %></a> 
+        <a href="<%= url_for(:action => :scan_using_chosen_scanner, :query => {:scanner_index => index}) %>" data-role="button"><%= scanner.friendlyName || scanner.scannerType %></a> 
       <% end %>
     </div>
       

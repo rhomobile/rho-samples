@@ -27,7 +27,7 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
     	
     	for (var i=0; i<scanners.length; i++) {
     		var scanner = scanners[i];
-    		scanner_elements+="<a href='#' data-role='button' onclick='KitchenSink.Samples.Barcode.scan_using_chosen_scanner("+i+")'>"+scanner.friendlyName+"</a>";
+    		scanner_elements+="<a href='#' data-role='button' onclick='KitchenSink.Samples.Barcode.scan_using_chosen_scanner("+i+")'>"+(scanner.friendlyName || scanner.scannerType)+"</a>";
     	}
     	$(".ui-page-active .sample.javascript .scanner_list").html(scanner_elements).trigger("create");
     }
