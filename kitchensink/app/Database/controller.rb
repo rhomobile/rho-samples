@@ -112,22 +112,6 @@ class DatabaseController < Rho::RhoController
     redirect :confirm_seed_db
   end
 
-  def confirm_export_db
-    render
-  end
-
-  def export_db 
-   #export database
-   db = open_db
-   export_path = db.export
-   db.close
-   Rho::Notification.showPopup({
-      :message => "Export path - #{export_path}",
-      :buttons => ["OK"]
-   })
-   redirect :confirm_export_db
-  end
-
   def confirm_import_db
     render
   end
