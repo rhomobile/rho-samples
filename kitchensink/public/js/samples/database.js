@@ -51,6 +51,7 @@ KitchenSink.Samples.Database = KitchenSink.Samples.Database || (function() {
 		db.close();
 		
 		alert("Database seeded successfully");
+	    Rho.WebView.refresh();		
 	}
 	
 	function transactions() {
