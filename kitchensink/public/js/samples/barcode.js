@@ -81,15 +81,46 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
     	var element = $(".ui-page-active .scanner_result");
     	element.html(message);
     }
-    
-	return {
+
+    //Call ruby method via ajax
+    function scan_using_default_scanner_with_ruby(){
+        $.get('/app/Barcode/scan_using_default_scanner');
+    }
+
+    function set_symbology_with_ruby(){
+        var set_symbology = _read_properties_from_form();
+        $.get('/app/Barcode/set_symbology', { symbology : set_symbology["symbology"] });
+    }
+
+    function enumerate_scanners_with_ruby(scanner_index){
+       $.get('/app/Barcode/scan_using_chosen_scanner', { scanner_index : scanner_index }); 
+    }
+
+    function set_audible_options_with_ruby(){
+        var decodeVolume = $.mobile.activePage.find("input[name=decodeVolume]").val();
+        var decodeFrequency = $.mobile.activePage.find("input[name=decodeFrequency]").val();
+        var decodeDuration = $.mobile.activePage.find("input[name=decodeDuration]").val();
+        $.get('/app/Barcode/set_audible_options', { decodeVolume : decodeVolume, decodeFrequency : decodeFrequency, decodeDuration : decodeDuration});  
+    }
+
+    function set_properties_with_ruby(){
+       var properties = _read_properties_from_form();
+       $.get('/app/Barcode/set_properties', { aimMode : properties["aimMode"], aimType : properties["aimType"], beamWidth : properties["beamWidth"]});   
+    }
+
+    return {
 		scan_using_default_scanner : scan_using_default_scanner,
 		scan_using_chosen_scanner : scan_using_chosen_scanner,
 		enumerate_scanners : enumerate_scanners,
         set_symbology : set_symbology,
 		set_properties : set_properties,
 		set_audible_options : set_audible_options,
-		update_scanner_result : update_scanner_result
+		update_scanner_result : update_scanner_result,
+        scan_using_default_scanner_with_ruby : scan_using_default_scanner_with_ruby,
+        set_symbology_with_ruby : set_symbology_with_ruby,
+        enumerate_scanners_with_ruby : enumerate_scanners_with_ruby,
+        set_audible_options_with_ruby : set_audible_options_with_ruby,
+        set_properties_with_ruby : set_properties_with_ruby
 	};
 
 })();

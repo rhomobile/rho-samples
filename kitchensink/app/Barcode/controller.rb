@@ -13,16 +13,15 @@ class BarcodeController < Rho::RhoController
   def scan_using_default_scanner
     # Scan with default options
     Rho::Barcode.take({}, url_for(:action => :scan_received_callback))
-    redirect :action => :await_scanner_result      
   end
   
   def scan_received_callback
     # Did we actually find a barcode ?
     # If status is not 'ok', the scan was cancelled
     if @params["status"] == "ok"
-      Rho::WebView.executeJavascript("KitchenSink.Samples.Barcode.update_scanner_result('Barcode found: #{@params["barcode"]}')")
+      Rho::WebView.executeJavascript("alert('Barcode found: #{@params["barcode"]}')")
     else
-      Rho::WebView.executeJavascript("KitchenSink.Samples.Barcode.update_scanner_result('Barcode scan cancelled')")
+      Rho::WebView.executeJavascript("alert('Barcode scan cancelled')")
     end
   end
   
@@ -39,7 +38,6 @@ class BarcodeController < Rho::RhoController
   def scan_using_chosen_scanner
     scanner = $scanners[@params["scanner_index"].to_i]
     scanner.take({}, url_for(:action => :scan_received_callback))
-    redirect :action => :await_scanner_result
   end
   
   def set_symbology
