@@ -81,6 +81,13 @@ class DatabaseController < Rho::RhoController
   end
   
   def confirm_seed_db
+    db = open_db
+    if db.isTableExist("users_sample")
+      @users = db.executeSql("Select user_id,active from users_sample")
+    else
+      @users = []
+    end
+    db.close
     render
   end 
 
