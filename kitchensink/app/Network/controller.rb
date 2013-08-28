@@ -128,6 +128,7 @@ class NetworkController < Rho::RhoController
       })
   	else
       Rho::Notification.showPopup({
+        :message => "Download Failed",
         :buttons => ["OK"]
       })
   	end
@@ -146,9 +147,9 @@ class NetworkController < Rho::RhoController
   def get_callback
     if @params['status'] == "ok"
       @@get_result = @params['body']
-      WebView.navigate(url_for(:action => :show_result))
+      Rho::WebView.navigate(url_for(:action => :show_result))
     else
-      WebView.navigate(url_for(:action => :show_error ))
+      show_error
     end
   end
   
@@ -157,9 +158,10 @@ class NetworkController < Rho::RhoController
 
   def show_error
     Rho::Notification.showPopup({
+      :message => "GET request Failed",
       :buttons => ["OK"]
     })
-    render :action => :index
+    Rho::WebView.navigate(url_for(:action => :confirm_headers_and_verbs))
   end
 
   def get_resposnse
@@ -174,22 +176,23 @@ class NetworkController < Rho::RhoController
     postProps['headers'] = {"Content-Type" => "application/json"}
     postProps['body'] = body
     postProps['httpVerb'] = "POST"
-    Rho::Network.post( postProps, url_for(:action => :post_callback)) 
-    render :action => :confirm_headers_and_verbs
+    Rho::Network.post( postProps, url_for(:action => :post_callback))
+    render :action => :transferring 
   end
 
   def post_callback
     if @params['status'] == "ok"
       Rho::Notification.showPopup({
-        :message => "Posted Success - #{@params['body']}",
+        :message => "POST request Success - #{@params['body']}",
         :buttons => ["OK"]
       })
     else
       Rho::Notification.showPopup({
-        :message => "Posted Failed - #{@params['body']}",
+        :message => "POST request Failed",
         :buttons => ["OK"]
       })
     end
+    Rho::WebView.navigate(url_for(:action => :confirm_headers_and_verbs))
     Rho::Log.info(@params, "callback results")    
   end
 

@@ -94,7 +94,7 @@ KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
 		if (params["status"] == "ok") {
 			alert(params["body"])
 		} else {
-			alert("Failed");
+			alert("GET request Failed");
 		}
 	}
 
@@ -110,9 +110,9 @@ KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
 
 	function post_callback(params) {
 		if (params["status"] == "ok") {
-			alert("POST Succeeded");
+			alert("POST request Succeeded");
 		} else {
-			alert("POST Failed");
+			alert("POST request Failed");
 		}
 	}
 	return {
