@@ -46,7 +46,7 @@ class KeystateController < Rho::RhoController
   end
   
   def hide_keystates
-    Rho::Keystate.hideStates
+    Rho::KeyState.hideStates
   end
   
 end
