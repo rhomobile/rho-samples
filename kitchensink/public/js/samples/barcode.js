@@ -47,8 +47,8 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
         // In that case, we will disable all decoders...
         Rho.Barcode.allDecoders = false;
         // ... and enable only the one we are interested in:
-        var set_symbology = _read_properties_from_form();
-        Rho.Barcode.setProperty(set_symbology["symbology"],true);
+        var params = _read_properties_from_form();
+        Rho.Barcode.setProperty(params["symbology"],true);
         // All other barcode symbologies will be ignored
         this.scan_using_default_scanner();
     }
@@ -88,8 +88,8 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
     }
 
     function set_symbology_with_ruby(){
-        var set_symbology = _read_properties_from_form();
-        $.get('/app/Barcode/set_symbology', { symbology : set_symbology["symbology"] });
+        var params = _read_properties_from_form();
+        $.get('/app/Barcode/set_symbology', { symbology : params["symbology"] });
     }
 
     function scan_with_ruby(scanner_index){
