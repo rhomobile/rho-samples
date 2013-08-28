@@ -92,7 +92,7 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
         $.get('/app/Barcode/set_symbology', { symbology : set_symbology["symbology"] });
     }
 
-    function enumerate_scanners_with_ruby(scanner_index){
+    function scan_with_ruby(scanner_index){
        $.get('/app/Barcode/scan_using_chosen_scanner', { scanner_index : scanner_index }); 
     }
 
@@ -118,7 +118,7 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
 		update_scanner_result : update_scanner_result,
         scan_using_default_scanner_with_ruby : scan_using_default_scanner_with_ruby,
         set_symbology_with_ruby : set_symbology_with_ruby,
-        enumerate_scanners_with_ruby : enumerate_scanners_with_ruby,
+        scan_with_ruby : scan_with_ruby,
         set_audible_options_with_ruby : set_audible_options_with_ruby,
         set_properties_with_ruby : set_properties_with_ruby
 	};

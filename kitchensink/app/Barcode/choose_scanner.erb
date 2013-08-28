@@ -14,8 +14,9 @@
   <div data-role="content">
     <div class="sample ruby">
       <% $scanners.each_with_index do |scanner, index| %>
-        <a href="#" onclick="KitchenSink.Samples.Barcode.enumerate_scanners_with_ruby('<%= index %>')" data-role="button"><%= scanner.friendlyName || scanner.scannerType %></a> 
+        <a href="#" data-ajax="false" onclick="KitchenSink.Samples.Barcode.scan_with_ruby(<%= index %>)" data-role="button"><%= scanner.friendlyName || scanner.scannerType %></a> 
       <% end %>
+      <a href="<%= url_for :action => :enumerate_scanners %>" data-role="button" data-ajax="false" >Enumerate scanners</a>      
     </div>
       
     <div class="sample javascript">
