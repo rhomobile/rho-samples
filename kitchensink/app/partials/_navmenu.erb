@@ -239,7 +239,6 @@
         <ul data-role="listview" data-inset="true">
           <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS") && !Rho::System.isRhoSimulator %>
             <li><a href="<%= url_for :controller => :Screenorientation, :action => :auto_rotate %>">Auto-rotate</a></li>
-            <li><a href="<%= url_for :controller => :Screenorientation, :action => :confirm_set_callback %>">Detect changes</a></li> 
             <li><a href="<%= url_for :controller => :Screenorientation, :action => :change_orientations %>">Change orientation</a></li> 
           <% else %>
             <li>Screen orientation is supported on Android, iOS and Windows Mobile</li>
