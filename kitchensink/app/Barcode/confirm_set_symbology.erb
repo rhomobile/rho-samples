@@ -5,7 +5,7 @@
 <div data-role="content">
 
   <%= render :partial => "/partials/example_header", :locals => {:title => "Set symbology", :description => "
-    Enabling only a subset of all recognized symbologies can speed up recognition
+    Enabling only a subset of all recognized symbologies can speed up recognition. This sample will let you enable a single symbology from a preset list and will automatically attempt to scan a barcode afterwards. Please check the source code for more details.
   " }
   %>
   <% if (Rho::System.isMotorolaDevice) %> 
@@ -13,9 +13,9 @@
       <form action ="<%= url_for(:action => :set_symbology) %>">
         <div data-role="controlgroup">
           Choose symbology
-          <label><input type="radio" name="symbology" value="upca" checked>upca</label>
-          <label><input type="radio" name="symbology" value="code128">code128</label>
-          <label><input type="radio" name="symbology" value="qrCode">qrCode</label>
+          <label><input type="radio" name="symbology" value="upca" checked>UPCA</label>
+          <label><input type="radio" name="symbology" value="code128">Code128</label>
+          <label><input type="radio" name="symbology" value="qrCode">QR code</label>
         </div>
         
         <div class="sample ruby">
