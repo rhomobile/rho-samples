@@ -9,7 +9,7 @@
     " }
     %>
 
-  <% if (Rho::System.platform != "APPLE ") %>
+  <% if (Rho::System.platform == "ANDROID" ||  Rho::System.platform == "WINDOWS") &&  Rho::System.isMotorolaDevice %>
     <%= render :partial => "/partials/language_tabs" %>
     <form action ="<%= url_for(:action => :show_signal_icon) %>">
       <div data-role="controlgroup">
@@ -32,7 +32,7 @@
     </form>
 
   <% else %>
-    The signal indicator is not supported on iOS
+    The signal indicator is supported on a subset of Motorola Solutions' Windows Mobile and android
   <% end %>
   
   </div>

@@ -9,7 +9,7 @@
     " }
     %>
 
-    <% if (Rho::System.isMotorolaDevice) %>     
+    <% if (Rho::System.platform == "ANDROID" ||  Rho::System.platform == "WINDOWS") &&  Rho::System.isMotorolaDevice %>     
 
       <%= render :partial => "/partials/language_tabs" %>
       <form action ="<%= url_for(:action => :show_battery_icon) %>">
@@ -34,7 +34,7 @@
     </div>
 
   <% else %>
-    The battery icon is supported only on Motorola Solutions devices
+    The battery icon is supported on a subset of Motorola Solutions' Windows Mobile and android
   <% end %>
 
 </div>
