@@ -13,16 +13,15 @@ class BarcodeController < Rho::RhoController
   def scan_using_default_scanner
     # Scan with default options
     Rho::Barcode.take({}, url_for(:action => :scan_received_callback))
-    redirect :action => :await_scanner_result      
   end
   
   def scan_received_callback
     # Did we actually find a barcode ?
     # If status is not 'ok', the scan was cancelled
     if @params["status"] == "ok"
-      Rho::WebView.executeJavascript("KitchenSink.Samples.Barcode.update_scanner_result('Barcode found: #{@params["barcode"]}')")
+      Rho::WebView.executeJavascript("alert('Barcode found: #{@params["barcode"]}')")
     else
-      Rho::WebView.executeJavascript("KitchenSink.Samples.Barcode.update_scanner_result('Barcode scan cancelled')")
+      Rho::WebView.executeJavascript("alert('Barcode scan cancelled')")
     end
   end
   
@@ -39,7 +38,6 @@ class BarcodeController < Rho::RhoController
   def scan_using_chosen_scanner
     scanner = $scanners[@params["scanner_index"].to_i]
     scanner.take({}, url_for(:action => :scan_received_callback))
-    redirect :action => :await_scanner_result
   end
   
   def set_symbology
@@ -47,11 +45,21 @@ class BarcodeController < Rho::RhoController
     # In that case, we will disable all decoders...
     Rho::Barcode.allDecoders = false
     # ... and enable only the one we are interested in:
-    Rho::Barcode.upca = true
+    get_symbology
     # All other barcode symbologies will be ignored
     scan_using_default_scanner      
   end
   
+  def get_symbology
+    if @params["symbology"] == "upca"
+      Rho::Barcode.upca = true
+    elsif @params["symbology"] == "code128"
+      Rho::Barcode.code128=true
+    else
+      Rho::Barcode.qrCode=true
+    end
+  end
+
   def control_properties_sample
     # There are over 200 properties to fine-tune the barcode scanner functionality and adapt it to suit your application.
     # Almost all properties depend on the scanner hardware for support, please check the documentation to see if your device
