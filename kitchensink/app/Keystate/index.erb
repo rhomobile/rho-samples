@@ -12,9 +12,9 @@
     <%= render :partial => "/partials/language_tabs" %>
     
     <div class="sample ruby">
-      <a data-role="button" href="<%= url_for :action => show_keystates_top %>">Show key states (top)</a>
-      <a data-role="button" href="<%= url_for :action => show_keystates_bottom %>">Show key states (bottom)</a>      
-      <a data-role="button" href="<%= url_for :action => hide_keystates %>">Hide key states</a>
+      <a data-role="button" href="<%= url_for :action => :show_keystates_top %>">Show key states (top)</a>
+      <a data-role="button" href="<%= url_for :action => :show_keystates_bottom %>">Show key states (bottom)</a>      
+      <a data-role="button" href="<%= url_for :action => :hide_keystates %>">Hide key states</a>
     </div>
     
     <div class="sample javascript">
