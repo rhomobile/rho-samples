@@ -12,13 +12,14 @@
     <%= render :partial => "/partials/language_tabs" %>
     
     <div class="sample ruby">
-      <a data-role="button" href="<%= url_for :action => show_keystates_top %>">Show key states (top)</a>
-      <a data-role="button" href="<%= url_for :action => show_keystates_bottom %>">Show key states (bottom)</a>      
-      <a data-role="button" href="<%= url_for :action => hide_keystates %>">Hide key states</a>
+      <a data-role="button" href="<%= url_for :action => :show_keystates_top %>">Show key states (top)</a>
+      <a data-role="button" href="<%= url_for :action => :show_keystates_bottom %>">Show key states (bottom)</a>      
+      <a data-role="button" href="<%= url_for :action => :hide_keystates %>">Hide key states</a>
     </div>
     
     <div class="sample javascript">
-      <a href="#" data-role="button" onclick="KitchenSink.Samples.Keystate.show_keystates()">Show key states</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Keystate.show_keystates_top()">Show key states (top)</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Keystate.show_keystates_bottom()">Show key states (bottom)</a>
       <a href="#" data-role="button" onclick="KitchenSink.Samples.Keystate.hide_keystates()">Hide key states</a>
     </div>
     

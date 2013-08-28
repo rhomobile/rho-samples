@@ -5,20 +5,28 @@
 <div data-role="content">
 
   <%= render :partial => "/partials/example_header", :locals => {:title => "Set symbology", :description => "
-    Enabling only a subset of all recognized symbologies can speed up recognition
+    Enabling only a subset of all recognized symbologies can speed up recognition. This sample will let you enable a single symbology from a preset list and will automatically attempt to scan a barcode afterwards. Please check the source code for more details.
   " }
   %>
   <% if (Rho::System.isMotorolaDevice) %> 
     <%= render :partial => "/partials/language_tabs" %>
+      <form action ="<%= url_for(:action => :set_symbology) %>">
+        <div data-role="controlgroup">
+          Choose symbology
+          <label><input type="radio" name="symbology" value="upca" checked>UPCA</label>
+          <label><input type="radio" name="symbology" value="code128">Code128</label>
+          <label><input type="radio" name="symbology" value="qrCode">QR code</label>
+        </div>
+        
+        <div class="sample ruby">
+          <a href="#" onclick="KitchenSink.Samples.Barcode.set_symbology_with_ruby()" data-role="button">Set symbology</a>
+        </div>
 
-    <div class="sample ruby">
-          <a href="<%= url_for(:action => :scan_using_default_scanner) %>" data-role="button">Set symbology</a> 
-    </div>
-
-    <div class="sample javascript">
+        <div class="sample javascript">
           <a href="#" onclick="KitchenSink.Samples.Barcode.set_symbology()" data-role="button">Set symbology</a>
-    </div>
+        </div>
+      </form>
   <% else %>
-  Controlling the symbology is only supported on Motorola Solutions devices
+    Controlling the symbology is only supported on Motorola Solutions devices
   <% end %>  
 </div>

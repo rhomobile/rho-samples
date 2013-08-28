@@ -10,9 +10,9 @@
     %>
 
     <%= render :partial => "/partials/language_tabs" %>
-    <% if (Rho::System.platform == "WINDOWS" || Rho::System.platform == "WINDOWS_DESKTOP") %> 
+    <% if (Rho::System.platform == "WINDOWS" || Rho::System.platform == "WINDOWS_DESKTOP") || Rho::System.isRhoSimulator %> 
       <div class="sample ruby">
-        <a data-role="button" href="<%= url_for :action => :minimize_app %>">Minimize application</a>
+        <a data-role="button" data-ajax="false" href="<%= url_for :action => :minimize_app %>">Minimize application</a>
       </div>
       
       <div class="sample javascript">
