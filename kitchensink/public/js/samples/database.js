@@ -13,24 +13,6 @@ KitchenSink.Samples.Database = KitchenSink.Samples.Database || (function() {
 	    db.close();
 	}
 	
-	function export_db() {
-	   // export database
-	   var db = open_db();
-	   var export_path = db.export();
-	   db.close();
-	   alert("Export path - " + export_path);
-	}
-	
-	function import_db() {
-		// export database
-		var db = open_db();
-		var export_path = db.export();
-		db.close();
-		
-		db = open_db();
-		db.import(export_path);
-	    alert("Database Import Succeeded");
-	}
 	
 	function seed_db() {
 		var db = open_db();
@@ -91,8 +73,6 @@ KitchenSink.Samples.Database = KitchenSink.Samples.Database || (function() {
 
 	return {
 		init_db : init_db,
-		export_db : export_db,
-		import_db : import_db,
 		seed_db : seed_db,
 		transactions: transactions
 	};
