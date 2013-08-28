@@ -5,9 +5,9 @@ KitchenSink.Samples.Keystate = KitchenSink.Samples.Keystate || (function() {
 	  }
 
 	  function show_keystates_top() {
-	    var margin = 10;
-	    var height = 20;
-	    var width = 20;
+	    var margin = 40;
+	    var height = 25;
+	    var width = 25;
 	    var right = Rho.System.screenWidth - margin;
 	        
 	    show_keystates( {
@@ -21,8 +21,8 @@ KitchenSink.Samples.Keystate = KitchenSink.Samples.Keystate || (function() {
 	  
 	  function show_keystates_bottom() {
 	    var margin = 10;
-	    var height = 20;
-	    var width = 20;
+	    var height = 25;
+	    var width = 25;
 	    var top = Rho.System.screenHeight - margin - height;
 	    var right = Rho.System.screenWidth - margin;
 	    
@@ -34,9 +34,14 @@ KitchenSink.Samples.Keystate = KitchenSink.Samples.Keystate || (function() {
 	    });
 	  }
 	  
+	  function hide_keystates() {
+	  	Rho.KeyState.hideStates();
+	  }
+
 	return {
 		show_keystates_top : show_keystates_top,
-		show_keystates_bottom : show_keystates_bottom
+		show_keystates_bottom : show_keystates_bottom,
+		hide_keystates : hide_keystates
 	};
 
 })();

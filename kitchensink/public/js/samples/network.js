@@ -26,15 +26,19 @@ KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
 	}
 
 	function upload_file() {
-		// Upload the specified file using HTTP POST.
-		uploadfileProps = {
-			url: "http://www.example.com",
-			filename: Rho.RhoFile.join(Rho.RhoFile.join(Rho.Application.publicFolder, "images"), "backButton.png"),
-			body: "uploading file",
-			fileContentType: "image/png"
-		};
-		
-		Rho.Network.uploadFile(uploadfileProps, upload_file_callback);
+		if (Rho.Network.hasNetwork() == true){
+			// Upload the specified file using HTTP POST.
+			uploadfileProps = {
+				url: "http://www.example.com",
+				filename: Rho.RhoFile.join(Rho.RhoFile.join(Rho.Application.publicFolder, "images"), "backButton.png"),
+				body: "uploading file",
+				fileContentType: "image/png"
+			};
+			
+			Rho.Network.uploadFile(uploadfileProps, upload_file_callback);
+		}else{
+			alert("Network is not available")
+		}
 	}
 
 	function download_file_callback(params) {
@@ -46,13 +50,17 @@ KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
 	}
 
 	function download_file() {
-		// Download a file to the specified filename. Be careful with the overwriteFile parameter!
-		downloadfileProps = {
-			url: "http://www.google.com/images/icons/product/chrome-48.png",
-			filename: Rho.RhoFile.join(Rho.Application.userFolder, "sample.png"),
-			overwriteFile: true
-		};
-		Rho.Network.downloadFile(downloadfileProps, download_file_callback);
+		if (Rho.Network.hasNetwork() == true){
+			// Download a file to the specified filename. Be careful with the overwriteFile parameter!
+			downloadfileProps = {
+				url: "http://www.google.com/images/icons/product/chrome-48.png",
+				filename: Rho.RhoFile.join(Rho.Application.userFolder, "sample.png"),
+				overwriteFile: true
+			};
+			Rho.Network.downloadFile(downloadfileProps, download_file_callback);
+		}else{
+			alert("Network is not available")
+		}
 	}
 
 	function network_availability() {
@@ -68,14 +76,18 @@ KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
 	}
 
 	function basic_auth() {
-		getProps = {
-			url: "http://rhodes-basic-auth.herokuapp.com/secret.json",
-			headers: { "Content-Type": "application/json" },
-			authType: "basic",
-			authUser: "test",
-			authPassword: "test12345"
-		};
-		Rho.Network.get(getProps, auth_callback);
+		if (Rho.Network.hasNetwork() == true){
+			getProps = {
+				url: "http://rhodes-basic-auth.herokuapp.com/secret.json",
+				headers: { "Content-Type": "application/json" },
+				authType: "basic",
+				authUser: "test",
+				authPassword: "test12345"
+			};
+			Rho.Network.get(getProps, auth_callback);
+		}else{
+			alert("Network is not available")
+		}
 	}
 
 	function auth_callback(params) {
@@ -83,36 +95,45 @@ KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
 	}
 	
 	function get() {
-		getProps = {
+		if (Rho.Network.hasNetwork() == true){
+			getProps = {
 			url: "http://www.apache.org/licenses/LICENSE-2.0",
 			headers: { "Content-Type": "application/json" }
-		};
-		Rho.Network.get(getProps, get_callback);
+			};
+			Rho.Network.get(getProps, get_callback);	
+		}else{
+			alert("Network is not available")
+		}
+		
 	}
 
 	function get_callback(params) {
 		if (params["status"] == "ok") {
 			alert(params["body"])
 		} else {
-			alert("Failed");
+			alert("GET request Failed");
 		}
 	}
 
 	function post() {
-		var body = '{"product" : {"name" : "test_name", "brand" : "test_brand", "sku" : "1" , "price" : "$2000" , "quantity" : "2" } }';
-		postProps = {
-			url: "http://rhostore.herokuapp.com/products.json",
-			headers: { "Content-Type": "application/json" },
-			body: body
-		};
-		Rho.Network.post(postProps, post_callback);
+		if (Rho.Network.hasNetwork() == true){
+			var body = '{"product" : {"name" : "test_name", "brand" : "test_brand", "sku" : "1" , "price" : "$2000" , "quantity" : "2" } }';
+			postProps = {
+				url: "http://rhostore.herokuapp.com/products.json",
+				headers: { "Content-Type": "application/json" },
+				body: body
+			};
+			Rho.Network.post(postProps, post_callback);
+		}else{
+			alert("Network is not available")
+		}
 	}
 
 	function post_callback(params) {
 		if (params["status"] == "ok") {
-			alert("POST Succeeded");
+			alert("POST request Succeeded");
 		} else {
-			alert("POST Failed");
+			alert("POST request Failed");
 		}
 	}
 	return {
