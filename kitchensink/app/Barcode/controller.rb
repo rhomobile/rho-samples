@@ -26,8 +26,13 @@ class BarcodeController < Rho::RhoController
     end
   end
   
-  def choose_scanner
+  def enumerate_scanners
     $scanners = Rho::Barcode.enumerate
+    redirect :action => :choose_scanner
+  end
+
+  def choose_scanner
+    $scanners = $scanners || []
     render
   end
     

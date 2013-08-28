@@ -18,7 +18,7 @@ KitchenSink.Samples.Battery = KitchenSink.Samples.Battery || (function() {
 
  	function show_battery_icon() {
  		var layout_property = _read_icon_layout_from_form();
- 		Rho.Battery.showIcon({ color : '#FF0000' , layout : layout_property["iconLayout"] });
+ 		Rho.Battery.showIcon({ left: 0, top: 40, color : '#FF0000' , layout : layout_property["iconLayout"] });
  	}
 
  	function hide_battery_icon() {

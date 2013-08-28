@@ -5,7 +5,16 @@
   <div data-role="content">
   
     <%= render :partial => "/partials/example_header", :locals => {:title => "Transactions", :description => "
-      Transactions
+      Please note: this sample requires you to first run \"Seed DB\".<br>
+
+      The table below shows the contents of the Users table. This sample will:
+      <ul>
+        <li>Execute the following SQL: Delete from users_sample where active = 1</li>
+        <li>Rollback the transaction</li>
+        <li>Change active to false for users 2, 3, 4 and 5 </li>
+        <li>Commit the transaction</li>
+      </ul>
+      The end result is that the first SQL statement (delete from users_sample) will have no effect because the first transaction will be rolled back and only the second set of changes will persist. The code is commented so that you can follow along.
     " }
     %>
 
