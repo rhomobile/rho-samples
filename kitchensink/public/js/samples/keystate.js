@@ -42,7 +42,6 @@ KitchenSink.Samples.Keystate = KitchenSink.Samples.Keystate || (function() {
 		show_keystates_top : show_keystates_top,
 		show_keystates_bottom : show_keystates_bottom,
 		hide_keystates : hide_keystates
-
 	};
 
 })();
