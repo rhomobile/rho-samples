@@ -87,14 +87,19 @@ class NetworkController < Rho::RhoController
   end
 
   def upload_file
-    # Upload the specified file using HTTP POST.
-    uploadfileProps = Hash.new
-    uploadfileProps["url"] = "http://www.example.com"
-    uploadfileProps["filename"] = Rho::RhoFile.join(Rho::RhoFile.join(Rho::Application.publicFolder,"images"),"backButton.png")
-    uploadfileProps["body"] = "uploading file"
-    uploadfileProps["fileContentType"]="image/png"
-    Rho::Network.uploadFile(uploadfileProps, url_for(:action => :upload_file_callback))
-    render :action => :transferring
+    if Rho::Network.hasNetwork
+      # Upload the specified file using HTTP POST.
+      uploadfileProps = Hash.new
+      uploadfileProps["url"] = "http://www.example.com"
+      uploadfileProps["filename"] = Rho::RhoFile.join(Rho::RhoFile.join(Rho::Application.publicFolder,"images"),"backButton.png")
+      uploadfileProps["body"] = "uploading file"
+      uploadfileProps["fileContentType"]="image/png"
+      Rho::Network.uploadFile(uploadfileProps, url_for(:action => :upload_file_callback))
+      render :action => :transferring
+    else
+      show_popup("Network is not available")
+      redirect :action => :confirm_download
+    end
   end
 
   def upload_file_callback
@@ -105,11 +110,7 @@ class NetworkController < Rho::RhoController
         :buttons => ["OK"]
       })
   	else
-      Rho::Notification.showPopup({
-        :title => "RhoMobile 4.0 Kitchen Sink",
-        :message => "Upload Failed",
-        :buttons => ["OK"]
-      })
+      show_popup("Upload Failed")
   	end
     Rho::WebView.navigate(url_for(:action => :confirm_upload))  	
   end
@@ -119,13 +120,18 @@ class NetworkController < Rho::RhoController
   end
   
   def download_file
-    # Download a file to the specified filename. Be careful with the overwriteFile parameter!
-    downloadfileProps = Hash.new
-    downloadfileProps["url"]='http://www.google.com/images/icons/product/chrome-48.png'
-    downloadfileProps["filename"] = Rho::RhoFile.join(Rho::Application.userFolder, "sample.png")
-    downloadfileProps["overwriteFile"] = true
-    Rho::Network.downloadFile(downloadfileProps, url_for(:action => :download_file_callback))
-    render :action => :transferring
+    if Rho::Network.hasNetwork
+      # Download a file to the specified filename. Be careful with the overwriteFile parameter!
+      downloadfileProps = Hash.new
+      downloadfileProps["url"]='http://www.google.com/images/icons/product/chrome-48.png'
+      downloadfileProps["filename"] = Rho::RhoFile.join(Rho::Application.userFolder, "sample.png")
+      downloadfileProps["overwriteFile"] = true
+      Rho::Network.downloadFile(downloadfileProps, url_for(:action => :download_file_callback))
+      render :action => :transferring
+    else
+      show_popup("Network is not available")
+      redirect :action => :confirm_download
+     end
   end
   
   def download_file_callback
@@ -136,22 +142,23 @@ class NetworkController < Rho::RhoController
         :buttons => ["OK"]
       })
   	else
-      Rho::Notification.showPopup({
-        :title => "RhoMobile 4.0 Kitchen Sink",
-        :message => "Download Failed",
-        :buttons => ["OK"]
-      })
+      show_popup("Download Failed")
   	end
   	Rho::WebView.navigate(url_for(:action => :confirm_download))
   end
 
   def get
-    #Perform an HTTP GET request.
-    getProps = Hash.new
-    getProps['url'] = "http://www.apache.org/licenses/LICENSE-2.0"
-    getProps['headers'] = {"Content-Type" => "application/json"}
-    Rho::Network.get(getProps, url_for(:action => :get_callback))
-    render :action => :transferring
+    if Rho::Network.hasNetwork
+      #Perform an HTTP GET request.
+      getProps = Hash.new
+      getProps['url'] = "http://www.apache.org/licenses/LICENSE-2.0"
+      getProps['headers'] = {"Content-Type" => "application/json"}
+      Rho::Network.get(getProps, url_for(:action => :get_callback))
+      render :action => :transferring
+    else
+      show_popup("Network is not available")
+      redirect :action => :confirm_headers_and_verbs
+    end
   end
   
   def get_callback
@@ -159,20 +166,17 @@ class NetworkController < Rho::RhoController
       @@get_result = @params['body']
       Rho::WebView.navigate(url_for(:action => :show_result))
     else
-      show_error
+      show_popup("GET request Failed")
+      Rho::WebView.navigate(url_for(:action => url))
     end
   end
   
-  def show_result
-  end
-
-  def show_error
+  def show_popup(message)
     Rho::Notification.showPopup({
       :title => "RhoMobile 4.0 Kitchen Sink",
-      :message => "GET request Failed",
+      :message => message,
       :buttons => ["OK"]
     })
-    Rho::WebView.navigate(url_for(:action => :confirm_headers_and_verbs))
   end
 
   def get_resposnse
@@ -180,15 +184,20 @@ class NetworkController < Rho::RhoController
   end
 
   def post
-    #Download a file to the specified filename.
-    body = '{"product" : {"name" : "test_name", "brand" : "test_brand", "sku" : "1" , "price" : "$2000" , "quantity" : "2" } }'   
-    postProps = Hash.new
-    postProps['url'] = "http://rhostore.herokuapp.com/products.json"
-    postProps['headers'] = {"Content-Type" => "application/json"}
-    postProps['body'] = body
-    postProps['httpVerb'] = "POST"
-    Rho::Network.post( postProps, url_for(:action => :post_callback))
-    render :action => :transferring 
+    if Rho::Network.hasNetwork
+      #Download a file to the specified filename.
+      body = '{"product" : {"name" : "test_name", "brand" : "test_brand", "sku" : "1" , "price" : "$2000" , "quantity" : "2" } }'   
+      postProps = Hash.new
+      postProps['url'] = "http://rhostore.herokuapp.com/products.json"
+      postProps['headers'] = {"Content-Type" => "application/json"}
+      postProps['body'] = body
+      postProps['httpVerb'] = "POST"
+      Rho::Network.post( postProps, url_for(:action => :post_callback))
+      render :action => :transferring
+    else
+      show_popup("Network is not available")
+      redirect :action => :confirm_headers_and_verbs
+    end
   end
 
   def post_callback
@@ -199,11 +208,7 @@ class NetworkController < Rho::RhoController
         :buttons => ["OK"]
       })
     else
-      Rho::Notification.showPopup({
-        :title => "RhoMobile 4.0 Kitchen Sink",
-        :message => "POST request Failed",
-        :buttons => ["OK"]
-      })
+      show_popup("POST request Failed")
     end
     Rho::WebView.navigate(url_for(:action => :confirm_headers_and_verbs))
     Rho::Log.info(@params, "callback results")    
@@ -214,19 +219,23 @@ class NetworkController < Rho::RhoController
   end
   
   def do_basic_auth
-    #Perform an HTTP GET request with basic authentication.
-    @response= Rho::Network.get(
-      :url => "http://rhodes-basic-auth.herokuapp.com/secret.json",
-      :headers =>  {"Content-Type" => "application/json"},
-      :authType => :basic,
-      :authUser => "test",
-      :authPassword => "test12345"
-    )
-    Rho::Notification.showPopup({
-      :title => "RhoMobile 4.0 Kitchen Sink",
-      :message => "#{@response['body']}",
-      :buttons => ["OK"]
-    })
+    if Rho::Network.hasNetwork
+      #Perform an HTTP GET request with basic authentication.
+      @response= Rho::Network.get(
+        :url => "http://rhodes-basic-auth.herokuapp.com/secret.json",
+        :headers =>  {"Content-Type" => "application/json"},
+        :authType => :basic,
+        :authUser => "test",
+        :authPassword => "test12345"
+      )
+      Rho::Notification.showPopup({
+        :title => "RhoMobile 4.0 Kitchen Sink",
+        :message => "#{@response['body']}",
+        :buttons => ["OK"]
+      })
+    else
+      show_popup("Network is not available")
+    end
     redirect :action => :confirm_basic_auth
   end
 
