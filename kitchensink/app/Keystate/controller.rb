@@ -16,9 +16,9 @@ class KeystateController < Rho::RhoController
   end
 
   def show_keystates_top
-    margin = 10
-    height = 20
-    width = 20
+    margin = 40
+    height = 25
+    width = 25
     right = Rho::System.screenWidth - margin
         
     show_keystates( {
@@ -27,13 +27,13 @@ class KeystateController < Rho::RhoController
       :width => width,
       :height => height
     }) 
-    
+    redirect :action => :index
   end
   
   def show_keystates_bottom
     margin = 10
-    height = 20
-    width = 20
+    height = 25
+    width = 25
     top = Rho::System.screenHeight - margin - height
     right = Rho::System.screenWidth - margin
     
@@ -42,11 +42,13 @@ class KeystateController < Rho::RhoController
       :right => right,
       :width => width,
       :height => height,
-    }) 
+    })
+    redirect :action => :index     
   end
   
   def hide_keystates
     Rho::KeyState.hideStates
+    redirect :action => :index
   end
   
 end
