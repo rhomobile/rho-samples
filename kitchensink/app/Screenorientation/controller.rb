@@ -19,12 +19,7 @@ class ScreenorientationController < Rho::RhoController
     Rho::ScreenOrientation.setScreenOrientationEvent(url_for(:action => :orientation_callback))
     redirect :action => :confirm_set_callback
   end
-  
-  def remove_callback
-    Rho::ScreenOrientation.setScreenOrientationEvent("")
-    redirect :action => :confirm_set_callback
-  end
-  
+    
   def orientation_callback
     Rho::Notification.showPopup({
       :message => "The screen changed orientation. The new orientation is: #{@params["result"]}",

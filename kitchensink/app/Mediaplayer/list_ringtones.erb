@@ -3,8 +3,8 @@
 <%= render :partial => "/partials/page_head" %>
   
 <div data-role="content">
- <%= render :partial => "/partials/example_header", :locals => {:title => "Mediaplayer- Show all ringtones and play them", :description => "
-      Click on a ringtone to play it    
+ <%= render :partial => "/partials/example_header", :locals => {:title => "Show all ringtones / play them", :description => "
+      Enumerate all the ringtones available on the device and show them in an HTML list. When a ringtone is clicked, it will be played.
     " }
     %>
 
@@ -36,7 +36,7 @@
     	</div>
     </div>
   <% else %>
-    Show all ringtones and play them  is supported only on Android and Windows Mobile
+    Show all ringtones and play them is supported only on Android and Windows Mobile
   <% end %>
 
 </div>
