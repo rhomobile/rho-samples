@@ -49,6 +49,20 @@
       </ul>
     </div>
   
+    <div data-role="collapsible" data-filter="camera picture image gallery">
+      <h3>Camera</h3>
+      
+      <ul data-role="listview" data-inset="true">
+        <% if Rho::System.hasCamera %>
+          <li><a href="<%= url_for :controller => :Camera, :action => :confirm_take_picture_with_default_camera %>">Take a picture with default camera/settings</a></li>
+          <li><a href="<%= url_for :controller => :Camera, :action => :confirm_select_picture_from_gallery %>">Select picture from gallery</a></li>
+          <li><a href="<%= url_for :controller => :Camera, :action => :confirm_take_picture_and_save_it_to_gallery %>">Take picture and save it to the gallery</a></li>
+        <% else %>
+          <li>This device does not have a camera</li>
+        <% end %>
+      </ul>
+    </div>
+ 
     <div data-role="collapsible"  data-filter="cardreader card reader msr magnetic stripe credit identification">
       <h3>Card reader</h3>
       

@@ -1,0 +1,22 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Take picture and save it to the gallery", :description => "
+  " }
+  %>
+
+  <%= render :partial => "/partials/language_tabs" %>
+
+  <div data-role="content">
+    <div class="sample ruby">
+          <a href="<%= url_for(:action => :take_picture_and_save_it_to_gallery) %>" data-role="button" data-ajax="false">Take picture</a> 
+    </div>
+    <div class="sample javascript">
+      This sample is available only in Ruby
+    </div>    
+  </div>
+
+</div>
