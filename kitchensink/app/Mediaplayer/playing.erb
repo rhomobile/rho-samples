@@ -4,17 +4,16 @@
     
   <div data-role="content">
   
-    <%= render :partial => "/partials/example_header", :locals => {:title => "Mediaplayer- Show all ringtones and play them", :description => "
-      It will list all the ringtones available on the device and show them in an HTML list. When a ringtone is clicked, it will be played.    
+    <%= render :partial => "/partials/example_header", :locals => {:title => "Stop RingTone", :description => "
+      Stop the currently playing ringtone.
     " }
     %>
 
     <%= render :partial => "/partials/language_tabs" %>
 
   	<div>
-	Playing: <%= $selected %><br/>
-  <a href="<%= url_for :action => :stop %>" data-role="button">Stop</a>
-	</div>
-
+	    Playing: <%= $selected %><br/>
+      <a href="<%= url_for :action => :stop %>" data-role="button">Stop</a>
+	  </div>
 
 </div>
