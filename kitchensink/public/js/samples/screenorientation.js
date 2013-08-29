@@ -11,14 +11,6 @@ KitchenSink.Samples.Screenorientation = KitchenSink.Samples.Screenorientation ||
 		alert("The screen changed orientation. The new orientation is "+params);
 	}
 	
-	function set_callback() {
-		Rho.ScreenOrientation.setScreenOrientationEvent(orientation_callback);
-	}
-	
-	function remove_callback() {
-		Rho.ScreenOrientation.setScreenOrientationEvent(null);
-	}
-	
 	function left_handed() {
 		Rho.ScreenOrientation.leftHanded();
 	}
@@ -37,8 +29,6 @@ KitchenSink.Samples.Screenorientation = KitchenSink.Samples.Screenorientation ||
 	
 	return {
 		toggle_autorotation: toggle_autorotation,
-		set_callback: set_callback,
-		remove_callback : remove_callback,
 		upside_down: upside_down,
 		left_handed: left_handed,
 		right_handed: right_handed,
