@@ -1,0 +1,24 @@
+<div data-role="page">
+
+  <%= render :partial => "/partials/page_head" %>
+    
+  <div data-role="content">
+  
+    <%= render :partial => "/partials/example_header", :locals => {:title => "ScreenOrientation - set callback ", :description => "
+      This example will call the callback event when screen orientation occurs
+       " }
+    %>
+
+    <%= render :partial => "/partials/language_tabs" %>
+    
+    <div class="sample ruby">
+      <a href="<%= url_for :action => :set_callback %>" data-role="button">Start detecting changes</a>
+    </div>
+    
+    <div class="sample javascript">
+          <a href="#" data-role="button" onclick="KitchenSink.Samples.Screenorientation.set_callback()">Start detecting changes</a>
+    </div>
+    
+    
+  </div>
+</div>
