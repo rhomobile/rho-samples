@@ -5,10 +5,7 @@ require 'helpers/browser_helper'
 
 class MediaplayerController < Rho::RhoController
 	include BrowserHelper
-	def play_all
-		render
-	end
-	
+
 	def load_ringtones
 		Rho::Mediaplayer.getAllRingtones(url_for(:action => :mediaplayer_callback))
 		render :action => :loading
@@ -19,7 +16,7 @@ class MediaplayerController < Rho::RhoController
 	 	Rho::WebView.navigate(url_for(:action => :list_ringtones))
  	end
  
- def list_ringtones
+ 	def list_ringtones
 		render
 	end
 
