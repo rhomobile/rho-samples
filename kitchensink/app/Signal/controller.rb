@@ -16,7 +16,7 @@ class SignalController < Rho::RhoController
   end
 
   def show_signal_icon
-  	Rho::SignalIndicators.showIcon({color:'#FF0000',layout: @params['iconLayout']})
+  	Rho::SignalIndicators.showIcon({color=>'#FF0000',layout=>@params['iconLayout']})
   	redirect :confirm_signal_indicator
   end
 
