@@ -98,7 +98,7 @@ class NetworkController < Rho::RhoController
       render :action => :transferring
     else
       show_popup("Network is not available")
-      redirect :action => :confirm_download
+      redirect :action => :confirm_upload
     end
   end
 
