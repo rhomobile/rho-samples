@@ -7,7 +7,7 @@ class BatteryController < Rho::RhoController
   include BrowserHelper
 
   def battery_status
-    battery_values = Rho::Battery.batteryStatus({:trigger => @params['trigger']})
+    battery_values = Rho::Battery.batteryStatus({})
     puts "Battery Event Fired: #{battery_values}--------------battery_status_callback-------------------"
     Rho::Notification.showPopup({
         :message => "AC Line Status: #{battery_values["acLineStatus"]},Battery Life Percent: #{battery_values["batteryLifePercent"]}",
