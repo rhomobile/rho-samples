@@ -10,14 +10,18 @@
     %>
 
     <%= render :partial => "/partials/language_tabs" %>
-    
+    <form action ="<%= url_for(:action => :set_properties) %>">
+      <div data-role="controlgroup">
+        <label><input type="radio" name="property" value="autoTab" checked>AutoTab</label>
+        <label><input type="radio" name="property" value="autoEnter">AutoEnter</label>
+      </div>
     <div class="sample ruby">
-      <a data-role="button" href="<%= url_for(:action => :set_properties) %>">Setting card reader properties</a>
+      <input type="submit" data-role="button" value="Setting card reader properties">
     </div>
     
     <div class="sample javascript">
           <a href="#" data-role="button" onclick="KitchenSink.Samples.CardReader.setProperties()">Setting card reader properties</a>
     </div>
-    
+    </form>
     
   </div>
