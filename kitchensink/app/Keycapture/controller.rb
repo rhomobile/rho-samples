@@ -24,7 +24,7 @@ class KeycaptureController < Rho::RhoController
   end
   
   def stop_keycapture
-    Rho::KeyCapture.captureKey(false,"all", "")
+    Rho::KeyCapture.captureKey(true,"all")
     redirect :action => :index
   end
 end
