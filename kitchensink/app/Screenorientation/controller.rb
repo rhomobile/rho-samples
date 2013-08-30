@@ -22,6 +22,7 @@ class ScreenorientationController < Rho::RhoController
     
   def orientation_callback
     Rho::Notification.showPopup({
+      :title => "RhoMobile 4.0 Kitchen Sink",
       :message => "The screen changed orientation. The new orientation is: #{@params["result"]}",
       :buttons => ["OK"]
     })

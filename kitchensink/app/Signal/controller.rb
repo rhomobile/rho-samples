@@ -9,6 +9,7 @@ class SignalController < Rho::RhoController
   def signal_status
     signal_values = Rho::SignalIndicators.wlanStatus()
     Rho::Notification.showPopup({
+        :title => "RhoMobile 4.0 Kitchen Sink",
         :message => "Signal Status:\nStrength: #{signal_values["signalStrength"]}\nESS ID: #{signal_values["essid"]}\nMacAddress: #{signal_values["macAddress"]}\nAdapterName: #{signal_values["adapterName"]}\nDHCP Server: #{signal_values["dhcpServer"]}\nDHCP Static: #{signal_values["dhcpStatic"]}\nGateway: #{signal_values["gateway"]},\nIP Address: #{signal_values["ipAddress"]},\nRSSI: #{signal_values["rssi"]},\nSubnet Mask: #{signal_values["subnetMask"]},\nWins: #{signal_values["wins"]}",
         :buttons => ["OK"]
       })

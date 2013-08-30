@@ -26,6 +26,7 @@ class SensorsController < Rho::RhoController
       $accelerometer_sensor.start("callback: #{url_for(:action => :accelerometer_callback)}")
     else
       Rho::Notification.showPopup({
+        :title => "RhoMobile 4.0 Kitchen Sink",
         :message => "Device has not Accelerometer sensor",
         :buttons => ["OK"]
       })

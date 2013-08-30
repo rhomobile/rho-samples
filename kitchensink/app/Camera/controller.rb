@@ -58,6 +58,7 @@ class CameraController < Rho::RhoController
       # If so, save it to the gallery
       Camera::save_image_to_device_gallery(Rho::Application.expandDatabaseBlobFilePath(@params["image"]))
       Rho::Notification.showPopup({
+        :title => "RhoMobile 4.0 Kitchen Sink",
         :message => "Image saved to gallery",
         :buttons => ["OK"]
       })
