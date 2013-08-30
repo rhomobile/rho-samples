@@ -6,14 +6,14 @@ KitchenSink.Samples.NativeTabbar = KitchenSink.Samples.NativeTabbar || (function
 		links.each(function(index) {
 			urls.push($(links[index]).attr("href"));
 		});
-		
+
 		return urls;
 	}
 
 	function tabbarCallback(params) {
-		if (params["tabEvent"] == "onTabFocus") {
-			var newIndex = params["tab_index"];
-			alert("Switching to tab number "+newIndex);
+		if (params.tabEvent == "onTabFocus") {
+			var newIndex = params.tab_index;
+			alert("Switching to tab number " + newIndex);
 		}
 	}
 
@@ -33,15 +33,15 @@ KitchenSink.Samples.NativeTabbar = KitchenSink.Samples.NativeTabbar || (function
 				label: "Remove",
 				action: actionUrls[3]
 			}], {
-				createOnDemand : true
+				createOnDemand: true
 			}, tabbarCallback);
 	}
 
-	function switchTab() { 
+	function switchTab() {
 		Rho.NativeTabbar.switchTab(2);
 	}
 
-	function removeTabbar() { 
+	function removeTabbar() {
 		Rho.NativeTabbar.remove();
 	}
 

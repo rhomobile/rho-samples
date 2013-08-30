@@ -25,7 +25,7 @@
             <li><a href="<%= url_for :controller => :Barcode, :action => :confirm_scan_using_default_scanner %>">Scan using default scanner</a></li>
             <li><a href="<%= url_for :controller => :Barcode, :action => :choose_scanner %>">Choose scanner to use</a></li>
             <li><a href="<%= url_for :controller => :Barcode, :action => :confirm_set_symbology %>">Set symbology</a></li>
-            <li><a href="<%= url_for :controller => :Barcode, :action => :edit_properties %>">Control scanner properties</a></li>
+            <li><a href="<%= url_for :controller => :Barcode, :action => :supported_properties %>">Supported properties</a></li>
             <li><a href="<%= url_for :controller => :Barcode, :action => :edit_audible_options %>">Change audible options</a></li>
           <% else %>
             <li>Device does not have a Barcode</li>

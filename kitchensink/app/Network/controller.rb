@@ -98,7 +98,7 @@ class NetworkController < Rho::RhoController
       render :action => :transferring
     else
       show_popup("Network is not available")
-      redirect :action => :confirm_download
+      redirect :action => :confirm_upload
     end
   end
 
@@ -236,7 +236,6 @@ class NetworkController < Rho::RhoController
     else
       show_popup("Network is not available")
     end
-    redirect :action => :confirm_basic_auth
+    Rho::WebView.navigate(url_for(:action => :confirm_basic_auth))
   end
-
 end

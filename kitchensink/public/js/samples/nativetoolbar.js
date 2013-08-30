@@ -6,7 +6,7 @@ KitchenSink.Samples.NativeToolbar = KitchenSink.Samples.NativeToolbar || (functi
 		links.each(function(index) {
 			urls.push($(links[index]).attr("href"));
 		});
-		
+
 		return urls;
 	}
 
@@ -21,11 +21,10 @@ KitchenSink.Samples.NativeToolbar = KitchenSink.Samples.NativeToolbar || (functi
 			}, {
 				label: "Remove",
 				action: urls[2]
-			}], {})
+			}], { });
 	}
 
-
-	function removeToolbar() { 
+	function removeToolbar() {
 		Rho.NativeToolbar.remove();
 	}
 
