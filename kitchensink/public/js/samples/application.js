@@ -13,13 +13,6 @@ KitchenSink.Samples.Application = KitchenSink.Samples.Application || (function()
 		alert(message);
 	}
 
-	function set_locale() {
-		var previous_locale = Rho.Application.locale;
-		Rho.Application.setLocale('de');
-		var current_locale = Rho.Application.locale;
-		alert("Old locale: "+old_locale+"\nCurrent locale: " + current_locale)
-	}
-
 	function quit_app() {
 		Rho.Application.quit();
 	}
@@ -31,13 +24,12 @@ KitchenSink.Samples.Application = KitchenSink.Samples.Application || (function()
 	function restore_app() {
 		Rho.Application.minimize();
 		setTimeout(function() {
-			Rho.Application.restore();
-		}, 2000);
+				Rho.Application.restore();
+			}, 2000);
 	}
-	
+
 	return {
 		app_folder: app_folder,
-		set_locale: set_locale,
 		quit_app: quit_app,
 		minimize_app: minimize_app,
 		restore_app: restore_app

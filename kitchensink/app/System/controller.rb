@@ -21,14 +21,16 @@ class SystemController < Rho::RhoController
     @has_network = Rho::System.hasNetwork
     @has_sqlite = Rho::System.hasSqlite
     @has_touchscreen = Rho::System.hasTouchscreen
-    
-   
   end
 
   def install_app
     #install an android application from given url
     Rho::System.applicationInstall(get_install_app_url)
-    Rho::Notification.showPopup("Application is ready to install")
+    Rho::Notification.showPopup({
+      :title => "RhoMobile 4.0 Kitchen Sink",
+      :message => "Application is ready to install",
+      :buttons => ["OK"]
+    })
     redirect :action => :confirm_install_app
   end
 
@@ -36,9 +38,17 @@ class SystemController < Rho::RhoController
     # uninstall the application
     if Rho::System.isApplicationInstalled(get_uninstall_app_name)
       Rho::System.applicationUninstall(get_uninstall_app_name)
-      Rho::Notification.showPopup("simple_app is uninstalled")
+      Rho::Notification.showPopup({
+        :title => "RhoMobile 4.0 Kitchen Sink",
+        :message => "simple_app is uninstalled",
+        :buttons => ["OK"]
+      })
     else 
-      Rho::Notification.showPopup("Please install application before running this sample")
+      Rho::Notification.showPopup({
+        :title => "RhoMobile 4.0 Kitchen Sink",
+        :message => "Please install application before running this sample",
+        :buttons => ["OK"]
+      })
     end
     redirect :action => :confirm_install_app
   end
@@ -64,41 +74,24 @@ class SystemController < Rho::RhoController
     end
   end
 
-  def get_version_info
-  	version_info = Rho::System.osVersion
-    Rho::Notification.showPopup({
-      :message => "#{version_info}",
-      :buttons => ["OK"]
-    })
-  end
-
-  def local_serverport
-  	# Get port of the local (embedded) HTTP server
-  	local_port = Rho::System.localServerPort()
-    Rho::Notification.showPopup({
-      :message => "#{local_port}",
-      :buttons => ["OK"]
-    })
-  end
-
   def zip_files
     destination_zip = Rho::RhoFile.join(Rho::Application.userFolder, "public.zip")
   	Rho::System.zipFiles(destination_zip, Rho::Application.publicFolder, ["css", "images"])
     Rho::Notification.showPopup({
+      :title => "RhoMobile 4.0 Kitchen Sink",
+      :message => "Zip succuss",
       :buttons => ["OK"]
     })
   	redirect :action => :confirm_zip
   end
   
   def get_version
-     @version_info = Rho::System.osVersion
-  #   Alert.show_popup(version_info)
-   end
+    @version_info = Rho::System.osVersion
+  end
    
   def get_local_serverport
-      # Get port of the local (embedded) HTTP server
-      @local_port = Rho::System.localServerPort()
-      #Alert.show_popup(local_port)
+    # Get port of the local (embedded) HTTP server
+    @local_port = Rho::System.localServerPort()
   end
   
   def confirm_zip

@@ -12,6 +12,7 @@ class KeycaptureController < Rho::RhoController
 
   def keycapture_callback
     Rho::Notification.showPopup({
+      :title => "RhoMobile 4.0 Kitchen Sink",
       :message => "Captured key: #{@params["keyValue"]}",
       :buttons => ["OK"]
     })
@@ -23,7 +24,7 @@ class KeycaptureController < Rho::RhoController
   end
   
   def stop_keycapture
-    Rho::KeyCapture.captureKey(false,"all", "")
+    Rho::KeyCapture.captureKey(true,"all")
     redirect :action => :index
   end
 end

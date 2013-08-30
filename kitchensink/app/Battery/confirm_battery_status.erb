@@ -10,21 +10,13 @@
     %>
 
     <%= render :partial => "/partials/language_tabs" %>
-    <form action ="<%= url_for(:action => :battery_status) %>">
-      <div data-role="controlgroup">
-      Trigger
-      <label><input type="radio" name="trigger" value="periodic" checked>Periodic</label>
-      <label><input type="radio" name="trigger" value="system">System</label>
-      </div>
-
       <div class="sample ruby">
-        <input type="submit" data-role="button" value="Battery status">
+        <a href="<%= url_for(:action => :battery_status) %>" data-role="button" data-ajax="false">Battery status</a>
       </div>
       
       <div class="sample javascript">
             <a href="#" data-role="button" onclick="KitchenSink.Samples.Battery.battery_status()">Battery status</a>    
       </div>
-    </form>
     
   </div>
 

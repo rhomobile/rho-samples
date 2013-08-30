@@ -17,36 +17,36 @@ KitchenSink.Samples.System = KitchenSink.Samples.System || (function() {
 	}
 
 	function install_app() {
-		var app_url
-		if (Rho.System.platform == "ANDROID"){
-		 	app_url = "http://rhodes-server-log.herokuapp.com/simple_app_signed.apk"
-		}else if (Rho.System.platform == "WINDOWS"){
-			app_url = "http://rhodes-server-log.herokuapp.com/simple_app.cab"
-		}else{
-			app_url = ""
+		var app_url;
+		if (Rho.System.platform == "ANDROID") {
+			app_url = "http://rhodes-server-log.herokuapp.com/simple_app_signed.apk";
+		} else if (Rho.System.platform == "WINDOWS") {
+			app_url = "http://rhodes-server-log.herokuapp.com/simple_app.cab";
+		} else {
+			app_url = "";
 		}
 		// install an android application from given url
 		Rho.System.applicationInstall(app_url);
-		alert("Application is ready to install")
+		alert("Application is ready to install");
 	}
 
 	function uninstall_app() {
-		var app_name
-		if (Rho.System.platform == "ANDROID"){
-		 	app_name = "com.rhomobile.simple_app"
-		}else if (Rho.System.platform == "WINDOWS"){
-			app_name = "rhomobile simple_app/simple_app.exe"
-		}else{
-			app_name = "rhomobile/simple_app/simple_app.exe"
+		var app_name;
+		if (Rho.System.platform == "ANDROID") {
+			app_name = "com.rhomobile.simple_app";
+		} else if (Rho.System.platform == "WINDOWS") {
+			app_name = "rhomobile simple_app/simple_app.exe";
+		} else {
+			app_name = "rhomobile/simple_app/simple_app.exe";
 		}
 		// uninstall the application
-		if (Rho.System.isApplicationInstalled(app_name)){
+		if (Rho.System.isApplicationInstalled(app_name)) {
 			Rho.System.applicationUninstall(app_name);
-			alert("simple_app is uninstalled")
-		}else{
-			alert("Please install application before running this sample")
+			alert("simple_app is uninstalled");
+		} else {
+			alert("Please install application before running this sample");
 		}
-		
+
 	}
 
 	function get_version_info() {
@@ -61,10 +61,10 @@ KitchenSink.Samples.System = KitchenSink.Samples.System || (function() {
 	}
 
 	function zip() {
-		var destination_zip = Rho.RhoFile.join(Rho.Application.userFolder,"public.zip");
-		
+		var destination_zip = Rho.RhoFile.join(Rho.Application.userFolder, "public.zip");
+
 		Rho.System.zipFiles(destination_zip, Rho.Application.publicFolder, ["css", "images"]);
-		alert("Public folder zipped in "+destination_zip);
+		alert("Public folder zipped in " + destination_zip);
 	}
 
 	return {

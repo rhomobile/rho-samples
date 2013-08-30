@@ -90,12 +90,9 @@ class BarcodeController < Rho::RhoController
     Rho::Barcode.beamWidth = "wide"
   end
   
-  def set_properties
-    Rho::Barcode.aimMode = @params["aimMode"]
-    Rho::Barcode.aimType = @params["aimType"]
-    Rho::Barcode.beamWidth = @params["beamWidth"]
-
-    scan_using_default_scanner
+  def supported_properties
+    @supported_properties = Rho::Barcode.getSupportedProperties
+    render
   end
   
   def sample_change_audible_options

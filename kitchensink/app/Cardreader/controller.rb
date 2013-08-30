@@ -22,6 +22,7 @@ class CardreaderController < Rho::RhoController
   def cardreader_callback
     p @params,"--------------------cardreader_callback"
     Rho::Notification.showPopup({
+      :title => "RhoMobile 4.0 Kitchen Sink",
       :message => "Received card reader data: #{@params["data"]}",
       :buttons => ["OK"]
     })
@@ -32,13 +33,16 @@ class CardreaderController < Rho::RhoController
   def set_properties
     # Configure the MSR to output keystrokes instead of calling a function when a card is swiped
     # Note the absence of a callback parameter
-    # Also, After emitting the keystrokes, automatically send a "Tab" keypress
-    Rho::CardReader.autoTab = true
-    Rho::CardReader.open(url_for(:action => :cardreader_callback))
-
-    # Instead of "Tab", we could request a simulated "Enter" 
-    Rho::CardReader.autoEnter = true
+    set_selected_property
     Rho::CardReader.open(url_for(:action => :cardreader_callback))
     redirect :properties
+  end
+
+  def set_selected_property
+    if @params["property"] == 'autoTab'
+      Rho::CardReader.autoTab = true
+    else
+      Rho::CardReader.autoEnter = true
+    end
   end
 end

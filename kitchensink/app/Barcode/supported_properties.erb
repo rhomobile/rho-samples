@@ -1,0 +1,33 @@
+<div data-role="page">
+
+<%= render :partial => "/partials/page_head" %>
+  
+<div data-role="content">
+
+  <%= render :partial => "/partials/example_header", :locals => {:title => "Supported properties", :description => "
+    There are over 200 properties to fine-tune the barcode scanner functionality and adapt it to suit your application.
+    This sample lists the properties supported by this particular device
+
+  " }
+  %>
+    <%= render :partial => "/partials/language_tabs" %>
+
+        <div class="sample ruby">      
+          <ul>
+            <% @supported_properties.each do |property| %>
+            <li><%= property %></li>
+            <% end %>
+          </ul>
+        </div>
+        
+        <div class="sample javascript">
+            <a href="#" onclick="KitchenSink.Samples.Barcode.supported_properties()" data-role="button">Supported properties</a>
+            <ul class="supported_properties">
+            </ul>
+        </div>
+        
+      </form>
+
+
+  
+</div>
