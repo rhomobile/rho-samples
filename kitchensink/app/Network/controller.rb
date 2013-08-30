@@ -236,7 +236,6 @@ class NetworkController < Rho::RhoController
     else
       show_popup("Network is not available")
     end
-    redirect :action => :confirm_basic_auth
+    Rho::WebView.navigate(url_for(:action => :confirm_basic_auth))
   end
-
 end

@@ -22,6 +22,7 @@ class CardreaderController < Rho::RhoController
   def cardreader_callback
     p @params,"--------------------cardreader_callback"
     Rho::Notification.showPopup({
+      :title => "RhoMobile 4.0 Kitchen Sink",
       :message => "Received card reader data: #{@params["data"]}",
       :buttons => ["OK"]
     })
