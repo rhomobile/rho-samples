@@ -1,8 +1,7 @@
 KitchenSink.Samples.Battery = KitchenSink.Samples.Battery || (function() {
 
  	function battery_status() {
- 		var trigger_property =  _read_icon_layout_from_form();
- 		var battery_values = Rho.Battery.batteryStatus({ trigger : trigger_property["trigger"]});
+ 		var battery_values = Rho.Battery.batteryStatus({});
  		alert("AC Line Status:" + battery_values["acLineStatus"] + ", Battery Life Percent: "+ battery_values["batteryLifePercent"])
  	}
 
