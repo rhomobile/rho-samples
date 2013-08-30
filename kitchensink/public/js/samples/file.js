@@ -1,4 +1,4 @@
-KitchenSink.Samples.File = KitchenSink.Samples.File || (function() {
+KitchenSink.Samples.File = KitchenSink.Samples.File || (function($) {
 
 	function generate_ul(entries, link_base) {
 		var result = "";
@@ -21,7 +21,6 @@ KitchenSink.Samples.File = KitchenSink.Samples.File || (function() {
 
 			result += element;
 		}
-
 
 		return result;
 	}
@@ -63,4 +62,4 @@ KitchenSink.Samples.File = KitchenSink.Samples.File || (function() {
 		browse_filesystem: browse_filesystem
 	};
 
-})();
+})(jQuery);
