@@ -1,0 +1,440 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'redis-commander' ]
+2 info using npm@1.2.0
+3 info using node@v0.8.17
+4 verbose read json /usr/local/lib/package.json
+5 verbose read json /usr/local/lib/package.json
+6 verbose cache add [ 'redis-commander', null ]
+7 silly cache add name=undefined spec="redis-commander" args=["redis-commander",null]
+8 verbose parsed url { pathname: 'redis-commander',
+8 verbose parsed url   path: 'redis-commander',
+8 verbose parsed url   href: 'redis-commander' }
+9 silly lockFile 2b1f8d99-redis-commander redis-commander
+10 verbose lock redis-commander /Users/robgalvin/.npm/2b1f8d99-redis-commander.lock
+11 silly lockFile 2b1f8d99-redis-commander redis-commander
+12 verbose addNamed [ 'redis-commander', '' ]
+13 verbose addNamed [ null, '' ]
+14 silly lockFile db6c6d42-redis-commander redis-commander@
+15 verbose lock redis-commander@ /Users/robgalvin/.npm/db6c6d42-redis-commander.lock
+16 silly addNameRange { name: 'redis-commander', range: '', hasData: false }
+17 verbose url raw redis-commander
+18 verbose url resolving [ 'https://registry.npmjs.org/', './redis-commander' ]
+19 verbose url resolved https://registry.npmjs.org/redis-commander
+20 info trying registry request attempt 1 at 15:34:25
+21 http GET https://registry.npmjs.org/redis-commander
+22 http 200 https://registry.npmjs.org/redis-commander
+23 silly registry.get cb [ 200,
+23 silly registry.get   { vary: 'Accept',
+23 silly registry.get     server: 'CouchDB/1.3.1 (Erlang OTP/R15B03)',
+23 silly registry.get     etag: '"3YM39O4817YZ9HGG7PSBZ4KKJ"',
+23 silly registry.get     date: 'Thu, 12 Sep 2013 19:34:26 GMT',
+23 silly registry.get     'content-type': 'application/json',
+23 silly registry.get     'content-length': '14455' } ]
+24 silly addNameRange number 2 { name: 'redis-commander', range: '', hasData: true }
+25 silly addNameRange versions [ 'redis-commander',
+25 silly addNameRange   [ '0.0.1',
+25 silly addNameRange     '0.0.2',
+25 silly addNameRange     '0.0.3',
+25 silly addNameRange     '0.0.4',
+25 silly addNameRange     '0.0.5',
+25 silly addNameRange     '0.0.6',
+25 silly addNameRange     '0.1.0',
+25 silly addNameRange     '0.1.1' ] ]
+26 verbose addNamed [ 'redis-commander', '0.1.1' ]
+27 verbose addNamed [ '0.1.1', '0.1.1' ]
+28 silly lockFile 7c12520c-redis-commander-0-1-1 redis-commander@0.1.1
+29 verbose lock redis-commander@0.1.1 /Users/robgalvin/.npm/7c12520c-redis-commander-0-1-1.lock
+30 silly lockFile 3f72b90b-mander-redis-commander-0-1-1-tgz https://registry.npmjs.org/redis-commander/-/redis-commander-0.1.1.tgz
+31 verbose lock https://registry.npmjs.org/redis-commander/-/redis-commander-0.1.1.tgz /Users/robgalvin/.npm/3f72b90b-mander-redis-commander-0-1-1-tgz.lock
+32 verbose addRemoteTarball [ 'https://registry.npmjs.org/redis-commander/-/redis-commander-0.1.1.tgz',
+32 verbose addRemoteTarball   'f003acda73da34eff035f93db2478c5bc2367143' ]
+33 info retry fetch attempt 1 at 15:34:26
+34 verbose fetch to= /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/tmp.tgz
+35 http GET https://registry.npmjs.org/redis-commander/-/redis-commander-0.1.1.tgz
+36 http 200 https://registry.npmjs.org/redis-commander/-/redis-commander-0.1.1.tgz
+37 silly shasum updated bytes 40960
+38 silly shasum updated bytes 40960
+39 silly shasum updated bytes 40960
+40 silly shasum updated bytes 40960
+41 silly shasum updated bytes 40960
+42 silly shasum updated bytes 40960
+43 silly shasum updated bytes 40960
+44 silly shasum updated bytes 40960
+45 silly shasum updated bytes 40960
+46 silly shasum updated bytes 40960
+47 silly shasum updated bytes 40960
+48 silly shasum updated bytes 40960
+49 silly shasum updated bytes 40960
+50 silly shasum updated bytes 40960
+51 silly shasum updated bytes 40960
+52 silly shasum updated bytes 40960
+53 silly shasum updated bytes 32602
+54 info shasum f003acda73da34eff035f93db2478c5bc2367143
+54 info shasum /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/tmp.tgz
+55 verbose tar unpack /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/tmp.tgz
+56 silly lockFile 8133394d-6422-0-25119052245281637-package /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/package
+57 verbose lock /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/package /Users/robgalvin/.npm/8133394d-6422-0-25119052245281637-package.lock
+58 silly gunzTarPerm modes [ '755', '644' ]
+59 silly gunzTarPerm extractEntry package.json
+60 silly gunzTarPerm extractEntry .npmignore
+61 silly gunzTarPerm extractEntry README.md
+62 silly gunzTarPerm extractEntry bin/redis-commander.js
+63 silly gunzTarPerm extractEntry dump.rdb
+64 silly gunzTarPerm extractEntry lib/app.js
+65 silly gunzTarPerm extractEntry lib/browserifyEntry.js
+66 silly gunzTarPerm extractEntry lib/util.js
+67 silly gunzTarPerm extractEntry lib/routes/apiv1.js
+68 silly gunzTarPerm extractEntry lib/routes/home.js
+69 silly gunzTarPerm extractEntry lib/routes/index.js
+70 silly gunzTarPerm extractEntry test/test-util.js
+71 silly gunzTarPerm extractEntry web/static/bootstrap/css/bootstrap-responsive.css
+72 silly gunzTarPerm extractEntry web/static/bootstrap/css/bootstrap-responsive.min.css
+73 silly gunzTarPerm extractEntry web/static/bootstrap/css/bootstrap.css
+74 silly gunzTarPerm extractEntry web/static/bootstrap/css/bootstrap.min.css
+75 silly gunzTarPerm extractEntry web/static/bootstrap/img/glyphicons-halflings-white.png
+76 silly gunzTarPerm extractEntry web/static/bootstrap/img/glyphicons-halflings.png
+77 silly gunzTarPerm extractEntry web/static/bootstrap/js/bootstrap.js
+78 silly gunzTarPerm extractEntry web/static/bootstrap/js/bootstrap.min.js
+79 silly gunzTarPerm extractEntry web/static/clippy-jquery/jquery.clippy.js
+80 silly gunzTarPerm extractEntry web/static/clippy-jquery/clippy.swf
+81 silly gunzTarPerm extractEntry web/static/css/default.css
+82 silly gunzTarPerm extractEntry web/static/favicon.png
+83 silly gunzTarPerm extractEntry web/static/images/RedisCommandLogo.png
+84 silly gunzTarPerm extractEntry web/static/images/treeHash.png
+85 silly gunzTarPerm extractEntry web/static/images/treeList.png
+86 silly gunzTarPerm extractEntry web/static/images/treeRoot.png
+87 silly gunzTarPerm extractEntry web/static/images/treeSet.png
+88 silly gunzTarPerm extractEntry web/static/images/treeString.png
+89 silly gunzTarPerm extractEntry web/static/images/treeZSet.png
+90 silly gunzTarPerm extractEntry web/static/jstree/jquery.jstree.js
+91 silly gunzTarPerm extractEntry web/static/jstree/_demo/_dump.sql
+92 silly gunzTarPerm extractEntry web/static/jstree/_demo/_inc/__mysql_errors.log
+93 silly gunzTarPerm extractEntry web/static/jstree/_demo/_inc/class._database.php
+94 silly gunzTarPerm extractEntry web/static/jstree/_demo/_inc/class._database_i.php
+95 silly gunzTarPerm extractEntry web/static/jstree/_demo/_inc/class.tree.php
+96 silly gunzTarPerm extractEntry web/static/jstree/_demo/_install.txt
+97 silly gunzTarPerm extractEntry web/static/jstree/_demo/config.php
+98 silly gunzTarPerm extractEntry web/static/jstree/_demo/file.png
+99 silly gunzTarPerm extractEntry web/static/jstree/_demo/folder.png
+100 silly gunzTarPerm extractEntry web/static/jstree/_demo/index.html
+101 silly gunzTarPerm extractEntry web/static/jstree/_demo/root.png
+102 silly gunzTarPerm extractEntry web/static/jstree/_demo/server.php
+103 silly gunzTarPerm extractEntry web/static/jstree/_docs/hotkeys.html
+104 silly gunzTarPerm extractEntry web/static/jstree/_docs/!style.css
+105 silly gunzTarPerm extractEntry web/static/jstree/_docs/_html_data.html
+106 silly gunzTarPerm extractEntry web/static/jstree/_docs/_json_data.json
+107 silly gunzTarPerm extractEntry web/static/jstree/_docs/_search_data.json
+108 silly gunzTarPerm extractEntry web/static/jstree/_docs/_search_result.json
+109 silly gunzTarPerm extractEntry web/static/jstree/_docs/_xml_flat.xml
+110 silly gunzTarPerm extractEntry web/static/jstree/_docs/_xml_nest.xml
+111 silly gunzTarPerm extractEntry web/static/jstree/_docs/checkbox.html
+112 silly gunzTarPerm extractEntry web/static/jstree/_docs/contextmenu.html
+113 silly gunzTarPerm extractEntry web/static/jstree/_docs/cookies.html
+114 silly gunzTarPerm extractEntry web/static/jstree/_docs/core.html
+115 silly gunzTarPerm extractEntry web/static/jstree/_docs/crrm.html
+116 silly gunzTarPerm extractEntry web/static/jstree/_docs/dnd.html
+117 silly gunzTarPerm extractEntry web/static/jstree/_docs/_drive.png
+118 silly gunzTarPerm extractEntry web/static/jstree/_docs/html_data.html
+119 silly gunzTarPerm extractEntry web/static/jstree/_docs/index.html
+120 silly gunzTarPerm extractEntry web/static/jstree/_docs/json_data.html
+121 silly gunzTarPerm extractEntry web/static/jstree/_docs/languages.html
+122 silly gunzTarPerm extractEntry web/static/jstree/_docs/logo.png
+123 silly gunzTarPerm extractEntry web/static/jstree/_docs/search.html
+124 silly gunzTarPerm extractEntry web/static/jstree/_docs/sort.html
+125 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/!script.js
+126 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/!style.css
+127 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/clipboard.swf
+128 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/help.png
+129 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/magnifier.png
+130 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/page_white_code.png
+131 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/page_white_copy.png
+132 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/printer.png
+133 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/wrapping.png
+134 silly gunzTarPerm extractEntry web/static/jstree/_docs/themeroller.html
+135 silly gunzTarPerm extractEntry web/static/jstree/_docs/themes.html
+136 silly gunzTarPerm extractEntry web/static/jstree/_docs/types.html
+137 silly gunzTarPerm extractEntry web/static/jstree/_docs/ui.html
+138 silly gunzTarPerm extractEntry web/static/jstree/_docs/unique.html
+139 silly gunzTarPerm extractEntry web/static/jstree/_docs/xml_data.html
+140 silly gunzTarPerm extractEntry web/static/jstree/_lib/jquery.cookie.js
+141 silly gunzTarPerm extractEntry web/static/jstree/_lib/jquery.hotkeys.js
+142 silly gunzTarPerm extractEntry web/static/jstree/_lib/jquery.js
+143 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/bg.jpg
+144 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/d.png
+145 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/dot_for_ie.gif
+146 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/style.css
+147 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/throbber.gif
+148 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/d.gif
+149 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/d.png
+150 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/dot_for_ie.gif
+151 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/style.css
+152 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/throbber.gif
+153 silly gunzTarPerm extractEntry web/static/jstree/themes/default/d.gif
+154 silly gunzTarPerm extractEntry web/static/jstree/themes/default/d.png
+155 silly gunzTarPerm extractEntry web/static/jstree/themes/default/style.css
+156 silly gunzTarPerm extractEntry web/static/jstree/themes/default/throbber.gif
+157 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/d.gif
+158 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/d.png
+159 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/dots.gif
+160 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/style.css
+161 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/throbber.gif
+162 silly gunzTarPerm extractEntry web/static/scripts/countdown.js
+163 silly gunzTarPerm extractEntry web/static/scripts/dateformat.js
+164 silly gunzTarPerm extractEntry web/static/scripts/ejs.js
+165 silly gunzTarPerm extractEntry web/static/scripts/jquery-1.7.2.js
+166 silly gunzTarPerm extractEntry web/static/scripts/jquery.form.js
+167 silly gunzTarPerm extractEntry web/static/scripts/jquery.resize.min.js
+168 silly gunzTarPerm extractEntry web/static/scripts/redisCommander.js
+169 silly gunzTarPerm extractEntry web/static/templates/editBranch.ejs
+170 silly gunzTarPerm extractEntry web/static/templates/editHash.ejs
+171 silly gunzTarPerm extractEntry web/static/templates/editList.ejs
+172 silly gunzTarPerm extractEntry web/static/templates/editSet.ejs
+173 silly gunzTarPerm extractEntry web/static/templates/editString.ejs
+174 silly gunzTarPerm extractEntry web/static/templates/editZSet.ejs
+175 silly gunzTarPerm extractEntry web/static/templates/serverInfo.ejs
+176 silly gunzTarPerm extractEntry web/views/home/home.ejs
+177 silly gunzTarPerm extractEntry web/views/layout.ejs
+178 silly gunzTarPerm extractEntry web/views/modals/addKeyModal.ejs
+179 silly gunzTarPerm extractEntry web/views/modals/addListValueModal.ejs
+180 silly gunzTarPerm extractEntry web/views/modals/editHashRowModal.ejs
+181 silly gunzTarPerm extractEntry web/views/modals/editListRowModal.ejs
+182 silly gunzTarPerm extractEntry web/views/modals/editZSetRowModal.ejs
+183 verbose read json /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/package/package.json
+184 silly lockFile 8133394d-6422-0-25119052245281637-package /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/package
+185 verbose from cache /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/package/package.json
+186 verbose tar pack [ '/Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz',
+186 verbose tar pack   '/var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/package' ]
+187 verbose tarball /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz
+188 verbose folder /var/folders/bs/fhbl41p55dx9qqxhkkc8p9tr0000gn/T/npm-59816/1379014466422-0.25119052245281637/package
+189 silly lockFile f3637b0c-edis-commander-0-1-1-package-tgz /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz
+190 verbose lock /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz /Users/robgalvin/.npm/f3637b0c-edis-commander-0-1-1-package-tgz.lock
+191 silly lockFile f3637b0c-edis-commander-0-1-1-package-tgz /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz
+192 silly lockFile 05486569-pm-redis-commander-0-1-1-package /Users/robgalvin/.npm/redis-commander/0.1.1/package
+193 verbose lock /Users/robgalvin/.npm/redis-commander/0.1.1/package /Users/robgalvin/.npm/05486569-pm-redis-commander-0-1-1-package.lock
+194 silly lockFile 05486569-pm-redis-commander-0-1-1-package /Users/robgalvin/.npm/redis-commander/0.1.1/package
+195 verbose tar unpack /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz
+196 silly lockFile 05486569-pm-redis-commander-0-1-1-package /Users/robgalvin/.npm/redis-commander/0.1.1/package
+197 verbose lock /Users/robgalvin/.npm/redis-commander/0.1.1/package /Users/robgalvin/.npm/05486569-pm-redis-commander-0-1-1-package.lock
+198 silly gunzTarPerm modes [ '755', '644' ]
+199 silly gunzTarPerm extractEntry package.json
+200 silly gunzTarPerm extractEntry .npmignore
+201 silly gunzTarPerm extractEntry README.md
+202 silly gunzTarPerm extractEntry bin/redis-commander.js
+203 silly gunzTarPerm extractEntry dump.rdb
+204 silly gunzTarPerm extractEntry lib/app.js
+205 silly gunzTarPerm extractEntry lib/browserifyEntry.js
+206 silly gunzTarPerm extractEntry lib/util.js
+207 silly gunzTarPerm extractEntry lib/routes/apiv1.js
+208 silly gunzTarPerm extractEntry lib/routes/home.js
+209 silly gunzTarPerm extractEntry lib/routes/index.js
+210 silly gunzTarPerm extractEntry test/test-util.js
+211 silly gunzTarPerm extractEntry web/static/bootstrap/css/bootstrap-responsive.css
+212 silly gunzTarPerm extractEntry web/static/bootstrap/css/bootstrap-responsive.min.css
+213 silly gunzTarPerm extractEntry web/static/bootstrap/css/bootstrap.css
+214 silly gunzTarPerm extractEntry web/static/bootstrap/css/bootstrap.min.css
+215 silly gunzTarPerm extractEntry web/static/bootstrap/img/glyphicons-halflings-white.png
+216 silly gunzTarPerm extractEntry web/static/bootstrap/img/glyphicons-halflings.png
+217 silly gunzTarPerm extractEntry web/static/bootstrap/js/bootstrap.js
+218 silly gunzTarPerm extractEntry web/static/bootstrap/js/bootstrap.min.js
+219 silly gunzTarPerm extractEntry web/static/clippy-jquery/jquery.clippy.js
+220 silly gunzTarPerm extractEntry web/static/clippy-jquery/clippy.swf
+221 silly gunzTarPerm extractEntry web/static/css/default.css
+222 silly gunzTarPerm extractEntry web/static/favicon.png
+223 silly gunzTarPerm extractEntry web/static/images/RedisCommandLogo.png
+224 silly gunzTarPerm extractEntry web/static/images/treeHash.png
+225 silly gunzTarPerm extractEntry web/static/images/treeList.png
+226 silly gunzTarPerm extractEntry web/static/images/treeRoot.png
+227 silly gunzTarPerm extractEntry web/static/images/treeSet.png
+228 silly gunzTarPerm extractEntry web/static/images/treeString.png
+229 silly gunzTarPerm extractEntry web/static/images/treeZSet.png
+230 silly gunzTarPerm extractEntry web/static/jstree/jquery.jstree.js
+231 silly gunzTarPerm extractEntry web/static/jstree/_demo/_dump.sql
+232 silly gunzTarPerm extractEntry web/static/jstree/_demo/_inc/__mysql_errors.log
+233 silly gunzTarPerm extractEntry web/static/jstree/_demo/_inc/class._database.php
+234 silly gunzTarPerm extractEntry web/static/jstree/_demo/_inc/class._database_i.php
+235 silly gunzTarPerm extractEntry web/static/jstree/_demo/_inc/class.tree.php
+236 silly gunzTarPerm extractEntry web/static/jstree/_demo/_install.txt
+237 silly gunzTarPerm extractEntry web/static/jstree/_demo/config.php
+238 silly gunzTarPerm extractEntry web/static/jstree/_demo/file.png
+239 silly gunzTarPerm extractEntry web/static/jstree/_demo/folder.png
+240 silly gunzTarPerm extractEntry web/static/jstree/_demo/index.html
+241 silly gunzTarPerm extractEntry web/static/jstree/_demo/root.png
+242 silly gunzTarPerm extractEntry web/static/jstree/_demo/server.php
+243 silly gunzTarPerm extractEntry web/static/jstree/_docs/hotkeys.html
+244 silly gunzTarPerm extractEntry web/static/jstree/_docs/!style.css
+245 silly gunzTarPerm extractEntry web/static/jstree/_docs/_html_data.html
+246 silly gunzTarPerm extractEntry web/static/jstree/_docs/_json_data.json
+247 silly gunzTarPerm extractEntry web/static/jstree/_docs/_search_data.json
+248 silly gunzTarPerm extractEntry web/static/jstree/_docs/_search_result.json
+249 silly gunzTarPerm extractEntry web/static/jstree/_docs/_xml_flat.xml
+250 silly gunzTarPerm extractEntry web/static/jstree/_docs/_xml_nest.xml
+251 silly gunzTarPerm extractEntry web/static/jstree/_docs/checkbox.html
+252 silly gunzTarPerm extractEntry web/static/jstree/_docs/contextmenu.html
+253 silly gunzTarPerm extractEntry web/static/jstree/_docs/cookies.html
+254 silly gunzTarPerm extractEntry web/static/jstree/_docs/core.html
+255 silly gunzTarPerm extractEntry web/static/jstree/_docs/crrm.html
+256 silly gunzTarPerm extractEntry web/static/jstree/_docs/dnd.html
+257 silly gunzTarPerm extractEntry web/static/jstree/_docs/_drive.png
+258 silly gunzTarPerm extractEntry web/static/jstree/_docs/html_data.html
+259 silly gunzTarPerm extractEntry web/static/jstree/_docs/index.html
+260 silly gunzTarPerm extractEntry web/static/jstree/_docs/json_data.html
+261 silly gunzTarPerm extractEntry web/static/jstree/_docs/languages.html
+262 silly gunzTarPerm extractEntry web/static/jstree/_docs/logo.png
+263 silly gunzTarPerm extractEntry web/static/jstree/_docs/search.html
+264 silly gunzTarPerm extractEntry web/static/jstree/_docs/sort.html
+265 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/!script.js
+266 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/!style.css
+267 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/clipboard.swf
+268 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/help.png
+269 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/magnifier.png
+270 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/page_white_code.png
+271 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/page_white_copy.png
+272 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/printer.png
+273 silly gunzTarPerm extractEntry web/static/jstree/_docs/syntax/wrapping.png
+274 silly gunzTarPerm extractEntry web/static/jstree/_docs/themeroller.html
+275 silly gunzTarPerm extractEntry web/static/jstree/_docs/themes.html
+276 silly gunzTarPerm extractEntry web/static/jstree/_docs/types.html
+277 silly gunzTarPerm extractEntry web/static/jstree/_docs/ui.html
+278 silly gunzTarPerm extractEntry web/static/jstree/_docs/unique.html
+279 silly gunzTarPerm extractEntry web/static/jstree/_docs/xml_data.html
+280 silly gunzTarPerm extractEntry web/static/jstree/_lib/jquery.cookie.js
+281 silly gunzTarPerm extractEntry web/static/jstree/_lib/jquery.hotkeys.js
+282 silly gunzTarPerm extractEntry web/static/jstree/_lib/jquery.js
+283 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/bg.jpg
+284 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/d.png
+285 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/dot_for_ie.gif
+286 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/style.css
+287 silly gunzTarPerm extractEntry web/static/jstree/themes/apple/throbber.gif
+288 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/d.gif
+289 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/d.png
+290 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/dot_for_ie.gif
+291 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/style.css
+292 silly gunzTarPerm extractEntry web/static/jstree/themes/classic/throbber.gif
+293 silly gunzTarPerm extractEntry web/static/jstree/themes/default/d.gif
+294 silly gunzTarPerm extractEntry web/static/jstree/themes/default/d.png
+295 silly gunzTarPerm extractEntry web/static/jstree/themes/default/style.css
+296 silly gunzTarPerm extractEntry web/static/jstree/themes/default/throbber.gif
+297 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/d.gif
+298 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/d.png
+299 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/dots.gif
+300 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/style.css
+301 silly gunzTarPerm extractEntry web/static/jstree/themes/default-rtl/throbber.gif
+302 silly gunzTarPerm extractEntry web/static/scripts/countdown.js
+303 silly gunzTarPerm extractEntry web/static/scripts/dateformat.js
+304 silly gunzTarPerm extractEntry web/static/scripts/ejs.js
+305 silly gunzTarPerm extractEntry web/static/scripts/jquery-1.7.2.js
+306 silly gunzTarPerm extractEntry web/static/scripts/jquery.form.js
+307 silly gunzTarPerm extractEntry web/static/scripts/jquery.resize.min.js
+308 silly gunzTarPerm extractEntry web/static/scripts/redisCommander.js
+309 silly gunzTarPerm extractEntry web/static/templates/editBranch.ejs
+310 silly gunzTarPerm extractEntry web/static/templates/editHash.ejs
+311 silly gunzTarPerm extractEntry web/static/templates/editList.ejs
+312 silly gunzTarPerm extractEntry web/static/templates/editSet.ejs
+313 silly gunzTarPerm extractEntry web/static/templates/editString.ejs
+314 silly gunzTarPerm extractEntry web/static/templates/editZSet.ejs
+315 silly gunzTarPerm extractEntry web/static/templates/serverInfo.ejs
+316 silly gunzTarPerm extractEntry web/views/home/home.ejs
+317 silly gunzTarPerm extractEntry web/views/layout.ejs
+318 silly gunzTarPerm extractEntry web/views/modals/addKeyModal.ejs
+319 silly gunzTarPerm extractEntry web/views/modals/addListValueModal.ejs
+320 silly gunzTarPerm extractEntry web/views/modals/editHashRowModal.ejs
+321 silly gunzTarPerm extractEntry web/views/modals/editListRowModal.ejs
+322 silly gunzTarPerm extractEntry web/views/modals/editZSetRowModal.ejs
+323 verbose read json /Users/robgalvin/.npm/redis-commander/0.1.1/package/package.json
+324 silly lockFile 05486569-pm-redis-commander-0-1-1-package /Users/robgalvin/.npm/redis-commander/0.1.1/package
+325 silly shasum updated bytes 40960
+326 silly shasum updated bytes 40960
+327 silly shasum updated bytes 40960
+328 silly shasum updated bytes 40960
+329 silly shasum updated bytes 40960
+330 silly shasum updated bytes 40960
+331 silly shasum updated bytes 40960
+332 silly shasum updated bytes 40960
+333 silly shasum updated bytes 40960
+334 silly shasum updated bytes 40960
+335 silly shasum updated bytes 40960
+336 silly shasum updated bytes 40960
+337 silly shasum updated bytes 40960
+338 silly shasum updated bytes 40960
+339 silly shasum updated bytes 40960
+340 silly shasum updated bytes 40960
+341 silly shasum updated bytes 32583
+342 info shasum b7d506f8c919fc6b55448970209a90c680774dba
+342 info shasum /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz
+343 verbose from cache /Users/robgalvin/.npm/redis-commander/0.1.1/package/package.json
+344 verbose chmod /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz 644
+345 verbose chown /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz [ 501, 20 ]
+346 silly lockFile 3f72b90b-mander-redis-commander-0-1-1-tgz https://registry.npmjs.org/redis-commander/-/redis-commander-0.1.1.tgz
+347 silly lockFile 7c12520c-redis-commander-0-1-1 redis-commander@0.1.1
+348 silly lockFile db6c6d42-redis-commander redis-commander@
+349 silly resolved [ { author: { name: 'Joe Ferner', email: 'joe@fernsroth.com' },
+349 silly resolved     contributors: [ [Object] ],
+349 silly resolved     name: 'redis-commander',
+349 silly resolved     version: '0.1.1',
+349 silly resolved     description: 'Redis web-based management tool written in node.js',
+349 silly resolved     repository:
+349 silly resolved      { type: 'git',
+349 silly resolved        url: 'git://github.com/nearinfinity/redis-commander.git' },
+349 silly resolved     keywords: [ 'redis', 'redis-client', 'redis-gui', 'redis-node' ],
+349 silly resolved     dependencies:
+349 silly resolved      { optimist: '~0.3.4',
+349 silly resolved        async: '~0.1.22',
+349 silly resolved        ejs: '~0.8',
+349 silly resolved        redis: '~0.7.2',
+349 silly resolved        sf: '~0.1.3',
+349 silly resolved        express: '2.x.x',
+349 silly resolved        inflection: '~1.2.0',
+349 silly resolved        browserify: '~1.12.2',
+349 silly resolved        'readline-browserify': '0.0.4',
+349 silly resolved        cmdparser: '0.0.3' },
+349 silly resolved     devDependencies: {},
+349 silly resolved     optionalDependencies: {},
+349 silly resolved     engines: { node: '*' },
+349 silly resolved     bin: { 'redis-commander': './bin/redis-commander.js' },
+349 silly resolved     readme: '# Redis Commander\n\nRedis management tool written in node.js\n\n# Install and Run\n\n```bash\n$ npm install -g redis-commander\n$ redis-commander\n```\n\n# Usage\n\n```bash\n$ redis-commander --help\nOptions:\n  --redis-port                    The port to find redis on.         [string]\n  --redis-host                    The host to find redis on.         [string]\n  --redis-socket                  The unix-socket to find redis on.  [string]\n  --redis-password                The redis password.                [string]\n  --redis-db                      The redis database.                [string]\n  --http-auth-username, --http-u  The http authorisation username.   [string]\n  --http-auth-password, --http-p  The http authorisation password.   [string]\n  --port, -p                      The port to run the server on.     [string]  [default: 8081]\n```\n',
+349 silly resolved     readmeFilename: 'README.md',
+349 silly resolved     _id: 'redis-commander@0.1.1',
+349 silly resolved     dist: { shasum: 'b7d506f8c919fc6b55448970209a90c680774dba' },
+349 silly resolved     _from: 'redis-commander' } ]
+350 info install redis-commander@0.1.1 into /usr/local/lib
+351 info installOne redis-commander@0.1.1
+352 verbose from cache /Users/robgalvin/.npm/redis-commander/0.1.1/package/package.json
+353 info /usr/local/lib/node_modules/redis-commander unbuild
+354 verbose read json /usr/local/lib/node_modules/redis-commander/package.json
+355 verbose tar unpack /Users/robgalvin/.npm/redis-commander/0.1.1/package.tgz
+356 silly lockFile e124ecd5-lib-node-modules-redis-commander /usr/local/lib/node_modules/redis-commander
+357 verbose lock /usr/local/lib/node_modules/redis-commander /Users/robgalvin/.npm/e124ecd5-lib-node-modules-redis-commander.lock
+358 silly gunzTarPerm modes [ '755', '644' ]
+359 error Error: EACCES, mkdir '/usr/local/lib/node_modules/redis-commander'
+359 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules/redis-commander']
+359 error   errno: 3,
+359 error   code: 'EACCES',
+359 error   path: '/usr/local/lib/node_modules/redis-commander',
+359 error   fstream_type: 'Directory',
+359 error   fstream_path: '/usr/local/lib/node_modules/redis-commander',
+359 error   fstream_class: 'DirWriter',
+359 error   fstream_stack:
+359 error    [ 'DirWriter._create (/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23)',
+359 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:37:53',
+359 error      'Object.oncomplete (fs.js:297:15)' ] }
+360 error Please try running this command again as root/Administrator.
+361 error System Darwin 11.4.2
+362 error command "node" "/usr/local/bin/npm" "install" "-g" "redis-commander"
+363 error cwd /Users/robgalvin/workspace/B47/Rhospection-server
+364 error node -v v0.8.17
+365 error npm -v 1.2.0
+366 error path /usr/local/lib/node_modules/redis-commander
+367 error fstream_path /usr/local/lib/node_modules/redis-commander
+368 error fstream_type Directory
+369 error fstream_class DirWriter
+370 error code EACCES
+371 error errno 3
+372 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules/redis-commander'
+373 error fstream_stack DirWriter._create (/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23)
+373 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:37:53
+373 error fstream_stack Object.oncomplete (fs.js:297:15)
+374 verbose exit [ 3, true ]

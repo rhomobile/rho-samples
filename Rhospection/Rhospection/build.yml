@@ -1,0 +1,30 @@
+#sdk: "/Users/robgalvin/.rvm/gems/ruby-1.9.3-p194/gems/rhodes-4.0.0.beta.59"
+sdkversion: "4.0.0"
+name: "Rhospection"
+version: 1.0
+vendor: "rhomobile"
+build: "debug"
+bbver: 6.0
+applog: "rholog.txt"
+iphone:
+  configuration: "Release"
+#sdk: "iphoneos6.1"
+  sdk: "iphonesimulator6.1"
+  provisionprofile: 
+  codesignidentity: 
+  entitlements: 
+  BundleIdentifier: "com.rhomobile.rhospection"
+  BundleURLScheme: "rhospection"
+wp:
+  productid: "5df3b720-f93a-0130-39a6-3c07547b3491"
+symbian:
+  uid: "0xe41a2db0"
+android:
+  version: "2.3.3"
+  capabilities:
+    - hardware_acceleration
+app_type: "rhoelements"
+extensions:
+  - rhoconnect-client
+capabilities:
+  - camera

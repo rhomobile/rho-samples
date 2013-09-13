@@ -1,0 +1,108 @@
+<script type="text/javascript">
+
+var curPage = 0;
+var itemsPerPage = 9;
+
+$(document).ready(function() {
+  
+  load_reports();
+
+  //setup pager handlers
+  $('.previous').click(function(){
+    curPage -=1;
+    load_reports();
+
+  });
+
+  $('.next').click(function(){
+    curPage +=1;
+    load_reports();
+
+  });
+
+});
+
+
+function load_reports()
+{
+reports = Report.find('all')
+  $('.list-group').html('');
+  if(reports.length>0)
+  {
+
+    start_index=curPage*itemsPerPage;
+    end_index = start_index+itemsPerPage;
+    if(end_index > reports.length)
+    {
+      end_index = reports.length;
+    }
+
+
+    for(i=start_index;i<end_index;i++)
+    {
+
+      reportIcon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>"
+      if(reports[i].get('pass')=="true")
+      {
+        reportIcon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>"
+      
+      }
+      //get count of ReportItems
+      reportItems = ReportItem.find('count',{
+        conditions:{reportid:reports[i].get('object')}
+      });
+      countBadge = '<span class="badge">' + reportItems + '</span>'
+      $('.list-group').append('<li class="list-group-item">' + countBadge + '<a href="/app/Report/{' + reports[i].get('object') + '}/edit">' + reportIcon  + reports[i].get('name')  + '</a>' + '</li>');
+    }
+    
+  
+  }
+
+  if(reports.length<=itemsPerPage)
+  {
+    $('.pager').hide();
+  }
+  else
+  {
+    $('.pager').show();
+    $('.previous').removeClass('disabled');
+    $('.next').removeClass('disabled');
+    if(start_index==0)
+    {
+      $('.previous').addClass('disabled');
+    
+    }
+    else
+    {
+      if(end_index!=reportItems.length)
+      {
+        $('.next').addClass('disabled');
+      }
+    }
+  }
+
+}
+</script>
+
+
+<div >
+      
+
+      
+</div>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Inspection Reports<a href="/app/Report/new" class="pull-right btn btn-xs btn-primary" ><i class="icon-plus icon-small icon-white" ></i> </a></div>
+  
+
+  <!-- List group -->
+  <ul class="list-group">
+  </ul>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom" id="pager" role="navigation">
+  <ul class="pager">
+    <li class="previous"><a href="#">&larr; Prev</a></li>
+    <li class="next"><a href="#">Next &rarr;</a></li>
+  </ul>
+
+</nav>
