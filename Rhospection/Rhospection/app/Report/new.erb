@@ -185,7 +185,15 @@ $(document).ready(function() {
   $('.icon-camera').click(function(){
     if(!Rho.System.isEmulator && !Rho.System.isRhoSimulator && Rho.System.hasCamera)
     {
-        Rho.Camera.takePicture({ }, picture_taken_callback_save_to_gallery);
+      // Using AJAX here since Camera JS is not available in 4.0 need to use Ruby calls
+      // look in /app/Camera/controller
+      Rho.Barcode.disable();
+      $.ajax({
+        url: "/app/Camera/take_picture_with_default_camera"
+      }).done(function() {
+
+      });
+        
 
     }
     else
@@ -195,6 +203,11 @@ $(document).ready(function() {
   });  
 
 });
+
+function change_image_source(img)
+{
+  $('#itemimgsrc').attr('src',img);
+}
 
 function picture_taken_callback_save_to_gallery(params) {
     if (params.status == "ok") {
@@ -346,7 +359,7 @@ function add_report_item(item)
               </div>
             </div>
             <div class="tab-pane fade" id="imagecapture">
-              <img src="http://placehold.it/200x200" id="itemimgsrc">
+              <img src="http://placehold.it/200x200" id="itemimgsrc" style="width:200px;height200px;">
             </div>
             
           </div>
