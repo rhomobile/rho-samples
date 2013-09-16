@@ -43,8 +43,8 @@ $(document).ready(function() {
 	
 
 	$('#btnSync').click(function(){
-		
-			Rho.RhoConnectClient.doSyncSource('Report',false,'');
+		$('.list-group').append('<li class="list-group-item" id="report"><i class="icon-spinner icon-spin icon-large"  id="report_spinner"></i>Reports</li>');
+ 		Rho.RhoConnectClient.doSyncSource('Report',false,'');
 
 		
 
@@ -160,43 +160,68 @@ $(document).ready(function() {
 
 function report_item_sync_notify(params)
 {
- $('.list-group').append('<li class="list-group-item">Updated Report Items</li>');
+
+	statusicon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>";
+	if(params.status=="error" )
+	{
+		statusicon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>";
+	
+	}
+	countBadge = '<span class="badge">' + params.processed_count + ' Processed</span>' + '<span class="badge">' + params.total_count + ' Total</span>' + '<span class="badge">' + params.cumulative_count + ' Cumulative</span>';
+
+	$('#reportitems').append(statusicon);	
+ 	$('#reportitems').append(countBadge);
+ 	$('#item_spinner').hide();	
+ 		
+ 	$('.list-group').append('<li class="list-group-item">Done</li>');
 }
 
 function report_sync_notify(params)
 {
 	console.log('Sync Callback'+ JSON.stringify(params));
- $('.list-group').append('<li class="list-group-item">Updated Reports</li>');
- reports = Report.find('all');
- $('.list-group').append('<li class="list-group-item">Updating Report Items</li>');
+ 	statusicon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>";
+	if(params.status=="ok")
+	{
+	statusicon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>";
+
+	}
+	countBadge = '<span class="badge">' + params.processed_count + ' Processed</span>' + '<span class="badge">' + params.total_count + ' Total</span>' + '<span class="badge">' + params.cumulative_count + ' Cumulative</span>';
+      
+	$('#report').append(statusicon);	
+ 	$('#report').append(countBadge);
+ 	$('#report_spinner').hide();	
+ 		
+
+
+	$('.list-group').append('<li class="list-group-item" id="reportitems"><i class="icon-spinner icon-spin icon-large" id="item_spinner"></i>Report Items</li>');
  
- for(i=0;i<reports.length;i++)
- {
- 	if(reports[i].get('object') != reports[i].get('reportid'))
- 	{
- 		console.log(reports[i].get('name')+' '+ reports[i].get('object'));
- 		//This record did a sync and object changed to backend id
- 		//now we have to fix the children records so they are linked properly with the backend id
- 		reportItems = ReportItem.find('all',{
- 			conditions:{
- 				reportid: reports[i].get('reportid')
- 			}
- 		});
- 		console.log(reportItems);
- 		for(x=0;x<reportItems.length;x++)
- 		{
- 			console.log(reportItems[x].get('productid'));
- 			reportItems[x].updateAttributes({
- 				reportid: reports[i].get('object')
- 			});
- 		}
- 		//then change reportid to be object so it doesn't catch it next time around
- 		//only have to do this once 
- 		reports[i].updateAttributes({reportid: reports[i].get('object')});
- 	}
- }
+ // for(i=0;i<reports.length;i++)
+ // {
+ // 	if(reports[i].get('object') != reports[i].get('reportid'))
+ // 	{
+ // 		console.log(reports[i].get('name')+' '+ reports[i].get('object'));
+ // 		//This record did a sync and object changed to backend id
+ // 		//now we have to fix the children records so they are linked properly with the backend id
+ // 		reportItems = ReportItem.find('all',{
+ // 			conditions:{
+ // 				reportid: reports[i].get('reportid')
+ // 			}
+ // 		});
+ // 		console.log(reportItems);
+ // 		for(x=0;x<reportItems.length;x++)
+ // 		{
+ // 			console.log(reportItems[x].get('productid'));
+ // 			reportItems[x].updateAttributes({
+ // 				reportid: reports[i].get('object')
+ // 			});
+ // 		}
+ // 		//then change reportid to be object so it doesn't catch it next time around
+ // 		//only have to do this once 
+ // 		//reports[i].updateAttributes({reportid: reports[i].get('object')});
+ // 	}
+ // }
  //sync report_items
- Rho.RhoConnectClient.doSyncSource('ReportItem',false,'');
+ 	Rho.RhoConnectClient.doSyncSource('ReportItem',false,'');
  
 }
 </script>

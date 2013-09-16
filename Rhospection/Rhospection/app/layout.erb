@@ -22,6 +22,26 @@
              
         <script type="text/javascript">
 var parse_config = {app_id : '<%=Rho::RhoConfig.parse_app_id%>', key_js: '<%=Rho::RhoConfig.parse_key_js%>' };
+
+$(document).ready(function() {
+  if(Rho.RhoConnectClient.isLoggedIn())
+  {
+    $('#menuLogout').html('<a href=""><i class="icon-key icon-2x icon-primary"></i>' + Rho.RhoConnectClient.userName + '- Logout</a>');
+  }
+  else
+  {
+    $('#menuLogout').html('Login');
+
+  }
+
+  $('#menuLogout').click(function(){
+    if(Rho.RhoConnectClient.isLoggedIn())
+    {
+      Rho.RhoConnectClient.logout;
+    }
+    Rho.WebView.navigate('/app/');
+  });
+});
         </script>
 <style>
 .image-thumb
@@ -52,11 +72,12 @@ body { padding-bottom: 70px; }
         <div class="navbar-collapse collapse" style="height: 1px;">
           
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/app/Sync" ><i class="icon-cloud icon-2x icon-primary" id='navcloud'></i>
-   Sync</a></li>
-            <li class="active"><a href="/app/Report" ><i class="icon-edit icon-2x icon-primary" id='navsequence'></i>Reports</a>
-      </li>
             
+            <li id="menuReports"><a href="/app/Report" ><i class="icon-edit icon-2x icon-primary" id='navsequence'></i>Reports</a>
+      </li>
+      <li id="menuSync"><a href="/app/Sync" ><i class="icon-cloud icon-2x icon-primary" id='navcloud'></i>
+   Sync</a></li>
+            <li id="menuLogout"></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

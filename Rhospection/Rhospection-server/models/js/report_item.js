@@ -1,18 +1,22 @@
 var rc = require('rhoconnect_helpers');
 var Parse = require('parse').Parse;
 var Store = rc.Store;
+var Common = require('../../controllers/js/common.js');
 
 var ReportItem = function(){
 
+  //The login method gets called each time before the CRUD methods
+  
   this.login = function(resp){
       username = resp.currentUser;
       password = '';
       resp.params = username;
+      // Retrieving the password for the user that was stored in redis 
+      
       Store.getValue(resp, function(resp){
         password = resp.result;
-        // console.log('Get Value:'+ username + ':' + password + ':' + JSON.stringify(resp));
-
-         Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+        
+         Parse.initialize(Common.parse_app_id, Common.parse_key_js);
   
          Parse.User.logIn(username, password, {
            success: function(user) {
@@ -34,16 +38,20 @@ var ReportItem = function(){
 
   this.query = function(resp){
     var result = {};
-    console.log('Item GOING TO QUERY THE DB');
         
-    Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+    Parse.initialize(Common.parse_app_id, Common.parse_key_js);
+    
+    //current user is the user that was logged in via login method
     var currentUser = Parse.User.current();
-    console.log('ParseUser'+JSON.stringify(currentUser));
     
     var pReportItem = Parse.Object.extend("ReportItem");
+    
+    // Parse APi for querying a model
+    // TODo - paginate results 
     var query = new Parse.Query(pReportItem);
     query.find({
       success: function(results) {
+        //This is where we map the backend data to the Rhom Models
         for (var i = 0; i < results.length; i++) { 
           var object = { reportid: results[i].get('reportid'), 
               productid: results[i].get('productid'),
@@ -53,22 +61,23 @@ var ReportItem = function(){
             };
           result[results[i].id.toString()] = object;
         }
-        // console.log('DONE');
-        // console.log(result);
+        
         resp.send(result);
 
       },
       error: function(error) {
-        // console.log('ERROR');
+        
         resp.send(result);
       }
     });
   };
 
   this.create = function(resp){
-     console.log('Report Item Creating');
+    
     // console.log(resp.params.create_object);
-    Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+    Parse.initialize(Common.parse_app_id, Common.parse_key_js);
+    var currentUser = Parse.User.current();
+    
     var PObject = Parse.Object.extend("ReportItem");
     var pObject = new PObject();
     pObject.save(resp.params.create_object, {
@@ -83,12 +92,11 @@ var ReportItem = function(){
   };
 
   this.update = function(resp){
-    // TODO: Update an existing record in your backend data source.
-    // Then return the result.
-     console.log('Report Item Update');
-    
+     
     var objId = resp.params.update_object.id;
-    Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+    Parse.initialize(Common.parse_app_id, Common.parse_key_js);
+    var currentUser = Parse.User.current();
+    
     var PObject = Parse.Object.extend("ReportItem");
     var query = new Parse.Query(PObject);
     query.get(objId, {
@@ -117,12 +125,10 @@ var ReportItem = function(){
   };
 
   this.del = function(resp){
-    // TODO: Delete an existing record in your backend data source
-    // if applicable.  Be sure to have a hash key and value for
-    // "object" and return the result.
-     console.log('Report Item Delete');
     var objId = resp.params.delete_object.id;
-    Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+    Parse.initialize(Common.parse_app_id, Common.parse_key_js);
+    var currentUser = Parse.User.current();
+    
     var PObject = Parse.Object.extend("ReportItem");
     var query = new Parse.Query(PObject);
     query.get(objId, {

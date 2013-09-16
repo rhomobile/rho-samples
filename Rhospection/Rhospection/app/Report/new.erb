@@ -221,7 +221,7 @@ function load_report_items()
 {
 //get report items and show in list
       reportItems = ReportItem.find('all',{
-        conditions:{reportid:thisReport.get('object')}
+        conditions:{reportid:thisReport.get('reportid')}
       });
         $('.media-list').html('');
         if(reportItems.length>0)

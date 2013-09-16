@@ -49,7 +49,7 @@ reports = Report.find('all')
       }
       //get count of ReportItems
       reportItems = ReportItem.find('count',{
-        conditions:{reportid:reports[i].get('object')}
+        conditions:{reportid:reports[i].get('reportid')}
       });
       countBadge = '<span class="badge">' + reportItems + '</span>'
       $('.list-group').append('<li class="list-group-item">' + countBadge + '<a href="/app/Report/{' + reports[i].get('object') + '}/edit">' + reportIcon  + reports[i].get('name')  + '</a>' + '</li>');
