@@ -6,32 +6,36 @@ var Store = rc.Store;
 var Report = function(){
 
   this.login = function(resp){
-    // TODO: Login to your data source here if necessary
- //  console.log(JSON.stringify(req));
-  Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
       username = resp.currentUser;
-      password = 'password';
+      password = '';
+      resp.params = username;
+      Store.getValue(resp, function(resp){
+        password = resp.result;
+        // console.log('Get Value:'+ username + ':' + password + ':' + JSON.stringify(resp));
+
+         Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+  
          Parse.User.logIn(username, password, {
            success: function(user) {
+            console.log('My Backend Login: Success');
+      
             resp.send(true);
            },
            error: function(user, error) {
+            console.log('Error Logging In My Backend');
+      
              resp.send(false);
            }
          });
-      
-
-
-    
-      // resp.send(true);
-
-
+            
+        
+      });
     
   };
 
   this.query = function(resp){
     var result = {};
-    // console.log('GOING TO QUERY THE DB');
+    console.log('REPORT QUERY');
         
     Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
     var currentUser = Parse.User.current();
@@ -40,7 +44,11 @@ var Report = function(){
     var query = new Parse.Query(pReport);
     query.find({
       success: function(results) {
+    console.log('PARSE SUCCESS QUERY'+results.length);
+
         for (var i = 0; i < results.length; i++) { 
+    console.log('QUERY'+results[i].get('name'));
+
           var object = { name: results[i].get('name'), 
               pass: results[i].get('pass'),
               reportid: results[i].get('reportid')
@@ -53,7 +61,7 @@ var Report = function(){
 
       },
       error: function(error) {
-        // console.log('ERROR');
+        console.log('ERROR');
         resp.send(result);
       }
     });
@@ -63,15 +71,19 @@ var Report = function(){
     console.log('Creating');
     console.log(JSON.stringify(resp.params.create_object));
     Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+    var currentUser = Parse.User.current();
+    console.log('ParseUser'+JSON.stringify(currentUser));
     var PObject = Parse.Object.extend("Report");
     var pObject = new PObject();
     pObject.save(resp.params.create_object, {
       success: function(object) {
+    console.log('REPORT CREATED'+object.id);
         pid=object.id;
         resp.send(pid);
         },
       error: function(object) {
-        resp.send('-1');
+        console.log('create ERROR');
+        resp.send(false);
         }
       });
   };
@@ -80,7 +92,10 @@ var Report = function(){
     // TODO: Update an existing record in your backend data source.
     // Then return the result.
     var objId = resp.params.update_object.id;
+    console.log('updating Report'+objId);
     Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+    var currentUser = Parse.User.current();
+    console.log('ParseUser'+JSON.stringify(currentUser));
     var PObject = Parse.Object.extend("Report");
     var query = new Parse.Query(PObject);
     query.get(objId, {
@@ -88,10 +103,12 @@ var Report = function(){
         // The object was retrieved successfully.
         pObject.save(resp.params.update_object, {
               success: function(object) {
-                
+                    console.log('REPORT Updated'+object.id);
+
                 resp.send(true);
                 },
               error: function(object) {
+                console.log('Update ERROR');
                 resp.send(false);
                 }
               });
@@ -113,7 +130,11 @@ var Report = function(){
     // if applicable.  Be sure to have a hash key and value for
     // "object" and return the result.
     var objId = resp.params.delete_object.id;
+    console.log('Deleting Report'+objId);
+    
     Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+    var currentUser = Parse.User.current();
+    console.log('ParseUser'+JSON.stringify(currentUser));
     var PObject = Parse.Object.extend("Report");
     var query = new Parse.Query(PObject);
     query.get(objId, {
@@ -121,7 +142,8 @@ var Report = function(){
         // The object was retrieved successfully.
         pObject.destroy( {
               success: function(object) {
-                
+                console.log('Success deleting');
+    
                 resp.send(true);
                 },
               error: function(object) {

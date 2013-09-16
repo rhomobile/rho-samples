@@ -9,7 +9,6 @@ class AppApplication < Rho::RhoApplication
     @@toolbar = nil
     super
 
-
     # Uncomment to set sync notification callback to /app/Settings/sync_notify.
     # Rho::RhoConnectClient.setObjectNotification("/app/Settings/sync_notify")
     #Rho::RhoConnectClient.setNotification('*', "/app/Settings/sync_notify", '')

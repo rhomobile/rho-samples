@@ -29,7 +29,7 @@ reports = Report.find('all')
   $('.list-group').html('');
   if(reports.length>0)
   {
-
+    $('.panel').show();
     start_index=curPage*itemsPerPage;
     end_index = start_index+itemsPerPage;
     if(end_index > reports.length)
@@ -56,6 +56,10 @@ reports = Report.find('all')
     }
     
   
+  }
+  else
+  {
+      $('.panel').hide();
   }
 
   if(reports.length<=itemsPerPage)
@@ -90,9 +94,13 @@ reports = Report.find('all')
 
       
 </div>
+<div class="row">
+  <a href="/app/Report/new" class="pull-right btn btn-primary" ><i class="icon-plus  icon-white" ></i> New Report</a>
+</div>
+
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Inspection Reports<a href="/app/Report/new" class="pull-right btn btn-xs btn-primary" ><i class="icon-plus icon-small icon-white" ></i> </a></div>
+  <div class="panel-heading">Inspection Reports</div>
   
 
   <!-- List group -->

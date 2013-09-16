@@ -1,4 +1,4 @@
-<script type="text/javascript">
+	<script type="text/javascript">
 $(document).ready(function() {
 	if(!Rho.RhoConnectClient.isLoggedIn()){
 		$('#loginpage').show();
@@ -12,7 +12,7 @@ $(document).ready(function() {
 	}
  
 
-  	Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+  	Parse.initialize(parse_config.app_id, parse_config.key_js);
     
 
 	$('#btnLogin').click(function(){
@@ -43,11 +43,10 @@ $(document).ready(function() {
 	
 
 	$('#btnSync').click(function(){
-		Rho.RhoConnectClient.login($('#login').val(),$('#password').val(), function(e){
-			console.log(e);
+		
 			Rho.RhoConnectClient.doSyncSource('Report',false,'');
 
-		});
+		
 
 	});
 
@@ -166,6 +165,7 @@ function report_item_sync_notify(params)
 
 function report_sync_notify(params)
 {
+	console.log('Sync Callback'+ JSON.stringify(params));
  $('.list-group').append('<li class="list-group-item">Updated Reports</li>');
  reports = Report.find('all');
  $('.list-group').append('<li class="list-group-item">Updating Report Items</li>');
@@ -192,7 +192,7 @@ function report_sync_notify(params)
  		}
  		//then change reportid to be object so it doesn't catch it next time around
  		//only have to do this once 
- 		// reports[i].updateAttributes({reportid: reports[i].get('object')});
+ 		reports[i].updateAttributes({reportid: reports[i].get('object')});
  	}
  }
  //sync report_items

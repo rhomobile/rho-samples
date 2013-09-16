@@ -31,7 +31,7 @@ GEM
       vegas (~> 0.1.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rhoconnect (4.0.0)
+    rhoconnect (4.0.1.beta)
       bundler (~> 1.0)
       connection_pool (~> 1.0.0)
       json (~> 1.7.7)
@@ -85,7 +85,7 @@ DEPENDENCIES
   puma (~> 1.6.0)
   rack-fiber_pool
   rack-test (>= 0.5.3)
-  rhoconnect (= 4.0.0)
+  rhoconnect (= 4.0.1.beta)
   rhomobile-debug (>= 1.0.2)
   rspec (~> 2.10.0)
   thin

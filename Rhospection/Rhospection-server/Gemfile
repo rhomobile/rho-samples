@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rhoconnect', '4.0.0'
+gem 'rhoconnect', '4.0.1.beta'
 
 gemfile_path = File.join(File.dirname(__FILE__), ".rcgemfile")
 begin

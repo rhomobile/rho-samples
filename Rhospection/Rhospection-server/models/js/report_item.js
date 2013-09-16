@@ -1,17 +1,44 @@
 var rc = require('rhoconnect_helpers');
 var Parse = require('parse').Parse;
+var Store = rc.Store;
 
 var ReportItem = function(){
 
   this.login = function(resp){
-    resp.send(true);
-  };
+      username = resp.currentUser;
+      password = '';
+      resp.params = username;
+      Store.getValue(resp, function(resp){
+        password = resp.result;
+        // console.log('Get Value:'+ username + ':' + password + ':' + JSON.stringify(resp));
+
+         Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+  
+         Parse.User.logIn(username, password, {
+           success: function(user) {
+            console.log('My Backend Login: Success');
+      
+            resp.send(true);
+           },
+           error: function(user, error) {
+            console.log('Error Logging In My Backend');
+      
+             resp.send(false);
+           }
+         });
+            
+        
+      });
+    
+   };
 
   this.query = function(resp){
     var result = {};
-    // console.log('GOING TO QUERY THE DB');
+    console.log('Item GOING TO QUERY THE DB');
         
     Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
+    var currentUser = Parse.User.current();
+    console.log('ParseUser'+JSON.stringify(currentUser));
     
     var pReportItem = Parse.Object.extend("ReportItem");
     var query = new Parse.Query(pReportItem);
@@ -39,7 +66,7 @@ var ReportItem = function(){
   };
 
   this.create = function(resp){
-    // console.log('Creating');
+     console.log('Report Item Creating');
     // console.log(resp.params.create_object);
     Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
     var PObject = Parse.Object.extend("ReportItem");
@@ -58,6 +85,8 @@ var ReportItem = function(){
   this.update = function(resp){
     // TODO: Update an existing record in your backend data source.
     // Then return the result.
+     console.log('Report Item Update');
+    
     var objId = resp.params.update_object.id;
     Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
     var PObject = Parse.Object.extend("ReportItem");
@@ -91,6 +120,7 @@ var ReportItem = function(){
     // TODO: Delete an existing record in your backend data source
     // if applicable.  Be sure to have a hash key and value for
     // "object" and return the result.
+     console.log('Report Item Delete');
     var objId = resp.params.delete_object.id;
     Parse.initialize("3zvw9xgwWsaTqF3LyJD7TIoEySn5rgUJkMSxkMRI", "ghqCxF1bVtNCl4oxUAMqovHtD5WRPJoEZ0YWxXoX");
     var PObject = Parse.Object.extend("ReportItem");
@@ -127,6 +157,7 @@ var ReportItem = function(){
   this.storeBlob = function(resp){
     // TODO: Handle post requests for blobs here.
     // Reference the blob object's path with resp.params.path.
+    console.log(JSON.stringify(resp));
     new rc.Exception(
       resp, "Please provide some code to handle blobs if you are using them."
     );
