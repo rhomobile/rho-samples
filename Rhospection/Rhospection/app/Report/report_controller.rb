@@ -6,6 +6,12 @@ class ReportController < Rho::RhoController
 
   # GET /Report
   def index
+    @ispublic = false
+  end
+
+  def public
+    @ispublic = true
+    render :action => :index
   end
 
   # GET /Report/{1}

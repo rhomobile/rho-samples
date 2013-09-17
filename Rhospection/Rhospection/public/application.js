@@ -5,6 +5,7 @@ var	Report = Rho.ORM.addModel(function(model){
   model.property("date","string");
   model.property("location","string");
   model.property("author","string");
+  model.property("ispublic","boolean");
   model.property("reportid","string");
   model.enable("sync");
   model.set("partition","user");

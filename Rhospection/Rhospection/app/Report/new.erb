@@ -25,6 +25,10 @@ $(document).ready(function() {
       {
         $('#pass').prop('checked', true);
       }
+      if(thisReport.get('ispublic')=='true')
+      {
+        $('#ispublic').prop('checked', true);
+      }
       $('#reportdelete').show();
 
       load_report_items();     
@@ -38,16 +42,26 @@ $(document).ready(function() {
     {
       thisReport.updateAttributes({
               name:$('#name').val(),
-              pass:$('#pass').is(':checked')
+              pass:$('#pass').is(':checked'),
+              ispublic:$('#ispublic').is(':checked')
             });
-      Rho.WebView.navigate('/app/Report');
+      if($('#ispublic').is(':checked')){
+        Rho.WebView.navigate('/app/Report/public');
+
+      }
+      else {
+        Rho.WebView.navigate('/app/Report');
+
+      }
+
 
     }
     else
     {
       thisReport = Report.create({
               name:$('#name').val(),
-              pass:$('#pass').is(':checked')
+              pass:$('#pass').is(':checked'),
+              ispublic:$('#ispublic').is(':checked')
             });
       //update reportid field to use object
       //so after rhoconnect sync can still link
@@ -102,8 +116,7 @@ $(document).ready(function() {
             reportid: thisReport.get('reportid'),
             productid:$('#itemid').val(),
             status:$('#itemstatus').val(),
-            imgsrcLocal:$('#itemimgsrc').attr('src'),
-            pass:$('#pass').is(':checked')
+            imgsrcLocal:$('#itemimgsrc').attr('src')
           });
 
     load_report_items();
@@ -306,7 +319,11 @@ function add_report_item(item)
       <input type="checkbox" id="pass"> Pass Inspection
     </label>
   </div>
-  
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" id="ispublic"> Public Report? (Read Only)
+    </label>
+  </div>
 </div>
 
 <div class="panel panel-default">

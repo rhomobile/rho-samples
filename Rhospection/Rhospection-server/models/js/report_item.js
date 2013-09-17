@@ -80,6 +80,8 @@ var ReportItem = function(){
     
     var PObject = Parse.Object.extend("ReportItem");
     var pObject = new PObject();
+
+    
     pObject.save(resp.params.create_object, {
       success: function(object) {
         pid=object.id;

@@ -60,8 +60,10 @@ var Report = function(){
           //This is where we map the backend data to the Rho Models
           var object = { name: results[i].get('name'), 
               pass: results[i].get('pass'),
+              ispublic: results[i].get('ispublic'),
               reportid: results[i].get('reportid')
             };
+          
           result[results[i].id.toString()] = object
         }
         //return the result
@@ -80,6 +82,19 @@ var Report = function(){
     var currentUser = Parse.User.current();
     var PObject = Parse.Object.extend("Report");
     var pObject = new PObject();
+    
+    //Parse ACL = Access control list
+    var postACL = new Parse.ACL(Parse.User.current());//set ACL to current user as default
+
+    console.log(resp.params.create_object.ispublic);
+    if(resp.params.create_object.ispublic == "true"){
+      console.log('allowing public read only');
+      postACL.setPublicReadAccess(true); //set
+    }
+    
+    pObject.setACL(postACL); 
+    
+
 
     //resp.params.create_object will be a JS object for the new record
     //Parse also uses a schemaless method for storing data
@@ -112,6 +127,20 @@ var Report = function(){
     var query = new Parse.Query(PObject);
     query.get(objId, {
       success: function(pObject) {
+          //Parse ACL = Access control list
+          var postACL = new Parse.ACL(Parse.User.current());//set ACL to current user as default
+
+
+          if(resp.params.update_object.ispublic == "true"){
+            postACL.setPublicReadAccess(true); //set public read only access
+          }
+          else
+          {
+            postACL.setPublicReadAccess(false); //set to private
+
+          }
+          pObject.setACL(postACL); 
+          
         pObject.save(resp.params.update_object, {
               success: function(object) {
         

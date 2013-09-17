@@ -2,9 +2,20 @@
 
 var curPage = 0;
 var itemsPerPage = 9;
+var filterpublic = '<%=@ispublic%>'; //This comes from the report_controller.erb
 
 $(document).ready(function() {
   
+  if(Rho.ORM.haveLocalChanges()){
+    $('#message').show();
+    $('#message').html('<a href="/app/Sync" class="label label-warning btn-block"><i class="icon icon-warning-sign icon-small"></i><strong>Local Changes Not Synced</strong></a>');
+  }
+  else
+  {
+        $('#message').show();
+
+  }
+
   load_reports();
 
   //setup pager handlers
@@ -20,16 +31,30 @@ $(document).ready(function() {
 
   });
 
+  if(filterpublic == "false"){
+    $('#private_tab').addClass("active");
+    
+  }
+  else{
+    $('#public_tab').addClass("active");
+    
+  }
+
 });
 
 
 function load_reports()
 {
-reports = Report.find('all')
+  reports = Report.find('all',{
+    conditions:{
+      ispublic: filterpublic
+    }
+  });
   $('.list-group').html('');
   if(reports.length>0)
   {
     $('.panel').show();
+    $('.panel-heading').append('<span class="badge pull-right">' + reports.length + ' Reports</span>');
     start_index=curPage*itemsPerPage;
     end_index = start_index+itemsPerPage;
     if(end_index > reports.length)
@@ -41,17 +66,18 @@ reports = Report.find('all')
     for(i=start_index;i<end_index;i++)
     {
 
-      reportIcon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>"
+      reportIcon = "<i class='pull-left icon icon-warning-sign icon-warning icon-large'></i>"
       if(reports[i].get('pass')=="true")
       {
         reportIcon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>"
       
       }
+      
       //get count of ReportItems
       reportItems = ReportItem.find('count',{
         conditions:{reportid:reports[i].get('reportid')}
       });
-      countBadge = '<span class="badge">' + reportItems + '</span>'
+      countBadge = '<span class="badge">' + reportItems + ' Items</span>'
       $('.list-group').append('<li class="list-group-item">' + countBadge + '<a href="/app/Report/{' + reports[i].get('object') + '}/edit">' + reportIcon  + reports[i].get('name')  + '</a>' + '</li>');
     }
     
@@ -65,10 +91,12 @@ reports = Report.find('all')
   if(reports.length<=itemsPerPage)
   {
     $('.pager').hide();
+     $('#pager').hide();
   }
   else
   {
     $('.pager').show();
+    $('#pager').show();
     $('.previous').removeClass('disabled');
     $('.next').removeClass('disabled');
     if(start_index==0)
@@ -89,18 +117,18 @@ reports = Report.find('all')
 </script>
 
 
-<div >
-      
 
-      
+<div>
+  
 </div>
-<div class="row">
-  <a href="/app/Report/new" class="pull-right btn btn-primary" ><i class="icon-plus  icon-white" ></i> New Report</a>
-</div>
-
+<ul class="nav nav-tabs">
+  <li id="private_tab"><a href="/app/Report"><i class='icon icon-lock'></i> Private</a></li>
+  <li id="public_tab"><a href="/app/Report/public"><i class='icon icon-group'></i> Public</a></li>
+  <li class="pull-right"><a href="/app/Report/new" class="label label-primary" ><i class="icon-plus  icon-white" ></i>  New Report</a></li>
+</ul>
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Inspection Reports</div>
+  <div class="panel-heading"><i class='icon icon-edit'></i> Reports<span  id="message" class="pull-right"></span></div>
   
 
   <!-- List group -->

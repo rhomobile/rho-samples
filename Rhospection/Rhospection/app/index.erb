@@ -3,20 +3,38 @@ $(document).ready(function() {
 
   	Parse.initialize(parse_config.app_id, parse_config.key_js);
     $('.login-alert').hide();
+	if(Rho.ORM.haveLocalChanges()){
+		$('.login-alert').show();
+		$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>Local Changes Not Synced:</strong></div><div>There are local changes from the previous user <strong>(' + Rho.RhoConnectClient.userName + ')</strong> that have not been synced to the backend. Logging in as another user will erase all of those changes.</div>');
+	}
 
 	$('#btnLogin').click(function(){
 		Parse.User.logIn($('#login').val(), $('#password').val(), {
 		      success: function(user) {
+		      	startpage = '/app/Report';
+		      	if(Rho.RhoConnectClient.userName != $('#login').val())
+		      	{
+		      		startpage = '/app/Sync'; //change of user wil wipe the db need to sync
+		      	}
 				Rho.RhoConnectClient.login($('#login').val(),$('#password').val(), function(e){
+					console.log('LOgin Callback');
 					console.log(e);
-					Rho.WebView.navigate('/app/Report');
+					if(e.error_code == "0")
+					{
+						Rho.WebView.navigate(startpage);
+					}
+					else
+					{
+						$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>RhoConnect Login Error</strong>: </div>' + e.error_message + ' Try again or <strong>Select Reports</strong> from the menu to continue as last logged in user');
+		      			$('.login-alert').show();	
+					}
 
 				});
 				
 		      },
 		      error: function(user, error) {
 		      	console.log(user);
-				$('.login-alert').html('<strong>Error</strong>: ' + error.message);
+				$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>Could not log into backend</strong>: </div>' + error.message + ' Try again or <strong>Select Reports</strong> from the menu to continue as last logged in user.');
 		      	$('.login-alert').show();
 
 		      }
