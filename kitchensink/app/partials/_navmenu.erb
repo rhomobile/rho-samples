@@ -31,7 +31,7 @@
             <li>Device does not have a Barcode</li>
           <% end %>
         <% else %>
-          <li>Barcode is supported only on Android, IOS and Windows Mobile</li>  
+          <li>Barcode is supported only on Android, iOS and Windows Mobile</li>  
         <% end %>
       </ul>
     </div>
@@ -40,11 +40,11 @@
       <h3>Battery</h3>
 
       <ul data-role="listview" data-inset="true">
-        <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS" || Rho::System.platform == "WP8") && !Rho::System.isRhoSimulator %>
+        <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS" ) && !Rho::System.isRhoSimulator %>
           <li><a href="<%= url_for :controller => :Battery, :action => :confirm_battery_status %>">Retrieve the Battery status</a></li>
           <li><a href="<%= url_for :controller => :Battery, :action => :confirm_battery_indicator %>">Working with the Battery indicator</a></li>
         <% else %>
-          <li>Battery is supported only on Android, IOS , WP8 and Windows Mobile</li>
+          <li>Battery is supported only on Android, iOS and Windows Mobile</li>
         <% end %>
       </ul>
     </div>
@@ -182,7 +182,7 @@
         <% if Rho::System.platform == "APPLE" %>
           <li><a href="<%= url_for :controller => :Navbar, :action => :navbar_menu %>">Create Navbar</a></li>
         <% else %>
-          <li>Navbar is supported only on IOS</li>
+          <li>Navbar is supported only on iOS</li>
         <% end %>
        </ul>
     </div>
@@ -207,7 +207,7 @@
         <% if (Rho::System.platform == "ANDROID" || Rho::System.platform == "APPLE" || Rho::System.platform == "WINDOWS" || Rho::System.platform == "WINDOWS_DESKTOP" ) %>
             <li><a href="<%= url_for :controller => :Notification, :action => :notification_menu %>">Notifications</a></li>
         <% else %>
-          <li>Notification is supported only on Android, IOS, Windows Mobile and Windows Destop</li>li>
+          <li>Notification is supported only on Android, iOS, Windows Mobile and Windows Destop</li>
         <% end %>
       </ul>
     </div>
@@ -263,7 +263,7 @@
           <li><a href="<%= url_for :controller => :Signal, :action => :confirm_signal_status %>">Retrieve the Signal status</a></li>
           <li><a href="<%= url_for :controller => :Signal, :action => :confirm_signal_indicator %>">Working with the Signal indicator</a></li>
         <% else %>
-          <li>Signal is supported only on Android, IOS and Windows Mobile</li>
+          <li>Signal is supported only on Android, iOS and Windows Mobile</li>
         <% end %>
       </ul>
     </div>

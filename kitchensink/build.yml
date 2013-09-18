@@ -1,6 +1,6 @@
 sdkversion: "4.0.0"
 name: "Kitchen Sink"
-version: 1.0
+version: "1.30.59"
 vendor: "rhomobile"
 build: "debug"
 bbver: 6.0
@@ -21,6 +21,8 @@ symbian:
   uid: "0xe8a1ed84"
 android:
   version: "2.3.3"
+  capabilities:
+    - hardware_acceleration
 extensions:
   - mediaplayer
   - screenorientation
