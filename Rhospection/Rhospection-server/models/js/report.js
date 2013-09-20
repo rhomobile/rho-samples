@@ -1,7 +1,7 @@
 var rc = require('rhoconnect_helpers');
 var http = require('http');
-var Parse = require('parse').Parse;
 var Store = rc.Store;
+var Parse = require('parse').Parse;
 var Common = require('../../controllers/js/common.js');
 
 var Report = function(){
@@ -26,7 +26,8 @@ var Report = function(){
            },
            error: function(user, error) {
               console.log('Error Logging In My Backend');
-             resp.send(false);
+              new rc.LoginException(resp, error.message);
+             // resp.send(false);
            }
          });
             
@@ -63,7 +64,7 @@ var Report = function(){
               ispublic: results[i].get('ispublic'),
               reportid: results[i].get('reportid')
             };
-          
+
           result[results[i].id.toString()] = object
         }
         //return the result
@@ -71,7 +72,8 @@ var Report = function(){
 
       },
       error: function(error) {
-        resp.send(result);
+          new rc.Exception(resp, error.message);
+
       }
     });
   };
@@ -86,16 +88,12 @@ var Report = function(){
     //Parse ACL = Access control list
     var postACL = new Parse.ACL(Parse.User.current());//set ACL to current user as default
 
-    console.log(resp.params.create_object.ispublic);
     if(resp.params.create_object.ispublic == "true"){
       console.log('allowing public read only');
       postACL.setPublicReadAccess(true); //set
     }
     
     pObject.setACL(postACL); 
-    
-
-
     //resp.params.create_object will be a JS object for the new record
     //Parse also uses a schemaless method for storing data
     //each attribute on the Rho model will be created on the backend
@@ -107,9 +105,10 @@ var Report = function(){
         pid=object.id;
         resp.send(pid);
         },
-      error: function(object) {
+      error: function(error) {
         console.log('create ERROR');
-        resp.send(false);
+        new rc.Exception(resp, error.message);
+
         }
       });
   };
@@ -146,9 +145,10 @@ var Report = function(){
         
                 resp.send(true);
                 },
-              error: function(object) {
-                console.log('Update ERROR');
-                resp.send(false);
+              error: function(object,error) {
+                console.log('Update ERROR'+ error.message);
+                new rc.Exception(resp, object.get('name') + ' ' + error.message);
+
                 }
               });
 
@@ -156,7 +156,8 @@ var Report = function(){
       error: function(object, error) {
         // The object was not retrieved successfully.
         // error is a Parse.Error with an error code and description.
-        resp.send(false);
+          new rc.Exception(resp, error.message);
+
       }
     });
 
@@ -183,8 +184,9 @@ var Report = function(){
               success: function(object) {
                 resp.send(true);
                 },
-              error: function(object) {
-                resp.send(false);
+              error: function(error) {
+                new rc.Exception(resp, error.message);
+
                 }
               });
 
@@ -193,6 +195,8 @@ var Report = function(){
         // The object was not retrieved successfully.
         // error is a Parse.Error with an error code and description.
         resp.send(false);
+        new rc.Exception(resp, error.message);
+
       }
     });
 

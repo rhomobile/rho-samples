@@ -213,7 +213,6 @@ var Rho = Rho || (function ($) {
                 optParams: persistentCallbackOptParams
             };
         }
-
         var cmdText = JSON.stringify(cmd, wrapFunctions);
         console.log(cmdText);
 

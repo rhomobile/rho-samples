@@ -134,7 +134,7 @@ $(document).ready(function() {
           object:$('#itemobject').val()
         }
       });
-    //Save new item to the database
+    //Update existing item to the database
     thisReportItem.updateAttributes({
             productid:$('#itemid').val(),
             status:$('#itemstatus').val(),
@@ -154,7 +154,7 @@ $(document).ready(function() {
           object:$('#itemobject').val()
         }
       });
-    //Save new item to the database
+    //Delete item from the database
     thisReportItem.destroy();
     load_report_items();
     //hide modal form

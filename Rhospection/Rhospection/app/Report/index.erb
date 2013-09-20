@@ -8,11 +8,11 @@ $(document).ready(function() {
   
   if(Rho.ORM.haveLocalChanges()){
     $('#message').show();
-    $('#message').html('<a href="/app/Sync" class="label label-warning btn-block"><i class="icon icon-warning-sign icon-small"></i><strong>Local Changes Not Synced</strong></a>');
+    $('#message').html('<a href="/app/Sync" class=""><i class="icon icon-warning-sign icon-small"></i><strong>Local Changes Not Synced</strong></a>');
   }
   else
   {
-        $('#message').show();
+        $('#message').hide();
 
   }
 
@@ -118,17 +118,19 @@ function load_reports()
 
 
 
-<div>
+<div  id="message" class="alert alert-warning">
   
 </div>
+<div >
 <ul class="nav nav-tabs">
   <li id="private_tab"><a href="/app/Report"><i class='icon icon-lock'></i> Private</a></li>
   <li id="public_tab"><a href="/app/Report/public"><i class='icon icon-group'></i> Public</a></li>
-  <li class="pull-right"><a href="/app/Report/new" class="label label-primary" ><i class="icon-plus  icon-white" ></i>  New Report</a></li>
+  <li class="pull-right"><a href="/app/Report/new" class="label label-primary" ><i class="icon-plus-sign  icon-white" ></i>  New</a></li>
 </ul>
+</div>
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading"><i class='icon icon-edit'></i> Reports<span  id="message" class="pull-right"></span></div>
+  <div class="panel-heading"><i class='icon icon-edit'></i> Reports<span ></span></div>
   
 
   <!-- List group -->

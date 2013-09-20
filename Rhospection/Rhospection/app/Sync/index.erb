@@ -9,7 +9,7 @@ $(document).ready(function() {
 	Rho.RhoConnectClient.setNotification('ReportItem',report_item_sync_notify);
 	
 	//show status for starting sync
-	$('.list-group').append('<li class="list-group-item" id="report"><i class="icon-spinner icon-spin icon-large"  id="report_spinner"></i>Reports</li>');
+	$('#status_list').append('<li class="list-group-item" id="report"><i class="icon-spinner icon-spin icon-large"  id="report_spinner"></i>Reports</li>');
 
 	// start to sync the Report model
 	// controlling behavior of sync is typical instead of doing
@@ -34,28 +34,56 @@ function report_item_sync_notify(params)
  	$('#reportitems').append(countBadge);
  	$('#item_spinner').hide();	
  		
- 	$('.list-group').append('<li class="list-group-item">Done</li>');
+ 	$('#status_list').append('<li class="list-group-item">Done</li>');
  	$('#syncpage').append('<a href="/app/Report" class="btn btn-primary btn-block"><i class="icon-edit icon-white icon-2x"></i> View Inspection Reports</a>');
 }
 
 function report_sync_notify(params)
 {
-	console.log('Sync Callback'+ JSON.stringify(params));
- 	statusicon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>";
+	console.log(JSON.stringify(params));
+	statusicon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>";
+	errormsg = "";
 	if(params.status=="error")
 	{
 		statusicon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>";
+		console.log("SERVER ERRORS" + JSON.stringify(params.server_errors["update-error"]));
+	
+		if(typeof(params.server_errors["update-error"]) !='undefined'){
 
-	}
+			errormsg += '<div class="panel panel-danger"><div class="panel-heading">Report Update Errors</div><ul class="list-group">';
+  
+			update_errors = params.server_errors["update-error"];
+			console.log('update errors'+JSON.stringify(update_errors));
+			for ( property in update_errors ) {
+			  errormsg +='<li class="list-group-item">' + update_errors[property].message + '</li>'; 
+			}
+			errormsg += '</ul></div>';
+			
+		}
+		// if(typeof(params.server_errors["delete-error"]) !='undefined'){
+
+		// 		errormsg += '<div class="panel panel-danger"><div class="panel-heading">Report Delete Errors</div><ul class="list-group">';
+	  
+		// 		delete_errors = params.server_errors["delete-error"];
+		// 		console.log('delete errors'+JSON.stringify(delete_errors));
+		// 		for ( property in delete_errors ) {
+		// 		  errormsg +='<li class="list-group-item">' + delete_errors[property].message + '</li>'; 
+		// 		}
+		// 		errormsg += '</ul></div>';
+				
+		// 	}
+
+		}
 	countBadge = '<span class="badge">' + params.processed_count + ' Processed</span>' + '<span class="badge">' + params.total_count + ' Total</span>' + '<span class="badge">' + params.cumulative_count + ' Cumulative</span>';
       
 	$('#report').append(statusicon);	
  	$('#report').append(countBadge);
+ 	$('#syncpage').append(errormsg);
  	$('#report_spinner').hide();	
  		
 
 
-	$('.list-group').append('<li class="list-group-item" id="reportitems"><i class="icon-spinner icon-spin icon-large" id="item_spinner"></i>Report Items</li>');
+	$('#status_list').append('<li class="list-group-item" id="reportitems"><i class="icon-spinner icon-spin icon-large" id="item_spinner"></i>Report Items</li>');
  
  	Rho.RhoConnectClient.doSyncSource('ReportItem',false,'');
  
@@ -69,7 +97,7 @@ function report_sync_notify(params)
 	  
 
 	  <!-- List group -->
-	  <ul class="list-group">
+	  <ul class="list-group" id="status_list">
 	  </ul>
 	</div>
 </div> 

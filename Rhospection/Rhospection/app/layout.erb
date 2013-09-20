@@ -8,15 +8,11 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
         <link href="/public/css/bootstrap.min.css" rel="stylesheet" media="screen">
-       
         <link href="/public/css/font-awesome.min.css" rel="stylesheet">
+
         <script type="text/javascript" charset="utf-8" src="/public/api/rhoapi-modules.js"></script>
-        <!-- including this 2.2 api for camera access as this is not in the 4.x JS apis -->
-        <!-- // <script type="text/javascript" charset="utf-8" src="/public/js/rho_javascript_api.js"></script> -->
-        
         <script src="/public/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
         <script src="/public/js/bootstrap.min.js"></script>
-        <script src="/public/js/pixastic.custom.js"></script>
         <script src="/public/application.js" type="text/javascript"></script>
         <script src="/public/js/parse-1.2.10.min.js" type="text/javascript"></script>
              
@@ -30,14 +26,14 @@ $(document).ready(function() {
   }
   else
   {
-    $('#menuLogout').html('Login');
+    $('#menuLogout').html('<a href=""><i class="icon-key icon-large icon-primary"></i> Login</a>');
 
   }
 
   $('#menuLogout').click(function(){
     if(Rho.RhoConnectClient.isLoggedIn())
     {
-      Rho.RhoConnectClient.logout;
+      Rho.RhoConnectClient.logout();
     }
     Rho.WebView.navigate('/app/');
   });
