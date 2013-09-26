@@ -28,7 +28,7 @@ function report_item_sync_notify(params)
 		statusicon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>";
 	
 	}
-	countBadge = '<span class="badge">' + params.processed_count + ' Processed</span>' + '<span class="badge">' + params.total_count + ' Total</span>' + '<span class="badge">' + params.cumulative_count + ' Cumulative</span>';
+	countBadge = '<ul><li><span class="badge">' + params.processed_count + ' Processed</span></li>' + '<li><span class="badge">' + params.total_count + ' Total</span></li>' + '<li><span class="badge">' + params.cumulative_count + ' Cumulative</span></li>';
 
 	$('#reportitems').append(statusicon);	
  	$('#reportitems').append(countBadge);
@@ -73,8 +73,8 @@ function report_sync_notify(params)
 				
 		// 	}
 
-		}
-	countBadge = '<span class="badge">' + params.processed_count + ' Processed</span>' + '<span class="badge">' + params.total_count + ' Total</span>' + '<span class="badge">' + params.cumulative_count + ' Cumulative</span>';
+	}
+	countBadge = '<ul><li><span class="badge">' + params.processed_count + ' Processed</span></li>' + '<li><span class="badge">' + params.total_count + ' Total</span></li>' + '<li><span class="badge">' + params.cumulative_count + ' Cumulative</span></li></ul>';
       
 	$('#report').append(statusicon);	
  	$('#report').append(countBadge);

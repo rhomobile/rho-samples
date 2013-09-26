@@ -8,7 +8,10 @@ class AppApplication < Rho::RhoApplication
     #To remove default toolbar uncomment next line:
     @@toolbar = nil
     super
-
+@default_menu = {
+      
+      "Exit" => :close 
+    }
     # Uncomment to set sync notification callback to /app/Settings/sync_notify.
     # Rho::RhoConnectClient.setObjectNotification("/app/Settings/sync_notify")
     #Rho::RhoConnectClient.setNotification('*', "/app/Settings/sync_notify", '')
