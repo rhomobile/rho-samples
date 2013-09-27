@@ -147,7 +147,9 @@ var Report = function(){
                 },
               error: function(object,error) {
                 console.log('********Update ERROR'+ error.message);
-                new rc.Exception(resp, 'Error Updating Record');
+                resp.exception = 'Error updating record on backend!';
+                resp.send(false);
+                // new rc.Exception(resp, 'Error Updating Record');
 
                 }
               });
