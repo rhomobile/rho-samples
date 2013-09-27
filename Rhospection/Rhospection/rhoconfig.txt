@@ -50,8 +50,8 @@ LastVisitedPage = ''
 
 # sync server url, typically this will look like 'http://<hostname>:<port>'
 # for example: 'http://localhost:9292'
-syncserver = 'http://localhost:9292'
-sync_poll_interval=0
+syncserver = 'http://54.227.245.158/'
+sync_poll_interval=30
 
 # geo location inactivity timeout (in seconds)
 #geo_location_inactivity_timeout = 30
@@ -59,10 +59,10 @@ sync_poll_interval=0
 # open rhodes app in full screen mode
 # default 1 for Android up to Rhodes 2.2.5.
 # on all other platforms and on Android from Rhodes >2.2.5 default 0
-#full_screen = 1
+full_screen = 1
 
 # disable the Android page loading progress bar
-disable_loading_indication = 0
+disable_loading_indication = 1
 
 # Port of the local (embedded) HTTP server. This parameter is mainly for debug purposes.
 # If not specified, application will use dynamically selected one.

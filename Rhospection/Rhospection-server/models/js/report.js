@@ -62,6 +62,7 @@ var Report = function(){
           var object = { name: results[i].get('name'), 
               pass: results[i].get('pass'),
               ispublic: results[i].get('ispublic'),
+              author: results[i].get('author'),
               reportid: results[i].get('reportid')
             };
 
@@ -146,8 +147,10 @@ var Report = function(){
                 resp.send(true);
                 },
               error: function(object,error) {
-                console.log('Update ERROR'+ error.message);
-                new rc.Exception(resp, object.get('name') + ' ' + error.message);
+                console.log('********Update ERROR'+ error.message);
+                resp.exception = 'Error updating record on backend!';
+                resp.send(true);
+                // new rc.Exception(resp, 'Error Updating Record');
 
                 }
               });
