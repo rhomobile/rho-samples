@@ -5,7 +5,12 @@ var editId = '<%=@params['id']%>';
 editId = editId.replace('{','').replace('}','');
 
 $(document).ready(function() {
+
+  $('#pass-switch').bootstrapSwitch('setOnClass', 'success');
+  $('#pass-switch').bootstrapSwitch('setOffClass', 'warning');
   $('.panel').hide();
+  $('#message').hide();
+          
   if(editId == '')
   {
     $('#reportdelete').hide();
@@ -24,10 +29,24 @@ $(document).ready(function() {
       if(thisReport.get('pass')=='true')
       {
         $('#pass').prop('checked', true);
+        $('#pass-switch').bootstrapSwitch('setState', true);
       }
       if(thisReport.get('ispublic')=='true')
       {
+        $('#public-switch').bootstrapSwitch('setState', true);
         $('#ispublic').prop('checked', true);
+        if(thisReport.get('author') != Rho.RhoConnectClient.userName)
+        {
+          //if not owner or not logged in and the item is public then disable the buttons to update/addd or delete
+          $('#reportsave').attr("disabled", "disabled");
+          $('#reportdelete').attr("disabled", "disabled");
+          $('#newItem').attr("disabled", "disabled");
+          $('#name').attr("disabled", "disabled");
+          $('#pass').attr("disabled", "disabled");
+          $('#ispublic').attr("disabled", "disabled");
+          $('#message').show();
+          $('#message').html('<i class="icon icon-warning-sign icon-small"></i><strong>You are not the author of this report and have view only access. <i class="icon icon-user icon-small"></i>: </strong>' + thisReport.get('author'));
+        }
       }
       $('#reportdelete').show();
 
@@ -35,6 +54,7 @@ $(document).ready(function() {
 
     }
   }
+  
 
   $('#reportsave').click(function() {
     // Save Report data
@@ -303,7 +323,9 @@ function add_report_item(item)
 }
 </script>
 
-    
+<div  id="message" class="alert alert-warning">
+  
+</div>    
 <div id="report" role="form">
   <div >
     <button id="reportsave" class="btn  btn-success">Save</button>
@@ -311,20 +333,26 @@ function add_report_item(item)
     <button id="reportdelete" class="btn btn-danger pull-right">Delete</button>
   </div>
   <div class="form-group">
-    <label for="name" class="control-label">Name:</label>
+    <label for="name" class="control-label">Store Name:</label>
       <input type="text" class="form-control" id="name" placeholder="Report Title">
     
   </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" id="pass"> Pass Inspection
-    </label>
+  <div class="form-group">
+    <div class='row'>
+      <div class="col-xs-6 col-md-6">
+          <div id="pass-switch" class="make-switch" data-on-label="    <i class='icon-ok-circle icon-white'></i> Pass    " data-off-label="    <i class='icon-warning-sign icon-white'></i> Fail    ">
+            <input type="checkbox" id="pass">
+          </div>
+      </div>
+      <div class="col-xs-6 col-md-6">
+          <div id="public-switch" class="make-switch" data-on-label="    <i class='icon-group icon-white'></i> Public    " data-off-label="    <i class='icon-lock '></i> Private    ">
+          
+            <input type="checkbox" id="ispublic">
+          </div>
+      </div>
+    </div>
   </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" id="ispublic"> Public Report? (Read Only)
-    </label>
-  </div>
+
 </div>
 
 <div class="panel panel-default">
