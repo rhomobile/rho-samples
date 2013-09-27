@@ -40,7 +40,10 @@ function report_item_sync_notify(params)
 
 function report_sync_notify(params)
 {
-	console.log(JSON.stringify(params));
+	try
+	{
+
+	console.log("PARAMS FROM SYNC ****** " + JSON.stringify(params));
 	statusicon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>";
 	errormsg = "";
 	if(params.status=="error")
@@ -86,7 +89,15 @@ function report_sync_notify(params)
 	$('#status_list').append('<li class="list-group-item" id="reportitems"><i class="icon-spinner icon-spin icon-large" id="item_spinner"></i>Report Items</li>');
  
  	Rho.RhoConnectClient.doSyncSource('ReportItem',false,'');
- 
+ 	}
+ 	catch (err){
+ 		statusicon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>";
+		$('#report').append(statusicon);	
+	 	$('#report_spinner').hide();	
+		$('#status_list').append('<li class="list-group-item" id="reportitems"><i class="icon-spinner icon-spin icon-large" id="item_spinner"></i>Report Items</li>');
+	 
+	 	Rho.RhoConnectClient.doSyncSource('ReportItem',false,'');
+ 	}
 }
 </script>
 <div id='syncpage'>

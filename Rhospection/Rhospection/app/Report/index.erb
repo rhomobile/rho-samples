@@ -78,7 +78,7 @@ function load_reports()
         conditions:{reportid:reports[i].get('reportid')}
       });
       countBadge = '<span class="badge">' + reportItems + ' Items</span>'
-      $('.list-group').append('<li class="list-group-item">' + countBadge + '<a href="/app/Report/{' + reports[i].get('object') + '}/edit">' + reportIcon  + reports[i].get('name')  + '</a>' + '</li>');
+      $('.list-group').append('<li class="list-group-item">' + countBadge + '<a href="/app/Report/{' + reports[i].get('object') + '}/edit" class="">' + reportIcon  + reports[i].get('name') + ' <span class="label label-primary"><i class="icon icon-user"></i>' + reports[i].get('author')  + '</span></a>'  +  '</li>');
     }
     
   

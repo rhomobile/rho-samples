@@ -61,6 +61,7 @@ $(document).ready(function() {
       thisReport = Report.create({
               name:$('#name').val(),
               pass:$('#pass').is(':checked'),
+              author:Rho.RhoConnectClient.userName,
               ispublic:$('#ispublic').is(':checked')
             });
       //update reportid field to use object
