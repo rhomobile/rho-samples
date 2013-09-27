@@ -146,8 +146,8 @@ var Report = function(){
                 resp.send(true);
                 },
               error: function(object,error) {
-                console.log('Update ERROR'+ error.message);
-                new rc.Exception(resp, object.get('name') + ' ' + error.message);
+                console.log('********Update ERROR'+ error.message);
+                new rc.Exception(resp, 'Error Updating Record');
 
                 }
               });
