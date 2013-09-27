@@ -147,10 +147,12 @@ var Report = function(){
                 },
               error: function(object,error) {
                 console.log('********Update ERROR'+ error.message);
-                resp.exception = 'Error updating record on backend!';
-                resp.send(false);
+                //resp.exception = 'Error updating record on backend!';
+                //resp.send(false);
                 // new rc.Exception(resp, 'Error Updating Record');
-
+                  new rc.ObjectConflictErrorException(
+                    resp, 'A conflict error occurred, please update your copy and try again'
+                  );
                 }
               });
 
