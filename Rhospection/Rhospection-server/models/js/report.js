@@ -62,6 +62,7 @@ var Report = function(){
           var object = { name: results[i].get('name'), 
               pass: results[i].get('pass'),
               ispublic: results[i].get('ispublic'),
+              author: results[i].get('author'),
               reportid: results[i].get('reportid')
             };
 
