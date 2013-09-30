@@ -11,3 +11,11 @@
 .sample.ruby {
 	display:none;
 }
+
+body[data-platform="WINDOWS"] .language-link.selected:before {
+	content: "** ";
+}
+
+body[data-platform="WINDOWS"] .language-link.selected:after {
+	content: " **";
+}

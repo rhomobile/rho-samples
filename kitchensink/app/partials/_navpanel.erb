@@ -1,4 +1,6 @@
-<div data-role="panel" id="navpanel" data-position="left" data-display="overlay">
-    <a data-role="button" data-rel="close" data-icon="delete" data-iconpos="notext" style="margin-left: 100%">Close</a>
-  <%= render :partial => "/partials/navmenu" %>
-</div>
+<% if Rho::System.platform != 'WINDOWS' %>
+	<div data-role="panel" id="navpanel" data-position="left" data-display="overlay">
+	    <a data-role="button" data-rel="close" data-icon="delete" data-iconpos="notext" style="margin-left: 100%">Close</a>
+	  <%= render :partial => "/partials/navmenu" %>
+	</div>
+<% end %>
