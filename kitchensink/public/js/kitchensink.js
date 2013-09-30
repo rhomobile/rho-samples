@@ -24,9 +24,11 @@ var KitchenSink = (function() {
 		}
 		
 		function toggle_sample_visibility() {
-			var language_to_show = $(this).data("language");
-			
-			$(this).closest("div[data-role=content]").find("div.sample").each(function() {
+			var $this = $(this);
+			var language_to_show = $this.data("language");
+			$this.closest("div[data-role=navbar]").find("a.language-link").removeClass("selected");
+			$this.addClass("selected");
+			$this.closest("div[data-role=content]").find("div.sample").each(function() {
 				var sample = $(this);
 
 				if (sample.hasClass(language_to_show)) {
