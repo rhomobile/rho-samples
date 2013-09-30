@@ -137,6 +137,11 @@ KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
 		}
 	}
 
+	//Call ruby method via ajax
+    function call_ruby_method_via_ajax(method_name){
+    	$.get('/app/Network/'+method_name);
+    }
+
 	return {
 		start_status_notify: start_status_notify,
 		stop_status_notify: stop_status_notify,
@@ -145,7 +150,8 @@ KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
 		network_availability: network_availability,
 		basic_auth: basic_auth,
 		get: get,
-		post: post
+		post: post,
+		call_ruby_method_via_ajax: call_ruby_method_via_ajax
 	};
 
 })();

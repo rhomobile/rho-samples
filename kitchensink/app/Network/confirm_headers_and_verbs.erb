@@ -12,8 +12,8 @@
     <%= render :partial => "/partials/language_tabs" %>
     
     <div class="sample ruby">
-      <a data-role="button" href="<%= url_for :action => :get %>">GET</a>
-      <a data-role="button" href="<%= url_for :action => :post %>">POST</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Network.call_ruby_method_via_ajax('get')">GET</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Network.call_ruby_method_via_ajax('post')">POST</a>
     </div>
     
     <div class="sample javascript">

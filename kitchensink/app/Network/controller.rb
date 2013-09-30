@@ -95,10 +95,8 @@ class NetworkController < Rho::RhoController
       uploadfileProps["body"] = "uploading file"
       uploadfileProps["fileContentType"]="image/png"
       Rho::Network.uploadFile(uploadfileProps, url_for(:action => :upload_file_callback))
-      render :action => :transferring
     else
       show_popup("Network is not available")
-      redirect :action => :confirm_upload
     end
   end
 
@@ -112,7 +110,6 @@ class NetworkController < Rho::RhoController
   	else
       show_popup("Upload Failed")
   	end
-    Rho::WebView.navigate(url_for(:action => :confirm_upload))  	
   end
 
   def confirm_download
@@ -127,10 +124,8 @@ class NetworkController < Rho::RhoController
       downloadfileProps["filename"] = Rho::RhoFile.join(Rho::Application.userFolder, "sample.png")
       downloadfileProps["overwriteFile"] = true
       Rho::Network.downloadFile(downloadfileProps, url_for(:action => :download_file_callback))
-      render :action => :transferring
     else
       show_popup("Network is not available")
-      redirect :action => :confirm_download
      end
   end
   
@@ -144,7 +139,6 @@ class NetworkController < Rho::RhoController
   	else
       show_popup("Download Failed")
   	end
-  	Rho::WebView.navigate(url_for(:action => :confirm_download))
   end
 
   def get
@@ -154,10 +148,8 @@ class NetworkController < Rho::RhoController
       getProps['url'] = "http://www.apache.org/licenses/LICENSE-2.0"
       getProps['headers'] = {"Content-Type" => "application/json"}
       Rho::Network.get(getProps, url_for(:action => :get_callback))
-      render :action => :transferring
     else
       show_popup("Network is not available")
-      redirect :action => :confirm_headers_and_verbs
     end
   end
   
@@ -167,7 +159,6 @@ class NetworkController < Rho::RhoController
       Rho::WebView.navigate(url_for(:action => :show_result))
     else
       show_popup("GET request Failed")
-      Rho::WebView.navigate(url_for(:action => url))
     end
   end
   
@@ -193,10 +184,8 @@ class NetworkController < Rho::RhoController
       postProps['body'] = body
       postProps['httpVerb'] = "POST"
       Rho::Network.post( postProps, url_for(:action => :post_callback))
-      render :action => :transferring
     else
       show_popup("Network is not available")
-      redirect :action => :confirm_headers_and_verbs
     end
   end
 
@@ -210,7 +199,6 @@ class NetworkController < Rho::RhoController
     else
       show_popup("POST request Failed")
     end
-    Rho::WebView.navigate(url_for(:action => :confirm_headers_and_verbs))
     Rho::Log.info(@params, "callback results")    
   end
 
@@ -236,6 +224,5 @@ class NetworkController < Rho::RhoController
     else
       show_popup("Network is not available")
     end
-    Rho::WebView.navigate(url_for(:action => :confirm_basic_auth))
   end
 end
