@@ -78,7 +78,10 @@ function load_reports()
         conditions:{reportid:reports[i].get('reportid')}
       });
       countBadge = '<span class="badge">' + reportItems + ' Items</span>'
-      $('.list-group').append('<li class="list-group-item">' + countBadge + '<a href="/app/Report/{' + reports[i].get('object') + '}/edit" class="">' + reportIcon  + reports[i].get('name') + ' <span class="label label-primary"><i class="icon icon-user"></i>' + reports[i].get('author')  + '</span></a>'  +  '</li>');
+      $('.list-group').append('<li class="list-group-item">' + countBadge + 
+        '<a href="/app/Report/{' + 
+        reports[i].get('object') + '}/edit" class="">' 
+        + reportIcon  + reports[i].get('name') + ' <span class="label label-primary"><i class="icon icon-user"></i>' + reports[i].get('author')  + '</span></a>'  +  '</li>');
     }
     
   
@@ -142,15 +145,15 @@ function load_reports()
     </div>
 
   </div>
-    <div class="col-xs-6 col-sm-6 col-md-8 visible-sm visible-md visible-lg">
-      <H3>Directions to Next Store</H3>
-      <div class="span12">
-        <a href="#" class="thumbnail">
-          <img data-src="holder.js/100%x180" alt="...">
-        </a>
-      </div>
+  <div class="col-xs-6 col-sm-6 col-md-8 visible-sm visible-md visible-lg">
+    <H3>Directions to Next Store</H3>
+    <div class="span12">
+      <a href="#" class="thumbnail">
+        <img data-src="holder.js/100%x180" alt="...">
+      </a>
     </div>
   </div>
+  
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom" id="pager" role="navigation">
   <ul class="pager">
