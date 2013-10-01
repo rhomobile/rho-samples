@@ -1,10 +1,10 @@
-body {
+/*body {
     margin: 0;
     width: 100%;
     height: 100%;
     font-family: tahoma;
 }
-
+*/
 div[data-role="header"] h1 {
     text-align: center;
     font-family: "Arial";
@@ -38,14 +38,14 @@ a[class="ui-btn-left"] {
     text-decoration: none;
     background-color: #EEEEEE;
     color: #333333;
-    padding: 2px 6px 2px 6px;
+    padding: 2px 0px 2px 0px;
     border-top: 1px solid #CCCCCC;
     border-right: 1px solid #333333;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #CCCCCC;
 
 }
-
+/*
 *[data-role="button"] {
     display: block;
     width: 100%;
@@ -55,13 +55,14 @@ a[class="ui-btn-left"] {
     text-decoration: none;
     background-color: #EEEEEE;
     color: #333333;
-    padding: 2px 6px 2px 6px;
+    padding: 2px 0px 2px 0px;
     border-top: 1px solid #CCCCCC;
     border-right: 1px solid #333333;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #CCCCCC;
 
 }
+*/
 div[data-role="content"] {
     margin-top: 20px;
     clear:both;
@@ -95,8 +96,19 @@ ul[data-role="listview"] li[class="brand"] {
     border-bottom: none;
 }
 
-ul[data-role="listview"] li a {
-    height:100px;
+ul[data-role="listview"] li a, *[data-role="button"] {
+    display: block;
+    width: 100%;
+    height: 40px;
+    background: #4E9CAF;
+    padding: 10px 0px 0px 0px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 14px;
+    font-size: 18px;
+    text-decoration: none;
 }
 
 ul[data-role="listview"] li a img {
@@ -324,4 +336,37 @@ ul[data-role="listview"] li a * {
     float: right;
     width: 50px;
     margin: 10px 10px 0 0;
+}
+
+div[data-role="navbar"] ul {
+    list-style: none;
+    padding: 20px 0 0 0;
+    margin: 0;
+}
+
+div[data-role="navbar"] li {
+    float: left;
+    border: 1px solid;
+    border-bottom-width: 0;
+    margin: 0 0.5em 0 0;
+}
+
+div[data-role="navbar"]  a {
+    display: block;
+    padding: 0 1em;
+    font-size: 20px;
+    text-decoration: none;
+    color: red;
+}
+
+div[data-role="navbar"] .selected {
+    position: relative;
+    top: 1px;
+    background: white;
+}
+
+.sample {
+    border: 1px solid;
+    padding-top: 10px;
+    clear:both;
 }
