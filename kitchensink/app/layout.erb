@@ -15,7 +15,9 @@
     <% end %>
 
 
-        <% if Rho::System.platform != 'WINDOWS' %>
+        <% if Rho::System.platform == 'WINDOWS' %>
+            <link rel="stylesheet" href="/public/css/windows_mobile.css">
+        <% else %>
             <link rel="stylesheet" href="/public/jqmobile/jquery.mobile-1.3.1.min.css">
             <link rel="stylesheet" href="/public/jqmobile/jquery.mobile.structure-1.3.1.min.css">
             <link rel="stylesheet" href="/public/jqmobile/rms40.min.css">
