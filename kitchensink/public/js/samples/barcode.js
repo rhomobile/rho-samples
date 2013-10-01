@@ -49,13 +49,10 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
 		// ... and enable only the one we are interested in:
 		var params = _read_properties_from_form();
 		if(params.symbology == "upca"){
-			alert("upca")
 			Rho.Barcode.upca = true;
 		}else if(params.symbology == "code128"){
-			alert("code128")
 			Rho.Barcode.code128 = true;
 		}else{
-			alert("qrCode")
 			Rho.Barcode.qrCode = true;
 		}
 		// All other barcode symbologies will be ignored
