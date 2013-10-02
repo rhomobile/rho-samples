@@ -1,9 +1,10 @@
-KitchenSink.Samples.Sensors = KitchenSink.Samples.Sensors || (function($) {
+KitchenSink.Samples.Sensors = KitchenSink.Samples.Sensors || (function($, KitchenSink) {
 	var accelerometer = "";
 	function accelerometer_callback(params) {
-		$(".ui-page-active .accelerometer_x").text(params.accelerometer_x);
-		$(".ui-page-active .accelerometer_y").text(params.accelerometer_y);
-		$(".ui-page-active .accelerometer_z").text(params.accelerometer_z);
+		var activePage = KitchenSink.activePage();
+		activePage.find(".accelerometer_x").text(params.accelerometer_x);
+		activePage.find(".accelerometer_y").text(params.accelerometer_y);
+		activePage.find(".accelerometer_z").text(params.accelerometer_z);
 	}
 
 	function start_accelerometer() {
@@ -30,4 +31,4 @@ KitchenSink.Samples.Sensors = KitchenSink.Samples.Sensors || (function($) {
 		stop_accelerometer: stop_accelerometer
 	};
 
-})(jQuery);
+})(jQuery, KitchenSink);

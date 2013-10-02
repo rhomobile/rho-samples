@@ -9,9 +9,8 @@
     " }
     %>
 
-    <% if (Rho::System.platform == "ANDROID" ||  Rho::System.platform == "WINDOWS") &&  Rho::System.isMotorolaDevice %>     
-
       <%= render :partial => "/partials/language_tabs" %>
+      <div class="sample common">
       <form action ="<%= url_for(:action => :show_battery_icon) %>">
         <div data-role="controlgroup">
         Layout
@@ -20,6 +19,7 @@
         <label><input type="radio" name="iconLayout" value="up" >Up</label>
         <label><input type="radio" name="iconLayout" value="down" >Down</label>
         </div>
+      </div>
       <div class="sample ruby">
         <input type="submit" data-role="button" value="Show Battery Icon">
         <a href="<%= url_for :action => :hide_battery_icon %>" data-role="button">Hide Battery Icon</a>
@@ -32,9 +32,5 @@
       
       </form>
     </div>
-
-  <% else %>
-    The battery icon is supported on a subset of Motorola Solutions' Windows Mobile and android
-  <% end %>
 
 </div>

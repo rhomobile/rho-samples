@@ -1,4 +1,4 @@
-KitchenSink.Samples.Signal = KitchenSink.Samples.Signal || (function($) {
+KitchenSink.Samples.Signal = KitchenSink.Samples.Signal || (function($, KitchenSink) {
 
 	function signal_status() {
 		var trigger_property = _read_icon_layout_from_form();
@@ -9,7 +9,7 @@ KitchenSink.Samples.Signal = KitchenSink.Samples.Signal || (function($) {
 
 	function _read_icon_layout_from_form() {
 		var result = { };
-		$.mobile.activePage.find("form input[type=radio]:checked").each(function() {
+		KitchenSink.activePage().find("form input[type=radio]:checked").each(function() {
 			var element = $(this);
 			result[element.attr('name')] = element.val();
 		});
@@ -32,4 +32,4 @@ KitchenSink.Samples.Signal = KitchenSink.Samples.Signal || (function($) {
 		hide_signal_icon: hide_signal_icon
 	};
 
-})(jQuery);
+})(jQuery, KitchenSink);

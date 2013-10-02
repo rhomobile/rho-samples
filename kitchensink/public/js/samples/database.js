@@ -1,4 +1,4 @@
-KitchenSink.Samples.Database = KitchenSink.Samples.Database || (function() {
+KitchenSink.Samples.Database = KitchenSink.Samples.Database || (function($, KitchenSink) {
 
 	function open_db() {
 		var db = new Rho.Database(Rho.Application.databaseFilePath('sample'), 'sample');
@@ -76,4 +76,4 @@ KitchenSink.Samples.Database = KitchenSink.Samples.Database || (function() {
 		transactions: transactions
 	};
 
-})();
+})(jQuery, KitchenSink);

@@ -1,4 +1,4 @@
-KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function() {
+KitchenSink.Samples.Network = KitchenSink.Samples.Network || (function($, KitchenSink) {
 
 	function status_notify_callback(params) {
 		alert("Network status changed from " + params.prev_status + " to " + params.current_status);

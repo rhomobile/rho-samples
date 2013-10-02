@@ -1,4 +1,4 @@
-KitchenSink.Samples.System = KitchenSink.Samples.System || (function() {
+KitchenSink.Samples.System = KitchenSink.Samples.System || (function($, KitchenSink) {
 	function capabilities() {
 		// Returns true if device supports Motorola device capabilities, such as Scanner, etc.
 		var is_motorola_device = Rho.System.isMotorolaDevice;
@@ -76,4 +76,4 @@ KitchenSink.Samples.System = KitchenSink.Samples.System || (function() {
 		zip: zip
 	};
 
-})();
+})(jQuery, KitchenSink);

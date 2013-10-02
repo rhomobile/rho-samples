@@ -1,4 +1,4 @@
-KitchenSink.Samples.Camera = KitchenSink.Samples.Camera || (function($) {
+KitchenSink.Samples.Camera = KitchenSink.Samples.Camera || (function($, KitchenSink) {
 
 	var cameras = [];
 
@@ -75,7 +75,7 @@ KitchenSink.Samples.Camera = KitchenSink.Samples.Camera || (function($) {
 
 	function _read_properties_from_form() {
 		var result = { };
-		$.mobile.activePage.find("form input[type=radio]:checked").each(function() {
+		KitchenSink.activePage().find("form input[type=radio]:checked").each(function() {
 			var element = $(this);
 			result[element.attr('name')] = element.val();
 		});
@@ -121,4 +121,4 @@ KitchenSink.Samples.Camera = KitchenSink.Samples.Camera || (function($) {
 		select_picture_from_gallery: select_picture_from_gallery
 	};
 
-})(jQuery);
+})(jQuery, KitchenSink);

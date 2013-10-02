@@ -1,4 +1,4 @@
-KitchenSink.Samples.Keycapture = KitchenSink.Samples.Keycapture || (function() {
+KitchenSink.Samples.Keycapture = KitchenSink.Samples.Keycapture || (function($, KitchenSink) {
 
 	function start_keycapture() {
 		Rho.KeyCapture.captureKey(false, "ALL", keycapture_callback);
@@ -17,4 +17,4 @@ KitchenSink.Samples.Keycapture = KitchenSink.Samples.Keycapture || (function() {
 		stop_keycapture: stop_keycapture
 	};
 
-})();
+})(jQuery, KitchenSink);

@@ -1,4 +1,4 @@
-KitchenSink.Samples.Log = KitchenSink.Samples.Log || (function($) {
+KitchenSink.Samples.Log = KitchenSink.Samples.Log || (function($, KitchenSink) {
 
 	function log_categories() {
 		Rho.Log.info("Consectetuer adipiscing elit", "Lorem Ipsum");
@@ -59,4 +59,4 @@ KitchenSink.Samples.Log = KitchenSink.Samples.Log || (function($) {
 		send_log_file: send_log_file
 	};
 
-})(jQuery);
+})(jQuery, KitchenSink);
