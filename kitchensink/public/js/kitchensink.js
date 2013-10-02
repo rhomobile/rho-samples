@@ -45,21 +45,23 @@ var KitchenSink = (function() {
 			$(document).on("click", "div[data-role=navbar] a", toggle_sample_visibility);
 		}
 		
-		function activePage() {
-			if (typeof($.mobile)!=="undefined") {
-				return $.mobile.activePage;
-			} else {
-			return $("div[data-role='page']");
-			}
-		}
-		
 		init();
 	})();
+
+	function activePage() {
+		if (typeof($.mobile)!=="undefined") {
+			return $.mobile.activePage;
+		} else {
+			return $("div[data-role='page']");
+		}
+	}
+	
 
 	var Samples = {};
 	
 	return({
-		Samples: Samples
+		Samples: Samples,
+		activePage: activePage
 	});
 	
 })(jQuery);
