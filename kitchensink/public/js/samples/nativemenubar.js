@@ -1,4 +1,4 @@
-KitchenSink.Samples.NativeMenubar = KitchenSink.Samples.NativeMenubar || (function() {
+KitchenSink.Samples.NativeMenubar = KitchenSink.Samples.NativeMenubar || (function($, KitchenSink) {
 
 	function show_alert_1() {
 		alert("This alert was invoked from a NativeMenubar item");
@@ -35,4 +35,4 @@ KitchenSink.Samples.NativeMenubar = KitchenSink.Samples.NativeMenubar || (functi
 		create_menuitems: create_menuitems,
 		remove_menuitems: remove_menuitems
 	};
-})();
+})(jQuery, KitchenSink);

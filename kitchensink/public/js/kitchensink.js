@@ -31,8 +31,8 @@ var KitchenSink = (function() {
 			$this.closest("div[data-role=content]").find("div.sample").each(function() {
 				var sample = $(this);
 
-				if (sample.hasClass(language_to_show)) {
-					sample.fadeIn();
+				if (sample.hasClass(language_to_show) || sample.hasClass("common")) {
+					sample.show();
 				} else {
 					sample.hide();
 				}
@@ -48,10 +48,20 @@ var KitchenSink = (function() {
 		init();
 	})();
 
+	function activePage() {
+		if (typeof($.mobile)!=="undefined") {
+			return $.mobile.activePage;
+		} else {
+			return $("div[data-role='page']");
+		}
+	}
+	
+
 	var Samples = {};
 	
 	return({
-		Samples: Samples
+		Samples: Samples,
+		activePage: activePage
 	});
 	
 })(jQuery);

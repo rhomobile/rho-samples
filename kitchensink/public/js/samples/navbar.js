@@ -1,4 +1,4 @@
-KitchenSink.Samples.Navbar = KitchenSink.Samples.Navbar || (function() {
+KitchenSink.Samples.Navbar = KitchenSink.Samples.Navbar || (function($, KitchenSink) {
 
 	function createNavbar() {
 		Rho.Navbar.create({
@@ -23,4 +23,4 @@ KitchenSink.Samples.Navbar = KitchenSink.Samples.Navbar || (function() {
 		createNavbar: createNavbar,
 		removeNavbar: removeNavbar
 	};
-})();
+})(jQuery, KitchenSink);

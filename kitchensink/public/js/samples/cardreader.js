@@ -1,4 +1,4 @@
-KitchenSink.Samples.CardReader = KitchenSink.Samples.CardReader || (function() {
+KitchenSink.Samples.CardReader = KitchenSink.Samples.CardReader || (function($, KitchenSink) {
 
 	function cardreader_callback(params) {
 		alert("Received data from card reader: " + params.data);
@@ -10,7 +10,7 @@ KitchenSink.Samples.CardReader = KitchenSink.Samples.CardReader || (function() {
 
 	function _read_properties_from_form() {
 		var result = { };
-		$.mobile.activePage.find("form input[type=radio]:checked").each(function() {
+		KitchenSink.activePage().find("form input[type=radio]:checked").each(function() {
 			var element = $(this);
 			result[element.attr('name')] = element.val();
 		});
@@ -35,4 +35,4 @@ KitchenSink.Samples.CardReader = KitchenSink.Samples.CardReader || (function() {
 		setProperties: setProperties
 	};
 
-})();
+})(jQuery, KitchenSink);

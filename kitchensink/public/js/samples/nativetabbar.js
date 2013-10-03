@@ -1,7 +1,7 @@
-KitchenSink.Samples.NativeTabbar = KitchenSink.Samples.NativeTabbar || (function(Rho) {
+KitchenSink.Samples.NativeTabbar = KitchenSink.Samples.NativeTabbar || (function($, KitchenSink) {
 
 	function getActionUrls() {
-		var links = $(".ui-page-active").find(".tabbarurls > a");
+		var links = KitchenSink.activePage().find(".tabbarurls > a");
 		var urls = [];
 		links.each(function(index) {
 			urls.push($(links[index]).attr("href"));
@@ -51,4 +51,4 @@ KitchenSink.Samples.NativeTabbar = KitchenSink.Samples.NativeTabbar || (function
 		removeTabbar: removeTabbar
 	};
 
-})(Rho);
+})(jQuery, KitchenSink);

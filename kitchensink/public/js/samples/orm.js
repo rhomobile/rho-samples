@@ -1,4 +1,4 @@
-KitchenSink.Samples.ORM = KitchenSink.Samples.ORM || (function($) {
+KitchenSink.Samples.ORM = KitchenSink.Samples.ORM || (function($, KitchenSink) {
 
 	function create_model() {
 		var model = get_model();
@@ -104,4 +104,4 @@ KitchenSink.Samples.ORM = KitchenSink.Samples.ORM || (function($) {
 		shuffle_price: shuffle_price
 	};
 
-})(jQuery);
+})(jQuery, KitchenSink);

@@ -1,4 +1,4 @@
-KitchenSink.Samples.Signature = KitchenSink.Samples.Signature || (function() {
+KitchenSink.Samples.Signature = KitchenSink.Samples.Signature || (function($, KitchenSink) {
 
 	function signature_callback(params) {
 		Rho.ScreenOrientation.normal();
@@ -15,7 +15,7 @@ KitchenSink.Samples.Signature = KitchenSink.Samples.Signature || (function() {
 	}
 
 	function set_properties() {
-		var selected_inputs = $(".ui-page-active .sample.javascript input[checked]");
+		var selected_inputs = KitchenSink.activePage().find(".sample.javascript input[checked]");
 		var properties = { };
 
 		selected_inputs.each(function(index) {
@@ -23,7 +23,7 @@ KitchenSink.Samples.Signature = KitchenSink.Samples.Signature || (function() {
 			properties[input.attr('name')] = input.val();
 		});
 
-		var change_orientation_checkbox = $(".ui-page-active .sample.javascript input[name=change_orientation]");
+		var change_orientation_checkbox = KitchenSink.activePage().find(".sample.javascript input[name=change_orientation]");
 		if (change_orientation_checkbox.is(":checked")) {
 			Rho.ScreenOrientation.upsideDown();
 		}
@@ -66,4 +66,4 @@ KitchenSink.Samples.Signature = KitchenSink.Samples.Signature || (function() {
 		capture_inline_cancel: capture_inline_cancel
 	};
 
-})();
+})(jQuery, KitchenSink);

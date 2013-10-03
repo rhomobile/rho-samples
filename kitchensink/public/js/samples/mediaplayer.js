@@ -1,4 +1,4 @@
-KitchenSink.Samples.Mediaplayer = KitchenSink.Samples.Mediaplayer || (function($) {
+KitchenSink.Samples.Mediaplayer = KitchenSink.Samples.Mediaplayer || (function($, KitchenSink) {
 
 	function ringtones_callback(ringtones) {
 
@@ -8,7 +8,7 @@ KitchenSink.Samples.Mediaplayer = KitchenSink.Samples.Mediaplayer || (function($
 			result += '<li><a href="#" class="play_ringtone" data-ringtone="' + escape(name) + '">' + name + '</a></li>';
 		}
 
-		$(".ui-page-active ul.ringtone_list").html(result);
+		KitchenSink.activePage().find("ul.ringtone_list").html(result);
 	}
 
 	function list_ringtones() {
@@ -37,4 +37,4 @@ KitchenSink.Samples.Mediaplayer = KitchenSink.Samples.Mediaplayer || (function($
 		stop_ringtone: stop_ringtone
 	};
 
-})(jQuery);
+})(jQuery, KitchenSink);
