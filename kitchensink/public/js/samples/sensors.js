@@ -28,7 +28,8 @@ KitchenSink.Samples.Sensors = KitchenSink.Samples.Sensors || (function($, Kitche
 
 	return {
 		start_accelerometer: start_accelerometer,
-		stop_accelerometer: stop_accelerometer
+		stop_accelerometer: stop_accelerometer,
+		update_values: accelerometer_callback
 	};
 
 })(jQuery, KitchenSink);
