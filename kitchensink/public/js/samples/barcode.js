@@ -48,7 +48,13 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function($,Kitchen
 		Rho.Barcode.allDecoders = false;
 		// ... and enable only the one we are interested in:
 		var params = _read_properties_from_form();
-		Rho.Barcode.setProperty(params.symbology, true);
+		if(params.symbology == "upca"){
+			Rho.Barcode.upca = true;
+		}else if(params.symbology == "code128"){
+			Rho.Barcode.code128 = true;
+		}else{
+			Rho.Barcode.qrCode = true;
+		}
 		// All other barcode symbologies will be ignored
 		this.scan_using_default_scanner();
 	}
