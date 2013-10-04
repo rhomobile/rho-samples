@@ -12,7 +12,7 @@
     <%= render :partial => "/partials/language_tabs" %>
     
     <div class="sample ruby">
-      <a href="<%= url_for :action => :download_file %>" data-role="button">Download file</a>
+      <a href="#" data-role="button" onclick="KitchenSink.Samples.Network.call_ruby_method_via_ajax('download_file')">Download file</a>
     </div>
     
     <div class="sample javascript">

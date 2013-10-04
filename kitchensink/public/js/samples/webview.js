@@ -1,4 +1,4 @@
-KitchenSink.Samples.Webview = KitchenSink.Samples.Webview || (function() {
+KitchenSink.Samples.Webview = KitchenSink.Samples.Webview || (function($, KitchenSink) {
 
 	function getProperties() {
 
@@ -64,4 +64,4 @@ KitchenSink.Samples.Webview = KitchenSink.Samples.Webview || (function() {
 		savePage: savePage
 	};
 
-})();
+})(jQuery, KitchenSink);

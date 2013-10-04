@@ -1,7 +1,7 @@
-KitchenSink.Samples.NativeToolbar = KitchenSink.Samples.NativeToolbar || (function() {
+KitchenSink.Samples.NativeToolbar = KitchenSink.Samples.NativeToolbar || (function($, KitchenSink) {
 
 	function getActionUrls() {
-		var links = $(".ui-page-active").find(".toolbarurls > a");
+		var links = KitchenSink.activePage().find(".toolbarurls > a");
 		var urls = [];
 		links.each(function(index) {
 			urls.push($(links[index]).attr("href"));
@@ -32,4 +32,4 @@ KitchenSink.Samples.NativeToolbar = KitchenSink.Samples.NativeToolbar || (functi
 		createToolbar: createToolbar,
 		removeToolbar: removeToolbar
 	};
-})();
+})(jQuery, KitchenSink);

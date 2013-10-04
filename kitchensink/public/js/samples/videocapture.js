@@ -1,4 +1,4 @@
-KitchenSink.Samples.Videocapture = KitchenSink.Samples.Videocapture || (function() {
+KitchenSink.Samples.Videocapture = KitchenSink.Samples.Videocapture || (function($, KitchenSink) {
 
 	function capture_video() {
 		Rho.Videocapture.fileName = '/RhoVideoCapture';
@@ -22,4 +22,4 @@ KitchenSink.Samples.Videocapture = KitchenSink.Samples.Videocapture || (function
 		select_resolution: select_resolution
 	};
 
-})();
+})(jQuery, KitchenSink);

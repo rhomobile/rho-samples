@@ -1,4 +1,4 @@
-KitchenSink.Samples.Battery = KitchenSink.Samples.Battery || (function($) {
+KitchenSink.Samples.Battery = KitchenSink.Samples.Battery || (function($, KitchenSink) {
 
 	function battery_status() {
 		var battery_values = Rho.Battery.batteryStatus({ });
@@ -7,7 +7,7 @@ KitchenSink.Samples.Battery = KitchenSink.Samples.Battery || (function($) {
 
 	function _read_icon_layout_from_form() {
 		var result = { };
-		$.mobile.activePage.find("form input[type=radio]:checked").each(function() {
+		KitchenSink.activePage().find("form input[type=radio]:checked").each(function() {
 			var element = $(this);
 			result[element.attr('name')] = element.val();
 		});
@@ -30,4 +30,4 @@ KitchenSink.Samples.Battery = KitchenSink.Samples.Battery || (function($) {
 		hide_battery_icon: hide_battery_icon
 	};
 
-})(jQuery);
+})(jQuery, KitchenSink);

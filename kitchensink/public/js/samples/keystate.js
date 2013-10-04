@@ -1,4 +1,4 @@
-KitchenSink.Samples.Keystate = KitchenSink.Samples.Keystate || (function() {
+KitchenSink.Samples.Keystate = KitchenSink.Samples.Keystate || (function($, KitchenSink) {
 
 	function show_keystates(params) {
 		Rho.KeyState.showStates(params);
@@ -44,4 +44,4 @@ KitchenSink.Samples.Keystate = KitchenSink.Samples.Keystate || (function() {
 		hide_keystates: hide_keystates
 	};
 
-})();
+})(jQuery, KitchenSink);

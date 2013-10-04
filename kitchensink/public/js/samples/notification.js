@@ -1,4 +1,4 @@
-KitchenSink.Samples.Notification = KitchenSink.Samples.Notification || (function() {
+KitchenSink.Samples.Notification = KitchenSink.Samples.Notification || (function($, KitchenSink) {
 
 	function beep() {
 		Rho.Notification.beep({
@@ -49,4 +49,4 @@ KitchenSink.Samples.Notification = KitchenSink.Samples.Notification || (function
 		popup_with_multiple_buttons: popup_with_multiple_buttons
 	};
 
-})();
+})($, KitchenSink);

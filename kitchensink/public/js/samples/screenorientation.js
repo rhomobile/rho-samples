@@ -1,4 +1,4 @@
-KitchenSink.Samples.Screenorientation = KitchenSink.Samples.Screenorientation || (function() {
+KitchenSink.Samples.Screenorientation = KitchenSink.Samples.Screenorientation || (function($, KitchenSink) {
 
 	function toggle_autorotation() {
 		Rho.ScreenOrientation.autoRotate = !Rho.ScreenOrientation.autoRotate;
@@ -39,4 +39,4 @@ KitchenSink.Samples.Screenorientation = KitchenSink.Samples.Screenorientation ||
 		normal: normal
 	};
 
-})();
+})(jQuery, KitchenSink);

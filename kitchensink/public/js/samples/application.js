@@ -1,4 +1,4 @@
-KitchenSink.Samples.Application = KitchenSink.Samples.Application || (function() {
+KitchenSink.Samples.Application = KitchenSink.Samples.Application || (function($, KitchenSink) {
 
 	function app_folder() {
 		// Get and show the various app folders
@@ -35,4 +35,4 @@ KitchenSink.Samples.Application = KitchenSink.Samples.Application || (function()
 		restore_app: restore_app
 	};
 
-})();
+})(jQuery, KitchenSink);

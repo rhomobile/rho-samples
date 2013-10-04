@@ -1,4 +1,4 @@
-KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
+KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function($,KitchenSink) {
 
 	var scanners;
 
@@ -29,12 +29,12 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
 			var scanner = scanners[i];
 			scanner_elements += "<a href='#' data-role='button' onclick='KitchenSink.Samples.Barcode.scan_using_chosen_scanner(" + i + ")'>" + (scanner.friendlyName || scanner.scannerType) + "</a>";
 		}
-		$(".ui-page-active .sample.javascript .scanner_list").html(scanner_elements).trigger("create");
+		KitchenSink.find(".sample.javascript .scanner_list").html(scanner_elements).trigger("create");
 	}
 
 	function _read_properties_from_form() {
 		var result = { };
-		$.mobile.activePage.find("form input[type=radio]:checked").each(function() {
+		KitchenSink.activePage.find("form input[type=radio]:checked").each(function() {
 			var element = $(this);
 			result[element.attr('name')] = element.val();
 		});
@@ -48,7 +48,13 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
 		Rho.Barcode.allDecoders = false;
 		// ... and enable only the one we are interested in:
 		var params = _read_properties_from_form();
-		Rho.Barcode.setProperty(params.symbology, true);
+		if(params.symbology == "upca"){
+			Rho.Barcode.upca = true;
+		}else if(params.symbology == "code128"){
+			Rho.Barcode.code128 = true;
+		}else{
+			Rho.Barcode.qrCode = true;
+		}
 		// All other barcode symbologies will be ignored
 		this.scan_using_default_scanner();
 	}
@@ -63,13 +69,13 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
 			elements += "<li>" + property + "</li>";
 		}
 
-		$(".ui-page-active .supported_properties").html(elements);
+		KitchenSink.find(".supported_properties").html(elements);
 	}
 
 	function set_audible_options() {
-		var decodeVolume = $.mobile.activePage.find("input[name=decodeVolume]").val();
-		var decodeFrequency = $.mobile.activePage.find("input[name=decodeFrequency]").val();
-		var decodeDuration = $.mobile.activePage.find("input[name=decodeDuration]").val();
+		var decodeVolume = KitchenSink.activePage.find("input[name=decodeVolume]").val();
+		var decodeFrequency = KitchenSink.activePage.find("input[name=decodeFrequency]").val();
+		var decodeDuration = KitchenSink.activePage.find("input[name=decodeDuration]").val();
 
 		Rho.Barcode.decodeVolume = decodeVolume;
 		Rho.Barcode.decodeFrequency = decodeFrequency;
@@ -79,7 +85,7 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
 	}
 
 	function update_scanner_result(message) {
-		var element = $(".ui-page-active .scanner_result");
+		var element = KitchenSink.activePage().find(".scanner_result");
 		element.html(message);
 	}
 
@@ -98,9 +104,9 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
 	}
 
 	function set_audible_options_with_ruby() {
-		var decodeVolume = $.mobile.activePage.find("input[name=decodeVolume]").val();
-		var decodeFrequency = $.mobile.activePage.find("input[name=decodeFrequency]").val();
-		var decodeDuration = $.mobile.activePage.find("input[name=decodeDuration]").val();
+		var decodeVolume = KitchenSink.activePage().find("input[name=decodeVolume]").val();
+		var decodeFrequency = KitchenSink.activePage().find("input[name=decodeFrequency]").val();
+		var decodeDuration = KitchenSink.activePage().find("input[name=decodeDuration]").val();
 		$.get('/app/Barcode/set_audible_options', { decodeVolume: decodeVolume, decodeFrequency: decodeFrequency, decodeDuration: decodeDuration });
 	}
 
@@ -118,4 +124,4 @@ KitchenSink.Samples.Barcode = KitchenSink.Samples.Barcode || (function() {
 		set_audible_options_with_ruby: set_audible_options_with_ruby
 	};
 
-})();
+})(jQuery,KitchenSink);
