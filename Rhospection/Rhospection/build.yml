@@ -8,13 +8,14 @@ bbver: 6.0
 applog: "rholog.txt"
 iphone:
   configuration: "Release"
-#sdk: "iphoneos6.1"
-  sdk: "iphonesimulator6.1"
+  sdk: "iphoneos6.1"
+#sdk: "iphonesimulator6.1"
   provisionprofile: 
-  codesignidentity: 
+  codesignidentity: "iPhone Distribution: Fish Room Inc"
   entitlements: 
-  BundleIdentifier: "com.rhomobile.rhospection"
-  BundleURLScheme: "rhospection"
+  BundleIdentifier: "com.rhomobile.playbook"
+  BundleURLScheme: "playbook"
+  emulatortarget: "ipad"
 wp:
   productid: "5df3b720-f93a-0130-39a6-3c07547b3491"
 symbian:

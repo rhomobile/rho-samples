@@ -21,7 +21,8 @@ $(document).ready(function() {
 
 function report_item_sync_notify(params)
 {
-
+	console.log("PARAMS FROM SYNC ****** " + JSON.stringify(params));
+	
 	statusicon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>";
 	if(params.status=="error" )
 	{

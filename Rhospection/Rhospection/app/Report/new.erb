@@ -35,6 +35,7 @@ $(document).ready(function() {
       {
         $('#public-switch').bootstrapSwitch('setState', true);
         $('#ispublic').prop('checked', true);
+        /* Commenting out for RhoCOnnect Exception test
         if(thisReport.get('author') != Rho.RhoConnectClient.userName)
         {
           //if not owner or not logged in and the item is public then disable the buttons to update/addd or delete
@@ -47,6 +48,7 @@ $(document).ready(function() {
           $('#message').show();
           $('#message').html('<i class="icon icon-warning-sign icon-small"></i><strong>You are not the author of this report and have view only access. <i class="icon icon-user icon-small"></i>: </strong>' + thisReport.get('author'));
         }
+        */
       }
       $('#reportdelete').show();
 
