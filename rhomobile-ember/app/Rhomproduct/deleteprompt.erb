@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>Are you sure you want to delete <%= @rhomproduct.name %>?</h1>
+  <form role="form" method="POST" action="<%= url_for :action => :delete %>">
+    <input type="hidden" name="id" value="<%= @rhomproduct.object %>"/>
+      
+    <div >
+     <input type="submit" value="Yes" class="btn  btn-success"/>  
+      <a href="<%= url_for :action => :index %>" class="btn btn-default ">No</button></a>
+    
+  </div>          
+  </form>
+</div>

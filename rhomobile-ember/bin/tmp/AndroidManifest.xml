@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<manifest xmlns:android='http://schemas.android.com/apk/res/android' package='com.rhomobile.rhospection' android:versionName='1.0' android:versionCode='1000000' android:installLocation='auto'>
+  <!-- Android SDK -->
+  <!-- Permission declarations -->
+  <!-- Uses permissions -->
+  <uses-permission android:name='android.permission.INTERNET'/>
+  <uses-permission android:name='android.permission.PERSISTENT_ACTIVITY'/>
+  <uses-permission android:name='android.permission.WAKE_LOCK'/>
+  <uses-permission android:name='android.permission.CAMERA'/>
+  <uses-permission android:name='android.permission.SYSTEM_ALERT_WINDOW'/>
+  <uses-permission android:name='android.permission.BROADCAST_STICKY'/>
+  <uses-permission android:name='android.permission.ACCESS_NETWORK_STATE'/>
+  <supports-screens android:normalScreens='true' android:largeScreens='true' android:xlargeScreens='true'/>
+  <application android:name='com.rhomobile.rhodes.RhodesApplication' android:label='@string/app_name' android:icon='@drawable/icon' android:debuggable='false'>
+    <!-- Uses libraries -->
+    <!-- Main activity -->
+    <activity android:name='com.rhomobile.rhodes.RhodesActivity' android:label='@string/app_name' android:launchMode='singleTask' android:configChanges='orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden' android:screenOrientation='unspecified' android:hardwareAccelerated='true'>
+      <intent-filter>
+        <action android:name='android.intent.action.VIEW'/>
+        <category android:name='android.intent.category.DEFAULT'/>
+        <category android:name='android.intent.category.BROWSABLE'/>
+        <data android:host='motorolasolutions.com' android:pathPrefix='/com.rhomobile.rhospection' android:scheme='http'/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name='android.intent.action.MAIN'/>
+        <category android:name='android.intent.category.LAUNCHER'/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name='android.intent.action.ACTION_BATTERY_CHANGED'/>
+        <action android:name='android.intent.action.ACTION_BATTERY_LOW'/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name='android.net.wifi.STATE_CHANGE'/>
+        <action android:name='android.net.wifi.WIFI_STATE_CHANGED'/>
+        <action android:name='android.net.wifi.RSSI_CHANGED'/>
+      </intent-filter>
+    </activity>
+    <activity android:name='com.rhomobile.rhodes.alert.PopupActivity' android:windowSoftInputMode='stateAlwaysHidden' android:theme='@style/PopupTheme' android:configChanges='orientation' android:screenOrientation='unspecified'/>
+    <activity android:name='com.rhomobile.rhodes.ui.FileList' android:configChanges='orientation' android:screenOrientation='unspecified'/>
+    <activity android:name='com.rhomobile.rhodes.camera.ImageCapture' android:windowSoftInputMode='stateAlwaysHidden' android:screenOrientation='landscape'/>
+    <activity android:name='com.rhomobile.rhodes.signature.ImageCapture' android:windowSoftInputMode='stateAlwaysHidden' android:configChanges='orientation' android:screenOrientation='unspecified'/>
+    <activity android:name='com.rhomobile.rhodes.datetime.DateTimePickerScreen' android:windowSoftInputMode='stateAlwaysHidden' android:configChanges='orientation' android:screenOrientation='unspecified'/>
+    <activity android:name='com.rhomobile.rhodes.mapview.MapView' android:windowSoftInputMode='stateAlwaysHidden' android:configChanges='orientation' android:screenOrientation='unspecified'/>
+    <activity android:name='com.rhomobile.rhodes.bluetooth.RhoBluetoothDeviceListActivity' android:configChanges='orientation' android:screenOrientation='unspecified'/>
+    <service android:name='com.rhomobile.rhodes.RhodesService'/>
+    <provider android:name='com.rhomobile.rhodes.LocalFileProvider' android:authorities='com.rhomobile.rhospection' android:grantUriPermissions='false'>
+      <grant-uri-permission android:pathPrefix='/rhodes/apps/'/>
+    </provider>
+    <!-- application tag addon templates from extensions -->
+    <activity android:name='com.google.zxing.client.android.CaptureActivity' android:screenOrientation='landscape' android:configChanges='orientation|keyboardHidden' android:theme='@android:style/Theme.NoTitleBar.Fullscreen' android:windowSoftInputMode='stateAlwaysHidden'>
+      <intent-filter>
+        <action android:name='com.google.zxing.client.android.SCAN'/>
+        <category android:name='android.intent.category.DEFAULT'/>
+      </intent-filter>
+    </activity>
+    <uses-library android:name='com.motorolasolutions.scanner' android:required='false'/>
+    <uses-library android:name='com.motorolasolutions.adc.usbscanner' android:required='false'/>
+    <service android:name='com.motorolasolutions.rho.cardreader.services.MSRService'/>
+    <uses-library android:name='com.motorolasolutions.emdk.msr' android:required='false'/>
+    <activity android:name='com.motorolasolutions.rho.notification.PopupActivity' android:theme='@style/PopupTheme' android:screenOrientation='unspecified' android:configChanges='orientation'/>
+    <service android:name='com.motorolasolutions.rhoelements.services.FileTransferService'/>
+    <service android:name='com.motorolasolutions.rhoelements.services.ScannerService' android:permission='android.permission.CAMERA'/>
+    <service android:name='com.motorolasolutions.rhoelements.services.LockService' android:permission='android.permission.INTERNET'/>
+    <service android:name='com.motorolasolutions.rhoelements.services.MSRService'/>
+    <service android:name='com.motorolasolutions.rhoelements.services.PluginService'>
+      <intent-filter>
+        <action android:name='android.webkit.PLUGIN'/>
+      </intent-filter>
+      <meta-data android:name='type' android:value='native'/>
+    </service>
+    <uses-library android:name='com.motorolasolutions.scanner' android:required='false'/>
+    <uses-library android:name='com.motorolasolutions.adc.usbscanner' android:required='false'/>
+    <uses-library android:name='com.motorolasolutions.emdk.msr' android:required='false'/>
+  </application>
+  <!-- manifest tag addon templates from extensions-->
+  <uses-library android:name='com.google.android.maps' android:required='false'/>
+  <uses-permission android:name='android.permission.CAMERA'/>
+  <uses-permission android:name='android.permission.WRITE_EXTERNAL_STORAGE'/>
+  <uses-permission android:name='android.permission.VIBRATE'/>
+  <uses-permission android:name='android.permission.SYSTEM_ALERT_WINDOW'/>
+  <uses-permission android:name='android.permission.VIBRATE'/>
+  <uses-permission android:name='android.permission.ACCESS_WIFI_STATE'/>
+  <uses-permission android:name='android.permission.INTERNET'/>
+  <uses-sdk android:minSdkVersion='10'/>
+  <uses-permission android:name='android.webkit.permission.PLUGIN'/>
+  <uses-permission android:name='android.permission.VIBRATE'/>
+  <uses-permission android:name='android.permission.WRITE_EXTERNAL_STORAGE'/>
+  <uses-permission android:name='android.permission.CAMERA'/>
+  <uses-permission android:name='android.permission.RECORD_AUDIO'/>
+  <uses-permission android:name='android.permission.BLUETOOTH'/>
+  <uses-permission android:name='android.permission.BLUETOOTH_ADMIN'/>
+  <uses-permission android:name='android.permission.WAKE_LOCK'/>
+  <uses-permission android:name='android.permission.DISABLE_KEYGUARD'/>
+  <uses-permission android:name='android.permission.SYSTEM_ALERT_WINDOW'/>
+  <uses-permission android:name='android.permission.BROADCAST_STICKY'/>
+  <uses-permission android:name='android.permission.ACCESS_GPS'/>
+  <uses-permission android:name='android.permission.ACCESS_LOCATION'/>
+  <uses-permission android:name='android.permission.ACCESS_FINE_LOCATION'/>
+  <uses-permission android:name='android.permission.ACCESS_COARSE_LOCATION'/>
+  <uses-permission android:name='android.permission.MODIFY_PHONE_STATE'/>
+  <uses-permission android:name='android.permission.READ_PHONE_STATE'/>
+  <uses-permission android:name='android.permission.INTERNET'/>
+  <uses-permission android:name='android.permission.ACCESS_NETWORK_STATE'/>
+  <uses-permission android:name='android.permission.CHANGE_NETWORK_STATE'/>
+  <uses-permission android:name='android.permission.ACCESS_WIFI_STATE'/>
+  <uses-permission android:name='android.permission.CHANGE_WIFI_STATE'/>
+  <uses-permission android:name='com.android.launcher.permission.INSTALL_SHORTCUT'/>
+</manifest>

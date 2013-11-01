@@ -1,0 +1,1 @@
+platform/shared/ruby/missing/tgamma.c   /Users/robgalvin/.rvm/gems/ruby-1.9.3-p194/gems/rhodes-4.0.0/platform/android/../shared/ruby/android/ruby/config.h   /Applications/android-ndk-r8e/sources/cxx-stl/stlport/stlport/math.h   /Applications/android-ndk-r8e/sources/cxx-stl/stlport/stlport/errno.h

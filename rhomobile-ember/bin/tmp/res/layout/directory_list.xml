@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget28"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="fill"
+    android:orientation="vertical" >
+
+<TextView
+    android:id="@+id/lookIn"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal|right"
+    android:text="Look In:"
+    android:textColor="#FFFFFF"
+    android:textSize="17px"
+    android:textStyle="bold" >
+
+</TextView>
+
+<ImageView
+    android:id="@+id/preview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="2" />
+
+<ListView
+    android:id="@+id/filesList"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="2"
+    android:padding="5dp"
+    android:scrollbarStyle="insideOverlay" >
+
+</ListView>
+
+<LinearLayout
+    android:id="@+id/buttonLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="fill_horizontal"
+    android:layout_weight="0"
+    android:gravity="fill_horizontal"
+    android:orientation="horizontal" >
+
+<Button
+    android:id="@+id/okButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="fill"
+    android:layout_weight="1"
+    android:text="Open" >
+
+</Button>
+
+<Button
+    android:id="@+id/cancelButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="fill"
+    android:layout_weight="1"
+    android:text="Cancel" >
+
+</Button>
+</LinearLayout>
+</LinearLayout>

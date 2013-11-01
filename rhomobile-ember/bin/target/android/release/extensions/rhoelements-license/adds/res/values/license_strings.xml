@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Licensing GUI strings  -->
+    <string name="app_name_caps">RHOELEMENTS</string>
+    <string name="license_title">Product Registration</string>
+    <string name="license_copyright">\u00A9 Copyright 2011 Motorola Solutions, Inc. All rights reserved.</string>
+    <string name="license_version">Version</string>
+    <string name="license_licensed_to">Licensed to: </string>
+    <string name="license_unlicensed_1">This is unlicensed software for</string>
+    <string name="license_unlicensed_2">DEMONSTRATION USE ONLY</string>
+    <string name="license_unlicensed_3">Tap the screen to license your software.</string>
+    <string name="license_button_internet">Internet</string>
+    <string name="license_button_manual">Manual</string>
+    <string name="license_instruction_1">If this device is connected to the Internet you may be able to automatically license this unit online.</string>
+    <string name="license_instruction_2">- Press &quot;Internet&quot; if this device is connected.</string>
+    <string name="license_instruction_3">- Press &quot;Manual&quot; if this device is <b>not</b> connected.</string>
+    <string name="license_button_back">Back</string>
+    <string name="license_button_next">Next</string>
+    <string name="license_instructions_manual_1">To license this unit you will need to obtain a registration code from the Motorola Software Licensing Site. Below are the details you need to do this.</string>
+    <string name="license_uuid_label_1">UUID Part 1: </string>
+    <string name="license_uuid_label_2">UUID Part 2: </string>
+    <string name="license_checksum_label">Checksum: </string>
+    <string name="license_instructions_manual_2">Scan the <b>company name barcode</b> you obtained from the licensing site or enter the code manually.</string>
+    <string name="license_instructions_manual_3">Scan the <b>registration barcode</b> you obtained from the licensing site or enter the code manually.</string>
+    <string name="license_button_done">Done</string>
+    <string name="license_registration_success">Registration Successful.</string>
+    <string name="license_registration_failed_1">Registration Failed!</string>
+	<string name="license_page_total"> / 4</string>
+	<string name="license_instructions_internet_1">Enter the <b>device serial number</b> which can usually be found under the battery.</string>
+	<string name="license_instructions_internet_2">Enter your <b>order number</b> that was supplied when you purchased your licenses.</string>
+	<string name="license_communicating_1">Communicating with server</string>
+	<string name="license_communicating_2">Please wait...</string>
+	<string name="license_cancel">Cancel</string>
+	
+	<string name="license_log_bad_internet_code_returned">Internet Registration: incorrect license code returned.</string>
+	<string name="license_log_bad_server_url">Incorrect License Server URL</string>
+	<string name="license_log_comm_fail">Communication Error: Could not contact the licensing server.</string>
+	<string name="license_log_dialog_closed">License dialog Closed</string>
+	<string name="license_log_internet_fail">Internet Licensing failed. Incorrect Serial Number, order number or device</string>
+	<string name="license_log_invalid_uuid_length">Invalid UUID length</string>
+	<string name="license_log_license_success">\ has been successfully registered to: </string>
+	<string name="license_log_splash_hidden">Splash Screen Hidden</string>
+	<string name="license_log_unable_write_sharepref">Could not write to Shared Preferences</string>
+	<string name="license_log_url">URL: </string>
+	<string name="license_log_user_agent">User Agent: </string>
+	<string name="license_log_uuid_not_hex">Invalid UUID: not hexadecimal</string>
+	<string name="license_spash_close">Splash Screen Closed</string>
+	<string name="license_server">http://pocketbrowserlicense.motorolasolutions.com/uklicense/lic.asp?ON=%1$s&amp;SN=%2$s&amp;DIN=%3$s</string>
+    <string name="license_error_match">Company name does not match the registration code.</string>
+    <string name="license_error_write">Valid registration code but could not write to Android\'s Shared Preferences.</string>
+    <string name="license_error_comm">Communication error.</string>
+    <string name="license_error_server">Licensing Server Error. Incorrect server address.</string>
+    <string name="license_ex_invalid_chars_reg">Invalid Characters in reg code</string>
+	<string name="license_ex_unhandled_back_button">Unhandled Back/Internet Button</string>
+	<string name="license_ex_unhandled_forward_button">Unhandled Forward Button</string>
+	<string name="license_code">Code</string>
+	<string name="license_company">Company</string>
+	<string name="license_user_agent">User-Agent</string>
+    <!-- END of Licensing GUI strings -->
+</resources>
+

@@ -1,0 +1,1580 @@
+<html>
+	<head>
+		<title>Feature Demo</title>
+		<style type="text/css">
+			body
+			{
+				font-family: 'Droid Sans', 'PT Sans', sans-serif;
+				margin: 0px;
+				color: #4D4D4D;
+			}
+
+			input
+			{
+				border: 1px solid #ADADAD;
+				font-weight: normal;
+				color: #7E7E7E;
+				font-size: 18px;
+				margin: 2px 0px;
+				height: 27px;
+				background: url('images/fd_selectBack.png') repeat-x;
+				padding: 0px 5px;
+				width: 100%;
+			}
+
+			table
+			{
+				width:100%;
+			}
+
+			select
+			{
+				border: 1px solid black;
+				color: #7E7E7E;
+				font-size: 26px;
+				display: block;
+				width: 100%;
+				margin: 8px 0px;
+				height: 48px;
+				background: url('images/fd_selectBack.png') repeat-x;
+			}
+
+			label
+			{
+				font-size: 21px;
+				height: 42px;
+				vertical-align: bottom;
+			}
+
+			td
+			{
+				padding: 0px 5px;
+			}
+
+			td.title
+			{
+				width: 131px;
+			}
+
+			.special
+			{
+				color: #0071BC;
+			}
+
+			.button
+			{
+				border: 0px;
+				border-radius: 10px;
+				font-weight: bold;
+				color: white;
+				margin: 0px 9px;
+				background: url('images/fd_bnorm.png') repeat-x;
+				padding: 10px 20px;
+			}
+
+
+			.button:active
+			{
+				background: url('images/fd_bpress.png') repeat-x;
+			}
+
+			.inactive
+			{
+				opacity: 0.4;
+			}
+
+			div.expander
+			{
+				font-weight: lighter;
+				font-size: 3em;
+				display: block;
+				float: right;
+				position: relative;
+				right: 0.375em;
+				top: 0.5em;
+				border: 0.042em solid #666666;
+				width: 0.75em;
+				height: 0.75em;
+				/*-webkit-box-shadow: inset 0 0 0.05em 0.05em #CCC;*/
+				/*box-shadow: inset 0 0 0.05em 0.05em #CCC;*/
+				background: url('fd_sectback.png') repeat;
+				text-align: center;
+				line-height: 0.6em;
+			}
+
+			.content
+			{
+				color: #8C8C8C;
+				overflow: hidden;
+				padding: 0px;
+				margin: 0px;
+				-webkit-transition: height 0.3s ease-in-out;
+				background: url('images/fd_conttopback.png') repeat-x;
+			}
+
+			.innerContent
+			{
+				background: url('images/fd_sectback.png') repeat;
+				padding: 18px 9px 18px 9px;
+				border-bottom: 2px solid #0071BC;
+			}
+
+			.innerContent2
+			{
+				padding-top: 42px;
+			}
+
+			.sectHead
+			{
+				margin: 0px 9px; 
+				width: 100%;
+				height: 84px;
+				vertical-align: middle;
+			}
+
+			.section h1
+			{
+				position: relative;
+				display: inline;
+				font-weight: normal;
+				font-size: 26px;
+				margin: 0px;
+				padding: 16px 0px 0px 0px;
+				top:16px;
+				left: 16px;
+			}
+
+			.section h2
+			{
+				position: relative;
+				display: inline;
+				font-weight: normal;
+				font-size: 18px;
+				color: #666666;
+				margin: 0px;
+				padding: 0px 0px 16px 0px;
+				top: 15px;
+				left: 16px;
+			}
+
+			.measureHeader
+			{
+				overflow: hidden;
+				-webkit-transition: height 0.5s ease-in-out;
+			}
+
+			.section
+			{
+				overflow: hidden;
+				-webkit-transition: height 0.5s ease-in-out;
+			}
+
+			.number
+			{
+				position: relative;
+				top: 7px;
+				font-size: 60px;
+				float:left;
+				z-index: 2;
+			}
+
+			.flash
+			{
+				position:absolute;
+				left:0px;
+				top:0px;
+				height:100%;
+				width:100%;
+				opacity: 0;
+				background: url('images/fd_flash.png') no-repeat center top;
+				-webkit-transition: opacity 0.5s linear;
+				z-index: 1;
+			}
+			
+			.center
+			{
+				text-align: center;
+			}
+
+			.minus
+			{
+				line-height: 0.6em !important;
+			}
+
+			.measure
+			{
+				height: 0px;
+				-webkit-transition: height 0.3s ease-in-out;
+				overflow: hidden;
+			}
+			#header
+			{
+				padding: 9px;
+				background: white;
+			}
+
+			#header h1
+			{
+				font-size: 24px;
+				margin: 0px;
+			}
+
+			#header h2
+			{
+				font-size: 16px;
+				margin: 0px;
+			}
+
+			#backButton
+			{
+				right: 9px;
+			}
+			
+			#reloadButton
+			{
+				width: 100px;
+				right: 98px;
+			}
+			
+			.mainButton
+			{
+				position: absolute;
+				top: 9px;
+				width: 80px;
+				font-size: 24px;
+				padding: 0px;
+				height: 47px;
+			}
+
+			#headerBorder
+			{
+				background-color: #ADADAD;
+				height: 2px;
+				margin: 0px 9px;
+			}
+
+			.sectionBreakRight
+			{
+				-webkit-transform: rotate(180deg);
+				float: right;
+			}
+
+			.sectionBorder
+			{
+				background-color: #0373BD;
+				height: 2px;
+				margin: 0px 9px;
+			}
+
+			#loader
+			{
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background-color: white;
+				color: black;
+				text-align: center;
+				vertical-align: middle;
+				-webkit-transition: all 0.5s ease-in-out;
+			}
+
+			.reloaderlogo
+			{
+				position: absolute;
+				top: 152px;
+				width: 100%;
+				text-align: center;	
+			}
+			.reloaderlabel
+			{
+				position: absolute;
+				width: 100%;
+				height: 96px;
+				top: 320px;
+				left: 0px;
+				font-size: 28pt;
+				color: #0071BC;
+			}
+			.version
+			{
+				color: #666666;
+			}
+			.reloadermotsol
+			{
+				position: absolute;
+				bottom: 24;
+				width: 100%;
+				text-align: center;	
+			}	
+				
+			#content
+			{
+				-webkit-transition: opacity 1s ease-in-out;
+			}
+
+			#submitButton
+			{
+				font-size: 24px;
+				width: 100%;
+			}
+
+			#donebutton
+			{
+				position: absolute;
+				display: inline-block;
+				right: 9px;
+				bottom: 9px;
+				font-size: 24px;	
+			}
+
+			#logo
+			{	
+				padding-left: 2px;
+				height: 24px;
+			}
+
+			#loaderLogo
+			{
+				width: 324px;
+			}
+
+			#loaderMot
+			{
+				width: 270px;
+			}
+
+			#comment
+			{
+				font-size: 22px;
+				color: #C1272D;
+				border: 2px solid #C1272D;
+				border-radius: 10px;
+				text-align: center;
+				background: #F5F5F5;
+				padding: 9px 18px;
+				margin: 84px 40px;
+				-webkit-transition: opacity 1s ease-in-out;
+			}
+
+			#form
+			{
+				padding: 63px 0px 0px 0px;
+				-webkit-transition: opacity 1s ease-in-out;
+			}
+			
+			#fixedHeader
+			{
+				position: fixed;
+				width: 100%;
+				z-index: 10;
+			}
+			
+			#topFade
+			{
+				height: 18px;
+				background: url('images/fd_topfade.png') repeat-x;
+			}
+			
+			#signature
+			{
+				height: 182px;
+				width: 582px;
+				/*-webkit-box-shadow: 0 0 5px #888;*/
+				border: 1px solid #ADADAD;
+				margin: 5px;
+				background: white;
+			}
+			
+			#signatureImage
+			{
+				height: 182px;
+				width: 582px;
+				/*-webkit-box-shadow: 0 0 5px #888;*/
+				border: 1px solid #ADADAD;
+				margin: 5px;
+				background: white;
+				margin: auto;
+			}
+			
+			.camDiv
+			{
+				display: inline-block;
+				width: 286px;
+				height: 241px;
+				/*-webkit-box-shadow: 0 0 5px #888;*/
+				background: white;
+				border: 1px solid #ADADAD;
+			}
+			
+			#keyboardSpacer
+			{
+				height: 200px;
+			}
+			
+			.removed
+			{
+				display: none;
+			}
+			.minimised
+			{
+				height: 0px;
+			}
+			.hidden
+			{
+				visibility: hidden;
+			}
+			.transparent
+			{
+				opacity: 0;
+			}
+			.floatLeft
+			{
+				float:left;
+			}
+			.opaque
+			{
+				opacity: 1;
+			}
+		</style>
+		<script type="text/javascript">
+			var startupTimeout;			//A timeout variable used to start the app if rotation is not required.
+			var currentSection;
+			var isGestureDiagnostics;
+
+			/*
+			 * onPageLoad()
+			 * 
+			 * THIS FUNCTION INITIALIZES THE APPLICATION ON PAGE LOAD
+			 * 
+			 */
+			function onPageLoad()
+			{
+				isGestureDiagnostics = false;
+				currentSection = 0;
+				if (window.screen.width < 582)
+				{
+					document.getElementById('signatureImage').style.width = window.screen.width - 20; 
+					document.getElementById('signature').style.width = window.screen.width - 20;
+				}
+				window.onresize = function()
+				{
+					resize(currentSection);
+					if (window.screen.width < 582)
+					{
+						signatureCapture.width = window.screen.width - 20;
+						document.getElementById('signatureImage').style.width = window.screen.width - 20; 
+						document.getElementById('signature').style.width = window.screen.width - 20;
+					}
+					else
+					{
+						signatureCapture.width = 582;
+						document.getElementById('signatureImage').style.width = 582; 
+						document.getElementById('signature').style.width = 582;
+
+					}
+					signatureCapture.left = document.getElementById('signature').offsetLeft;
+					imager.left = document.getElementById('camPlaceHolder').offsetLeft;
+				};
+
+				//scale the page based on screen size
+				removeClass(document.getElementById('loader'), 'hidden');
+				
+				//hide the loader window on the initial load
+				window.setTimeout(function()
+				{
+					addClass(document.getElementById('loader'), 'transparent');
+					window.setTimeout(function()
+					{
+						addClass(document.getElementById('loader'), 'removed');
+						removeClass(document.getElementById('content'),'hidden');
+						removeClass(document.getElementById('content'),'transparent');
+						window.setTimeout(function()
+						{
+							removeClass(document.getElementById('form'),'transparent');
+							for(i = 0; i < document.getElementsByClassName('measureHeader').length; i++)
+							{
+								document.getElementById("measureHeader" + (i + 1)).style.height = document.getElementById("sectHead" + (i + 1)).clientHeight + "px";
+							}
+						},500);
+					}, 500);
+				}, 1000);
+			}
+				
+			/*
+			 * expand(section)
+			 * section: integer reference to the section to be expanded
+			 * 
+			 * THIS FUNCTION CONTROLS THE EXPANDING OF THE EXPANDER BOXES
+			 * 
+			 */
+			function expand(section)
+			{
+				//get the elements related to "section"
+				var button = document.getElementById('exp' + section);
+				var content = document.getElementById('cont' + section);
+				var measure = document.getElementById('measure' + section);
+				var contents = document.getElementsByClassName('section');
+				var split = document.getElementById('sB' + section);
+				var sectiondiv = document.getElementById("section" + section);
+
+				if(hasClass(button, 'minus') == null)
+				{
+					currentSection = section;
+					//change the plus button to a minus
+					addClass(button, 'minus');
+					button.innerHTML = '&#8211;';
+					
+					//set the height of the expander
+					measure.style.height = content.clientHeight + "px";
+					
+					//hide any other open expanders
+					for(i = 0; i < document.getElementsByClassName('section'); i++)
+					{
+						if((i + 1) != section)
+						{
+							shrink(i + 1);
+							if((i + 1) < section)
+							{
+								hide(i + 1);
+							}
+						}	
+					}
+					window.setTimeout(function()
+					{
+						addClass(split, 'removed');
+					}, 300);
+					
+					switch(section)
+					{
+						case 3: enableScanner(); break;
+						case 6: startKeyCapture(); break;
+						default: break;
+					}
+					var position = getPosition(document.getElementById('section' + section));
+					window.scrollTo(position.x,position.y - 61); //-61 because this is the size of the header bar
+				}
+				else
+				{
+					currentSection = 0;
+					//if it's already open....hide it!
+					shrink(section);
+					unhide(-1);
+				}	
+			}
+
+			/*
+			 * resize(section)
+			 * section: integer reference to the section to be resized
+			 * 
+			 * THIS FUNCTION RESIZES AN EXPANDER BAR WHEN IT HAS BEEN
+			 * EXPANDED.
+			 * 
+			 */
+			function resize(section)
+			{
+				if(section != 0)
+				{
+					var content = document.getElementById("cont" + section);
+					var measure = document.getElementById("measure" + section);
+					measure.style.height = content.clientHeight + "px";
+					removeClass(measure, 'minimised');
+				}
+			}
+
+			/*
+			 * hide(section)
+			 * section: integer reference to the section to be hidden
+			 * 
+			 * THIS FUNCTION HIDES AN EXPANDER BAR SO THAT IT IS NO LONGER VISIBLE
+			 * INCLUDING THE TITLE BAR
+			 * 
+			 */
+			function hide(section)
+			{
+				addClass(document.getElementById("sB" + section), 'removed');
+				document.getElementById("measureHeader" + section).style.height = "";
+				addClass(document.getElementById("measureHeader" + section), 'minimised');
+			}
+
+			/*
+			 * unhide(section)
+			 * section: integer reference to the section to be unhidden
+			 * 
+			 * THIS FUNCTION SHOWS A HIDDEN EXPANDER BAR
+			 * 
+			 */
+			function unhide(section)
+			{
+				if(section == -1)
+				{
+					var contents = document.getElementsByClassName("sectHead");
+					for(i = 0; i < 4; i++)
+					{
+						removeClass(document.getElementById("sB" + (i+1)), 'removed');
+						document.getElementById("measureHeader" + (i + 1)).style.height = document.getElementById("sectHead" + (i + 1)).clientHeight + "px";
+						removeClass(document.getElementById("measureHeader" + (i + 1)), 'minimised');
+					}
+				}
+				else
+				{
+					removeClass(document.getElementById("sB" + section), 'removed');
+					document.getElementById("measureHeader" + section).style.height = document.getElementById("sectHead" + section).clientHeight + "px";
+					removeClass(document.getElementById("measureHeader" + section), 'minimised');
+				}
+			}
+
+
+			/*
+			 * shrink(section)
+			 * section: integer reference to the section to be shrunk
+			 * 
+			 * THIS FUNCTION COLLAPSES AN EXPANDED EXPANDER BAR
+			 * 
+			 */
+			function shrink(section)
+			{
+				switch(section)
+				{
+					case 1: hideSignature(); break;
+					case 2: hideImager(); break;
+					case 3: disableScanner(); break;
+					case 6: stopKeyCapture(); break;
+					default: break;
+				}
+				var button = document.getElementById("exp" + section);
+				var measure = document.getElementById("measure" + section);
+				var split = document.getElementById("sB" + section);
+				
+				removeClass(button,'minus');
+				button.innerHTML = '+';
+				addClass(measure, 'minimised');
+				measure.style.height = '';
+				removeClass(split, 'removed');
+
+			}
+			
+			/**
+			 * Tests whether an HTML object has a particular css class.
+			 * @param element the object to test
+			 * @param cls the class name to test
+			 * @return null if a match is not found, array of matches if found
+			 */
+			function hasClass(element,cls)
+			{
+				return element.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+			}
+
+			/**
+			 * Adds a particular css class to an HTML object.
+			 * @param element the object to modify
+			 * @param cls the class name to add
+			 */
+			function addClass(element,cls)
+			{
+				if (!this.hasClass(element,cls)) element.className += " "+cls;
+			}
+
+			/**
+			 * Removes a particular css class from an HTML object.
+			 * @param element the object to modify
+			 * @param cls the class name to remove
+			 */
+			function removeClass(element,cls)
+			{
+				if (hasClass(element,cls))
+				{
+					var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+					element.className=element.className.replace(reg,' ');
+				}
+			}
+			
+			/**
+			 * Returns to the previous page
+			 */
+			function doBack()
+			{
+				emmlProfile.apply = 'disableSignal';
+				window.setTimeout(function()
+				{
+					location.href = 'history:back';
+				},100);
+			}
+			
+			/**
+			 * Reload the page
+			 */
+			function doReload()
+			{
+				window.location.reload();
+			}
+			
+			/**
+			 * Makes the section denoted by the number (section) flash to signify
+			 * that an event has occurred.
+			 * @param section the section number to flash
+			 */
+			function flash(section)
+			{
+				var classes = document.getElementsByClassName('flash');
+				addClass(classes[section -1], 'opaque');
+				window.setTimeout(function ()
+				{
+					removeClass(classes[section -1], 'opaque');
+				},500);
+			}
+			
+			/**
+			 * Returns the position on the screen of the object
+			 * @param the object of which to get the position
+			 * @return {x,y} the x and y positions of the top left of the object
+			 *	in relation to screen size
+			 */
+			function getPosition(object)
+			{
+				var xPosition = 0;
+				var yPosition = 0;
+				while(object != null)
+				{
+					xPosition += object.offsetLeft;
+					yPosition += object.offsetTop;
+					object = object.offsetParent;
+				}
+				return {x: xPosition, y: yPosition};
+			}
+
+			/*************************************/
+			//Functionality start
+			/*************************************/
+
+			function onScreenEvent (orientation)
+			{
+				var div = document.getElementById('screen');
+				if (div != null)
+				{
+					div.value = orientation;
+					flash(4);
+				}
+			}
+
+			function startTimer()
+			{
+				emmlProfile.apply = 'startTimer';
+
+				var div = document.getElementById('timer');
+				if (div != null) div.value = 'waiting...';
+			}
+
+			function onTimerEvent(time)
+			{
+				var div = document.getElementById('timer');
+				if (div != null)
+				{
+					div.value = time;
+					flash(5);
+				}
+			}
+			
+			function sendLog()
+			{
+				flash(7);
+				generic.Log(document.getElementById('log').value, 1);
+			}
+			
+			/******************************************************************************/
+			// Signal
+			/******************************************************************************/
+			
+			function startSignal()
+			{
+				emmlProfile.apply = 'startSignal';
+			}
+
+			function stopSignal()
+			{
+				emmlProfile.apply = 'stopSignal';
+			}
+			
+			function showSignalIndicator(isVisible)
+			{
+				if (isVisible == true)
+				{
+					signal.color = '#0000FF';
+					signal.visibility = 'visible';
+				}
+				else
+					signal.visibility = 'hidden';
+			}
+
+			function onSignalEvent (strength, ssid, mac, adapter, dhcp_server, dhcp_static, gateway, ip, rssi, subnet, wins)
+			{
+				if (ssid.length == 0)	document.getElementById('signal-status').value = 'Disconnected';
+				else					document.getElementById('signal-status').value = 'Connected';
+
+				document.getElementById('signal-status').value = strength + '%';
+				document.getElementById('signal-strength').value = strength + '%';
+				document.getElementById('signal-ssid').value = ssid;
+				document.getElementById('signal-mac').value = mac;
+				document.getElementById('signal-adapter').value = adapter;
+				document.getElementById('signal-dhcp-server').value = dhcp_server;
+				document.getElementById('signal-dhcp-static').value = dhcp_static;
+				document.getElementById('signal-gateway').value = gateway;
+				document.getElementById('signal-ip').value = ip;
+				document.getElementById('signal-rssi').value = rssi;
+				document.getElementById('signal-subnet').value = subnet;
+				document.getElementById('signal-wins').value = wins;
+
+				flash(10);
+			}
+
+			/******************************************************************************/
+			// Keys
+			/******************************************************************************/
+
+			/*function onKeyEvent(key)
+			{
+				var div = document.getElementById('key');
+				if (div != null)
+				{
+					div.value = key.keyValue;
+					flash(6);
+				}
+			}*/
+		
+			function onTrigger (event)
+			{
+				var div = document.getElementById('key');
+				if (div != null)
+				{
+					div.value = 'Trigger ' + event.triggerFlag;
+					flash(6);
+				}
+			}
+			
+			function startKeyCapture()
+			{
+				emmlProfile.apply = 'startKeyCapture';
+			}
+			
+			function stopKeyCapture()
+			{
+				emmlProfile.apply = 'stopKeyCapture';
+			}
+			
+			/******************************************************************************/
+			// Scanner
+			/******************************************************************************/
+
+			function startScanner()
+			{
+				scanner.start();
+				flash(3);
+			}                         
+
+			function enableScanner()
+			{
+				scanner.enable();
+				flash(3);
+			}
+
+			function disableScanner()
+			{
+				scanner.disable();
+				flash(3);
+			}
+
+			function clearScanner()
+			{
+				document.getElementById('barcode-data').value = '';
+				document.getElementById('barcode-source').value = '';
+				document.getElementById('barcode-type').value = '';
+				document.getElementById('barcode-time').value = '';
+				document.getElementById('barcode-length').value = '';
+				document.getElementById('barcode-event').value = '';
+				
+				flash(3);
+			}
+			
+			function onBarcodeEvent (barcode)
+			{
+				document.getElementById('barcode-data').value = barcode.data;
+				document.getElementById('barcode-source').value = barcode.source;
+				document.getElementById('barcode-type').value = barcode.type;
+				document.getElementById('barcode-time').value = barcode.time;
+				document.getElementById('barcode-length').value = barcode.length;
+				document.getElementById('barcode-event').value = barcode.event;
+
+				flash(3);
+			}
+
+			/******************************************************************************/
+			// Signature
+			/******************************************************************************/
+
+			function showSignature()
+			{
+				removeClass(document.getElementById('sigDisplayDiv'), 'removed');
+				resize(1);
+				window.scrollTo(0,0);
+				lockScroll(true);
+				var signatureLeft = document.getElementById('signature').offsetLeft;
+				signatureCapture.left = '' + signatureLeft;
+				if (window.screen.width < 582)
+					signatureCapture.width = window.screen.width - 20;
+				else
+					signatureCapture.width = 582;
+				signatureCapture.visibility = 'visible';
+
+				flash(1);
+			}
+
+			function captureSignature()
+			{
+				signatureCapture.capture();
+				flash(1);
+			}
+
+			function clearSignature()
+			{
+				//canvas clear is not consistent so delete the element from the DOM
+				//and add a new one in its place
+				var sigCont = document.getElementById("sigDisplayDiv");
+				var canvas = document.getElementById("signature");
+				sigCont.removeChild(canvas);
+				
+				var newCanvas = document.createElement('canvas');
+		
+				newCanvas.setAttribute('id','signature');
+				sigCont.appendChild(newCanvas);
+	
+				var context = newCanvas.getContext("2d");
+				context.strokeStyle = "#0373BD";
+				context.lineWidth = '3';
+				context.scaleX = 0.5;
+				context.scaleX = 0.75;
+				signatureCapture.clear();
+				flash(1);
+			}
+
+			function hideSignature()
+			{
+				addClass(document.getElementById('sigDisplayDiv'), 'removed');
+				resize(1);
+				lockScroll(false);
+				signatureCapture.visibility = 'hidden';
+				flash(1);
+			}
+			
+			function onSignatureSave(status)
+			{
+				var div = document.getElementById('signature-status');
+				if (div != null)
+				{
+					div.value = status;
+					flash(1);
+				}
+			}
+			
+			/*
+			 * doCaptureImage(vectors)
+			 * vectors: array of vector points for each stroke of the signature
+			 * 
+			 * Captures the signature and recreates it on the HTML5 canvas
+			 */
+			function doSignatureCaptured(vectors)
+			{
+				var canvas = document.getElementById("signature");
+				var context = canvas.getContext("2d");
+				
+				
+				//This begining of the signature is the stroke start indicator so skip the first two elements
+				//then move to the next two as x and y
+				context.moveTo(vectors[2] * 0.5, vectors[3] * 0.85);
+				
+				//loop throught the remaining elements of the array
+				//until we hit the ending marker
+				for(var i = 4; i < vectors.length; i+=2)
+				{
+					if(vectors[i] < 0xFFFF)
+						context.lineTo(vectors[i] * 0.5, vectors[i+1] * 0.85);
+				}
+				//draw the stroke
+				context.stroke();
+			}
+
+			/******************************************************************************/
+			// Imager
+			/******************************************************************************/
+
+			function showImager()
+			{
+				removeClass(document.getElementById('camDisplayDiv'), 'removed');
+				resize(2);
+				var position = getPosition(document.getElementById('section2'));
+				window.scrollTo(position.x,position.y);
+				lockScroll(true);
+				var imagerLeft = document.getElementById('camPlaceHolder').offsetLeft;
+				imager.left = '' + imagerLeft;
+				//imager.left = '' + ((window.innerWidth - 578) /2);
+				imager.enabled = 'cam0';
+
+				flash(2);
+			}
+			
+			function captureImager()
+			{
+				imager.capture();
+				window.setTimeout(function(){onImageCapture()}, 3000);
+			}
+
+			function hideImager()
+			{
+				addClass(document.getElementById('camDisplayDiv'), 'removed');
+				resize(2);
+				lockScroll(false);
+				imager.disable();
+			}
+			
+			function onImageCapture()
+			{
+				var now = new Date();
+				document.getElementById('camImager').innerHTML = '<img src="file:///mnt/sdcard/image.jpg?' + now + '" height="241" width="286"></img>';
+			}
+				
+			/******************************************************************************/
+			// Hourglass
+			/******************************************************************************/
+
+			function showHourglass()
+			{
+				var left = document.getElementById('hourglass-left').value;
+				var top = document.getElementById('hourglass-top').value;
+			  
+				hourglass.left = left;
+				hourglass.top = top;
+				hourglass.visibility = 'visible';
+			}
+			
+			function hideHourglass()
+			{
+				hourglass.visibility = 'hidden';
+			}
+				
+			/******************************************************************************/
+			// Power on
+			/******************************************************************************/
+
+			function onPowerOn ()
+			{
+				var div = document.getElementById('power');
+				if (div != null)
+				{
+					time = new Date();
+					div.value = 'Power detected at ' + time.toTimeString();
+					flash(12);
+				}
+			}
+			
+			function clearPower ()
+			{
+				var div = document.getElementById('power');
+				if (div != null)
+				{
+					div.value = '';
+				}
+			}
+				
+			/******************************************************************************/
+			// Gesture
+			/******************************************************************************/
+
+			function onGesture(gesture)
+			{
+				var div = document.getElementById('gesture');
+				if (div != null)
+				{
+				
+					div.value = gesture.id + ' (' + gesture.count + ')';
+					flash(13);
+				}
+			}
+			
+			function doGestureDiagnostics()
+			{
+				isGestureDiagnostics = !isGestureDiagnostics;
+				emmlProfile.apply = 'removeGestures';
+				if(isGestureDiagnostics)
+				{
+					emmlProfile.apply = 'addGesturesYesDiag';
+				}
+				else
+				{
+					emmlProfile.apply = 'addGesturesNoDiag';
+				}
+			}
+				
+			/******************************************************************************/
+			// Local storage
+			/******************************************************************************/
+
+			function storeLocalStorage()
+			{
+				var data = document.getElementById('local-storage-data').value;
+				window.localStorage.setItem('data', data);
+			}
+		  
+			function fetchLocalStorage()
+			{
+				var data = window.localStorage.getItem('data');
+				document.getElementById('local-storage').value = data;
+			}
+			   
+			/******************************************************************************/
+			// SQL storage
+			/******************************************************************************/
+
+			function storeSql()
+			{
+				var data = document.getElementById('sql-data').value;
+				  
+				var db = window.openDatabase('RhoElementsSample', '', 'RhoElements sample database', 10240);
+				db.transaction(function(tx)
+				{
+					tx.executeSql('CREATE TABLE IF NOT EXISTS RhoElements (value TEXT)');
+					tx.executeSql('DELETE FROM RhoElements');
+					tx.executeSql('INSERT INTO RhoElements (value) VALUES (?)', [data],
+					function(tx)
+					{
+						document.getElementById('sql').value = 'Data stored';
+					},
+					function(tx, error)
+					{
+						document.getElementById('sql').value = 'ERROR: ' + error.message;
+					}); 
+				});
+			}
+			  
+			function fetchSql()
+			{
+				var db = window.openDatabase('RhoElementsSample', '', 'RhoElements sample database', 10240);
+				db.transaction(function(tx)
+				{
+					tx.executeSql('SELECT value FROM RhoElements', [],
+					function(tx, results)
+					{
+						var data = results.rows.item(0).value; 
+						document.getElementById('sql').value = data;
+					},
+					function(tx, error)
+					{
+						document.getElementById('sql').value = 'ERROR: ' + error.message;
+					}); 
+				});
+			}
+			
+			function lockScroll(isLock)
+			{
+				if(isLock)
+				{
+					document.ontouchmove = function(e){ e.preventDefault(); };
+				}
+				else
+				{
+					document.ontouchmove = null;
+				}
+			}
+		</script>
+		<meta http-equiv="EMMLProfile" content="import:url('file:///Android/data/com.motorolasolutions.rhoelements/Demos/FeatureDemo/fd_prof.emmp');" />
+		<meta http-equiv="EMMLProfile" content="apply:onLoad" />
+	</head>
+	<body onload="onPageLoad();">
+		<div id="loader" class="hidden">
+			<div class="reloaderlogo"><img id="loaderLogo" src="images/fd_rhoelements.png"></img> </div>
+			<div class="reloaderlabel">
+				<span>Feature Demo</span>
+				<span class="version">Version 1.0</span>
+			</div>
+			<div class="reloadermotsol" ><img id="loaderMot" src="images/fd_motsol.png"></img></div>
+		</div>
+	
+		<div id="content" class="transparent hidden">
+			<div id="fixedHeader">
+				<div id="header">
+					<h1><img id="logo" src="images/fd_rhologosmall.png"></img></h1>
+					<h2>Feature Demo</h2>
+					<button id="reloadButton" class="button mainButton" onclick="doReload()">Reload</button>
+					<button id="backButton" class="button mainButton" onclick="doBack()">Back</button>
+				</div>
+				<div id="headerBorder"><img src="images/fd_headborder.png"/><img src="images/fd_headborder.png" class="sectionBreakRight"/></div>
+				<div id="topFade"></div>
+			</div>
+
+			<div id="form" class="transparent">
+				<div id="section1" class="section">
+					<div id="measureHeader1" class="measureHeader">
+						<div id="sectHead1" class="sectHead" onclick="expand(1)">
+							<div class="number">1<div class="flash"></div></div>
+							<div id="exp1" class="expander">+</div>
+							<h1>Signature Capture</h1><br />
+							<h2>Capturing signature vectors and images</h2>
+						</div>
+					</div>
+					<div id="measure1" class="measure">
+						<div id="cont1" class="content">
+							<div class="innerContent">
+								<div class="center">
+									<div id="sigDisplayDiv" class="removed">
+										<div id="signatureImage"></div>
+										<canvas id="signature"></canvas>
+									</div>
+									<span>
+										<button class="button" onclick="showSignature();">Show</button>
+										<button class="button" onclick="captureSignature();">Capture</button>
+										<button class="button" onclick="clearSignature();">Clear</button>
+										<button class="button" onclick="hideSignature();">Hide</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB1" class="sectionBorder"><img src="images/fd_sectborder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section2" class="section">
+					<div id="measureHeader2" class="measureHeader">
+						<div id="sectHead2" class="sectHead" onclick="expand(2)">
+							<div class="number">2<div class="flash"></div></div>
+							<div id="exp2" class="expander">+</div>
+							<h1>Camera</h1><br />
+							<h2>Capture an image</h2>
+						</div>
+					</div>
+					<div id="measure2" class="measure">
+						<div id="cont2" class="content">
+							<div class="innerContent">
+								<div class="center">
+									<div id="camDisplayDiv" class="removed">
+										<div id="camPlaceHolder" class="camDiv"></div>
+										<div id="camImager" class="camDiv"></div>
+									</div>
+									<span>
+										<button class="button" onclick="showImager();">Show Camera</button>
+										<button class="button" onclick="captureImager();">Capture Image</button>
+										<button class="button" onclick="hideImager();">Hide Camera</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB2" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section3" class="section">
+					<div id="measureHeader3" class="measureHeader">
+						<div id="sectHead3" class="sectHead" onclick="expand(3)">
+							<div class="number">3<div class="flash"></div></div>
+							<div id="exp3" class="expander">+</div>
+							<h1>Barcode</h1><br />
+							<h2>Barcode capture</h2>
+						</div>
+					</div>
+					<div id="measure3" class="measure">
+						<div id="cont3" class="content">
+							<div class="innerContent">
+								<table>
+								<tr><td class="title"><label for="barcode-data">Data:</label></td><td><input class="data" id="barcode-data" readonly="readonly"></input></td>
+								<tr><td class="title"><label for="barcode-source">Source:</label></td><td><input class="data" id="barcode-source" readonly="readonly"></input></td></tr>
+								<tr><td class="title"><label for="barcode-type">Type:</label></td><td><input class="data" id="barcode-type" readonly="readonly"></input></td></tr>
+								<tr><td class="title"><label for="barcode-time">Time:</label></td><td><input class="data" id="barcode-time" readonly="readonly"></input></td></tr>
+								<tr><td class="title"><label for="barcode-length">Length:</label></td><td><input class="data" id="barcode-length" readonly="readonly"></input></td></tr>
+								<tr><td class="title"><label for="barcode-event">Event</label></td><td><input class="data" id="barcode-event" readonly="readonly"></input></td></tr>
+								</table>
+								<div class="center">
+									<span>
+										<button class="button" onclick="enableScanner();">Enable Scanner</button>
+										<button class="button" onclick="disableScanner();">Disable Scanner</button>
+										<button class="button" onclick="startScanner();">Scan</button>
+										<button class="button" onclick="clearScanner();">Clear</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB3" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section4" class="section">
+					<div id="measureHeader4" class="measureHeader">
+						<div id="sectHead4" class="sectHead" onclick="expand(4)">
+							<div class="number">4<div class="flash"></div></div>
+							<div id="exp4" class="expander">+</div>
+							<h1>Screen</h1><br />
+							<h2>Screen rotation detection</h2>
+						</div>
+					</div>
+					<div id="measure4" class="measure">
+						<div id="cont4" class="content">
+							<div class="innerContent">
+							<table>
+								<tr><td class="title"><label for="screen">Screen:</label></td><td><input class="data" id="screen" readonly="readonly"></input></input></td>
+							</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB4" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section5" class="section">
+					<div id="measureHeader5" class="measureHeader">
+						<div id="sectHead5" class="sectHead" onclick="expand(5)">
+							<div class="number">5<div class="flash"></div></div>
+							<div id="exp5" class="expander">+</div>
+							<h1>Timer</h1><br />
+							<h2>Do event after a set timeout</h2>
+						</div>
+					</div>
+					<div id="measure5" class="measure">
+						<div id="cont5" class="content">
+							<div class="innerContent">
+							<table>
+								<tr><td class="title"><label for="timer">Data:</label></td><td><input class="data" id="timer" readonly="readonly"></input></input></td>
+							</table>
+								<div class="center">
+									<span>
+										<button class="button" onclick="startTimer();">Start Timer</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB5" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section6" class="section">
+					<div id="measureHeader6" class="measureHeader">
+						<div id="sectHead6" class="sectHead" onclick="expand(6)">
+							<div class="number">6<div class="flash"></div></div>
+							<div id="exp6" class="expander">+</div>
+							<h1>Trigger</h1><br />
+							<h2>Trigger detection</h2>
+						</div>
+					</div>
+					<div id="measure6" class="measure">
+						<div id="cont6" class="content">
+							<div class="innerContent">
+								<table>
+									<tr><td class="title"><label for="key">Key Pressed:</label></td><td><input class="data" id="key"></input></input></td>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB6" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section7" class="section">
+					<div id="measureHeader7" class="measureHeader">
+						<div id="sectHead7" class="sectHead" onclick="expand(7)">
+							<div class="number">7<div class="flash"></div></div>
+							<div id="exp7" class="expander">+</div>
+							<h1>Log</h1><br />
+							<h2>Send a message to a log file</h2>
+						</div>
+					</div>
+					<div id="measure7" class="measure">
+						<div id="cont7" class="content">
+							<div class="innerContent">
+								<table>
+									<tr><td class="title"><label for="log">Log Data:</label></td><td>
+									<input type="text" id="log" class="data" value="Helium log test"/></td></tr>
+								</table>
+								<div class="center">
+									<span>
+										<button class="button" onclick="sendLog();">Send</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB7" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section8" class="section">
+					<div id="measureHeader8" class="measureHeader">
+						<div id="sectHead8" class="sectHead" onclick="expand(8)">
+							<div class="number">8<div class="flash"></div></div>
+							<div id="exp8" class="expander">+</div>
+							<h1>Local Storage</h1><br />
+							<h2>Store data in HTML5 Local Storage</h2>
+						</div>
+					</div>
+					<div id="measure8" class="measure">
+						<div id="cont8" class="content">
+							<div class="innerContent">
+								<table>
+									<tr><td class="title"><label for="local-storage-data">Input:</label></td><td><input type="text" id="local-storage-data" class="data" value="Hello local storage"/></td></tr>
+									<tr><td class="title"><label for="local-storage">Output:</label></td><td><input type="text" id="local-storage" class="data" readonly="readonly"/></td></tr>
+								</table>
+								<div class="center">
+									<span>						
+										<button class="button" onclick="storeLocalStorage();">Store</button>
+										<button class="button" onclick="fetchLocalStorage();">Fetch</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB8" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section9" class="section">
+					<div id="measureHeader9" class="measureHeader">
+						<div id="sectHead9" class="sectHead" onclick="expand(9)">
+							<div class="number">9<div class="flash"></div></div>
+							<div id="exp9" class="expander">+</div>
+							<h1>WebSQL Storage</h1><br />
+							<h2>Store data in a WebSQL database</h2>
+						</div>
+					</div>
+					<div id="measure9" class="measure">
+						<div id="cont9" class="content">
+							<div class="innerContent">
+								<table>
+									<tr><td class="title"><label for="sql-data">Input:</label></td><td><input type="text" id="sql-data" class="data" value="Hello SQL storage"/></td></tr>
+									<tr><td class="title"><label for="sql">Output:</label></td><td><input type="text" id="sql" class="data" readonly="readonly"/></td></tr>
+								</table>
+								<div class="center">
+									<span>
+										<button class="button" onclick="storeSql();">Store</button>
+										<button class="button" onclick="fetchSql();">Fetch</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB9" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section10" class="section">
+					<div id="measureHeader10" class="measureHeader">
+						<div id="sectHead10" class="sectHead" onclick="expand(10)">
+							<div class="number">10<div class="flash"></div></div>
+							<div id="exp10" class="expander">+</div>
+							<h1>Signal</h1><br />
+							<h2>Signal indicator and signal data</h2>
+						</div>
+					</div>
+					<div id="measure10" class="measure">
+						<div id="cont10" class="content">
+							<div class="innerContent">
+								<table>
+									<tr><td class="title"><label for="signal-status">Status: </label></td><td><input class="data" id="signal-status" readonly="readonly"></input></td>
+									<tr><td class="title"><label for="signal-strength">Strength: </label></td><td><input class="data" id="signal-strength" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-ssid">SSID: </label></td><td><input class="data" id="signal-ssid" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-mac">MAC address: </label></td><td><input class="data" id="signal-mac" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-adapter">Adapter: </label></td><td><input class="data" id="signal-adapter" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-dhcp-server">DHCP server: </label></td><td><input class="data" id="signal-dhcp-server" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-dhcp-static">DHCP static: </label></td><td><input class="data" id="signal-dhcp-static" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-gateway">Gateway: </label></td><td><input class="data" id="signal-gateway" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-ip">IP address: </label></td><td><input class="data" id="signal-ip" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-rssi">RSSI: </label></td><td><input class="data" id="signal-rssi" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-subnet">Subnet: </label></td><td><input class="data" id="signal-subnet" readonly="readonly"></input></td></tr>
+									<tr><td class="title"><label for="signal-wins">WINS: </label></td><td><input class="data" id="signal-wins" readonly="readonly"></input></td></tr>
+								</table>
+								<div class="center">
+									<span>
+										<button class="button" onclick="startSignal();">Start</button>
+										<button class="button" onclick="stopSignal();">Stop</button><br><br>
+										<button class="button" onclick="showSignalIndicator(true);">Show indicator</button>
+										<button class="button" onclick="showSignalIndicator(false);">Hide indicator</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB10" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section11" class="section">
+					<div id="measureHeader11" class="measureHeader">
+						<div id="sectHead11" class="sectHead" onclick="expand(11)">
+							<div class="number">11<div class="flash"></div></div>
+							<div id="exp11" class="expander">+</div>
+							<h1>Hourglass</h1><br />
+							<h2>Show the wait cursor</h2>
+						</div>
+					</div>
+					<div id="measure11" class="measure">
+						<div id="cont11" class="content">
+							<div class="innerContent">
+								<table>
+									<tr><td class="title"><label for="hourglass-left">Left:</label></td><td><input type="text" id="hourglass-left" class="data" value="100"/></td></tr>
+									<tr><td class="title"><label for="hourglass-top">Top:</label></td><td><input type="text" id="hourglass-top" class="data" value="200"/></td></tr>
+								</table>
+								<div class="center">
+									<span>
+										<button class="button" onclick="showHourglass();">Show</button>
+										<button class="button" onclick="hideHourglass();">Hide</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB11" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section12" class="section">
+					<div id="measureHeader12" class="measureHeader">
+						<div id="sectHead12" class="sectHead" onclick="expand(12)">
+							<div class="number">12<div class="flash"></div></div>
+							<div id="exp12" class="expander">+</div>
+							<h1>Power</h1><br />
+							<h2>Notify when the device is awoken</h2>
+						</div>
+					</div>
+					<div id="measure12" class="measure">
+						<div id="cont12" class="content">
+							<div class="innerContent">
+								<table>
+									<tr><td class="title"><label for="power">Power Data:</label></td><td><input type="text" id="power" class="data" readonly="readonly"/></td></tr>
+								</table>
+								<div class="center">
+									<span>
+										<button class="button" onclick="clearPower();">Clear</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB12" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="section13" class="section">
+					<div id="measureHeader13" class="measureHeader">
+						<div id="sectHead13" class="sectHead" onclick="expand(13)">
+							<div class="number">13<div class="flash"></div></div>
+							<div id="exp13" class="expander">+</div>
+							<h1>Gesture</h1><br />
+							<h2>Custom functionality on finger gesture</h2>
+						</div>
+					</div>
+					<div id="measure13" class="measure">
+						<div id="cont13" class="content">
+							<div class="innerContent">
+								<table>
+									<tr><td class="title"><label for="gesture">Gesture Data:</label></td><td><input type="text" id="gesture" class="data" readonly="readonly"/></td></tr>
+								</table>
+								<div class="center">
+									<span>
+										<button class="button" onclick="doGestureDiagnostics();">Toggle Diagnostics</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sB13" class="sectionBorder"><img src="images/fd_sectBorder.png"/><img src="images/fd_sectBorder.png" class="sectionBreakRight"/></div>
+				
+				<div id="keyboardspacer"></div>
+			</div>
+		</div>
+	</body>
+</html>

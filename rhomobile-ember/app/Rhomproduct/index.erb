@@ -1,0 +1,22 @@
+
+<div class="container">
+  <h2>Products</h2>
+  <a href="<%= url_for :action => :new %>" class="btn btn-primary" ><i class="icon-plus-sign  icon-white" ></i>  New</a>
+    <ul class="list-group">
+      <% @rhomproducts.each do |rhomproduct| %>
+      
+          <li class="list-group-item">
+            <a href="<%= url_for :action => :edit, :id => rhomproduct.object %>">
+              <%= rhomproduct.name %>
+            </a>
+            <span class="badge pull-left"><%= rhomproduct.qty %></span>
+            <a href="<%= url_for :action => :deleteprompt, :id => rhomproduct.object %>"><span id="reportdelete" class="button btn-sm btn-danger pull-right" ><i class="icon icon-trash"></i></span></a>
+        
+          </li>
+      
+      <% end %>
+    </ul>
+
+</div>
+
+

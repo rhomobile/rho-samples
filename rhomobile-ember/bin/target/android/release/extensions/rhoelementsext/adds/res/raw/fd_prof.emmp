@@ -1,0 +1,179 @@
+.onLoad
+{
+	Timer-Interval:2000;
+	Timer-Timeout:url('javascript: onTimerEvent('%s');');
+	
+	Scanner-picklist: 2;
+	Scanner-DecodeEvent: url('javascript:onBarcodeEvent(%json);');
+
+	Signal-SignalEvent: url('javascript:onSignalEvent('%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10', '%11');');
+
+	ScreenOrientation-ScreenOrientationEvent: url('javascript:onScreenEvent('%s');');
+
+	Imager-top:103;
+	Imager-width:286;
+	Imager-height:241;
+	Imager-destination:url('file:///image.jpg');
+
+	PowerOn-PowerOnEvent: url('javascript:onPowerOn();');
+	
+	Gesture-id:1;
+	Gesture-type:hold;
+	Gesture-interval:500;
+	Gesture:create;
+	
+	Gesture-id:2;
+	Gesture-type:linear;
+	Gesture-preset:right-left;
+	Gesture:create;
+	
+	Gesture-id:3;
+	Gesture-type:circle;
+	Gesture-preset:happy;
+	Gesture:create;
+	
+	Gesture-Detected: url('javascript: onGesture(%json);');
+	
+	FileTransfer-Destination: url('file:///Android/data/com.motorolasolutions.rhoelements/Demos/FeatureDemo/images/fd_transferimage.png');
+	FileTransfer-Source: url('file:///Android/data/com.motorolasolutions.rhoelements/Demos/FeatureDemo/fd_transferimage.png');
+	FileTransfer-OverWrite:False;
+	FileTransfer:Transfer;
+	
+	signatureCapture-top:166;
+	signatureCapture-width:582;
+	signatureCapture-height:182;
+	signatureCapture-bgColor:#FFFFFF;
+	signatureCapture-penColor:#0373BD;
+	signatureCapture-penWidth:5;
+	signatureCapture-name:signature.png;
+	signatureCapture-signatureSaveEvent:url('Javascript:onSignatureSave('%1')');
+	signatureCapture-vectorEvent:url('Javascript:doSignatureCaptured(%1)');
+	
+}
+
+.removeGestures
+{
+	Gesture-id:1;
+	Gesture:delete;
+	Gesture-id:2;
+	Gesture:delete;
+	Gesture-id:3;
+	Gesture:delete;
+}
+
+.addGesturesYesDiag
+{
+	Gesture-id:1;
+	Gesture-type:hold;
+	Gesture-interval:500;
+	Gesture-diagnostics: true;
+	Gesture:create;
+	
+	Gesture-id:2;
+	Gesture-type:linear;
+	Gesture-preset:right-left;
+	Gesture-diagnostics: true;
+	Gesture:create;
+	
+	Gesture-id:3;
+	Gesture-type:circle;
+	Gesture-preset:happy;
+	Gesture-diagnostics: true;
+	Gesture:create;
+}
+
+.addGesturesNoDiag
+{
+	Gesture-id:1;
+	Gesture-type:hold;
+	Gesture-interval:500;
+	Gesture-diagnostics: false;
+	Gesture:create;
+	
+	Gesture-id:2;
+	Gesture-type:linear;
+	Gesture-preset:right-left;
+	Gesture-diagnostics: false;
+	Gesture:create;
+	
+	Gesture-id:3;
+	Gesture-type:circle;
+	Gesture-preset:happy;
+	Gesture-diagnostics: false;
+	Gesture:create;
+}
+
+.startKeyCapture
+{
+	KeyCapture-TriggerEvent:url('javascript:onTrigger(%json);');
+}
+
+.stopKeyCapture
+{
+	KeyCapture-TriggerEvent:url('');
+}
+
+.transfer
+{
+	FileTransfer-Source: url('file:///Android/data/com.motorolasolutions.rhoelements/Demos/FeatureDemo/images/fd_transferimage.png');
+	FileTransfer-Destination: url('file:///Android/data/com.motorolasolutions.rhoelements/Demos/FeatureDemo/fd_transferimage.png');
+	FileTransfer-OverWrite:False;
+	FileTransfer:Transfer;
+}
+
+.startSignal
+{
+	signal-signalEvent: url('javascript:onSignalEvent('%1','%2','%3','%4','%5','%6','%7','%8','%9','%10','%11');');
+}
+
+.stopSignal
+{
+	signal-signalEvent: url('');
+}
+
+.disableSignal
+{
+	signal-visibility: hidden;
+}
+
+.startTimer
+{
+	timer: start;
+}
+
+.startScanner
+{
+	scanner: start;
+}
+
+.enableScanner
+{
+	scanner: enable;
+}
+
+.disableScanner
+{
+	scanner:disable;
+}
+
+.showImager
+{
+	imager-enabled: cam0;
+}
+    
+.captureImager
+{
+	imager: capture;
+}
+
+.hideImager
+{
+	imager: disable;
+}
+
+.hideHourglass
+{
+	hourglass-visibility:hidden;
+}
+
+

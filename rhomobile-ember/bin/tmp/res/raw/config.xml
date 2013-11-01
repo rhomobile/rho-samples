@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!-- RhoElements Configuration file -->
+<Configuration>
+
+	<DebugButtons>
+		<DebugButtonsEnabled value="0"/>
+	</DebugButtons>
+
+	<Logger>
+	    <LogProtocol value="FILE"/>
+	    <LogPort value="80"/>
+	    <LogURI value="file://%INSTALLDIR%/log.txt"/>
+	    <LogError value="1"/>
+	    <LogWarning value="0"/>
+	    <LogInfo value="0"/>
+	    <LogUser value="1"/>
+	    <LogMemory value="0"/>
+	    <LogMemPeriod value="5000"/>
+	    <LogMaxSize value="10"/>
+	</Logger>
+	
+	<FileLocations>
+		<RegEXFile value="file://%INSTALLDIR%/RegEx.xml"/>
+	</FileLocations>
+	
+	<Screen>
+		<FullScreen value="1"/>
+	</Screen>
+	
+	<WebServer>
+    	<Enabled VALUE="0"/>
+    	<Port VALUE="8080"/>
+    	<WebFolder VALUE="\www"/>
+    	<Public VALUE="0"/>
+  	</WebServer>
+	
+	<DeviceKeys>
+		<EnableFunctionKey_F1 value="0"/>
+		<EnableFunctionKey_F2 value="0"/>
+		<EnableFunctionKey_F3 value="0"/>
+  	</DeviceKeys>
+
+	<Navigation>
+		<NavTimeout value="45000"/>
+	</Navigation>
+	
+	<Geolocation>
+		<GeolocationEnabled value="1"/>
+	</Geolocation>
+
+	<Applications>
+		<Application>
+		
+			<General>
+				<Name value="Menu"/>
+				<StartPage value="file://%INSTALLDIR%/menu.html" name="Menu"/>
+			</General>
+			
+			<HTTP_Proxy value=""/>
+			<HTTPS_Proxy value=""/>
+			
+			<WebDB>
+				<WebStorageDBPath value="file://%INSTALLDIR%"/>
+				<WebSQLDBQuota value="5000000"/>
+				<WebSQLDBPath value="file://%INSTALLDIR%"/>
+			</WebDB>
+			
+			<ApplicationCache>
+				<ApplicationCachePath value="file://%INSTALLDIR%"/>
+				<ApplicationCacheQuota value="5000000"/>
+			</ApplicationCache>
+			
+			<NPAPI>
+				<Preloads>
+					<PreloadLegacyGeneric value="1"/>
+					<PreloadLegacyODAX value="1"/>
+					<PreloadLegacyNoSIP value="1"/>
+					<PreloadLegacyAirBeam value="1"/>
+					<PreloadLegacyAPD value="1"/>
+					<PreloadJSObjects value="1"/>
+				</Preloads>
+			</NPAPI>
+
+			<HTMLStyles>
+				<TextSelectionEnabled value="0"/>
+				<FontFamily value="Droid Sans Fallback"/>
+			</HTMLStyles>
+			
+			<GUI>
+				<SignalRefresh value="5000"/>
+				<HourglassEnabled value="1"/>
+				<HourglassLeft value=""/>
+				<HourglassTop value=""/>
+			</GUI>
+						
+			<Navigation>
+				<BadLinkURI value="file://%INSTALLDIR%/badlink.html"/>
+				<UserAgent value="Mozilla/5.0 (%p) AppleWebKit/%w (KHTML, like Gecko) MotorolaWebKit/%e Safari/%w"/>
+				<NetworkCookieDatabase value="file://%INSTALLDIR%/cookies.db"/>
+				<ViewportEnabled value="1"/>
+				<Cache value="5MB"/></Navigation>
+			
+		</Application>
+	</Applications>
+</Configuration>

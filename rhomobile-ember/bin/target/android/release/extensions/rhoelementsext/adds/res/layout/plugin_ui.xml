@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/plugin_container" android:layout_width="fill_parent" android:layout_height="fill_parent">
+	
+<AbsoluteLayout android:id="@+id/camera_panel" android:layout_width="fill_parent" android:layout_height="fill_parent"/>
+
+	<com.motorolasolutions.rhoelements.graphics.IndicatorPanel android:id="@+id/indicator_panel" android:layout_width="fill_parent" android:layout_height="fill_parent" android:paddingTop="0px" android:paddingLeft="0px" android:paddingBottom="0px" android:background="@android:color/transparent" android:paddingRight="0px"/>
+
+	<com.motorolasolutions.rhoelements.plugins.ElementsGestureOverlayView android:id="@+id/gestures" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1.0" android:visibility="gone" android:focusable="false"/>
+    	
+    <AbsoluteLayout android:id="@+id/quitbutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/quit_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/quit_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/backbutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/back_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/back_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/forwardbutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/forward_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/forward_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/homebutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/home_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/home_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/reloadbutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/reload_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/reload_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/minimizebutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/minimize_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/minimize_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/zoomtextbutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/zoomtext_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/zoomtext_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/sipbutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/sip_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/sip_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/gobutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/go_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/go_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/stopbutton_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+    	<Button android:id="@+id/stop_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:background="@drawable/stop_button_conf"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/addressbar_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="gone">
+	    	<AutoCompleteTextView android:id="@+id/addressbar" android:imeOptions="actionGo" android:layout_width="fill_parent" android:layout_height="fill_parent" android:maxLines="1" android:lines="1" android:singleLine="true" android:scrollHorizontally="true" android:inputType="textUri" android:visibility="visible"/>
+	</AbsoluteLayout>
+
+	<AbsoluteLayout android:id="@+id/signature_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="invisible" android:background="@android:color/transparent">
+		<com.motorolasolutions.rhoelements.graphics.SignatureArea android:id="@+id/signature_area" android:layout_width="fill_parent" android:layout_height="fill_parent" android:visibility="visible" android:clickable="true"/>
+	</AbsoluteLayout>
+	
+	<AbsoluteLayout android:id="@+id/editext_panel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:clickable="false" android:focusableInTouchMode="false" android:visibility="visible">
+	</AbsoluteLayout>
+	
+	<FrameLayout android:id="@+id/hourglass_panel" android:layout_width="fill_parent" android:layout_height="fill_parent" android:clickable="false" android:focusableInTouchMode="false" android:visibility="visible" android:foregroundGravity="center">
+		<ImageView android:id="@+id/spinnerView" android:src="@anim/spin" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:visibility="invisible"/>
+	</FrameLayout>
+	
+	<FrameLayout android:id="@+id/backlight_layout" android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="#000000" android:visibility="gone"/>
+</FrameLayout>

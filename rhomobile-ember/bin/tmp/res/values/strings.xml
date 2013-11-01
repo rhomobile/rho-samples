@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <string name='app_name'>Rhospection</string>
+    <string name='home'>Home</string>
+    <string name='refresh'>Refresh</string>
+    <string name='forward'>Forward</string>
+    <string name='back'>Back</string>
+    <string name='navigation'>Navigation</string>
+    <string name='about'>About</string>
+    <string name='exit'>Exit</string>
+    <string name='sync'>Sync</string>
+    <string name='options'>Options</string>
+    <string name='logview'>View Log</string>
+    <string name='logoptions'>Logging Options</string>
+    <string name='no_files'>This directory is empty</string>
+    <string name='to_top'>..</string>
+    <string name='about_rhodes'>Rhodes Version 1.0.0\n\nAuthor: Rhomobile\n\nSupport: all@rhomobile.com\n\n(c) Copyright (C) 2008 Rhomobile. All rights reserved.</string>
+    <string name='ok'>   Ok   </string>
+    <string name='cancel'>Cancel</string>
+    <color name='sig_bkgColor'>#888888</color>
+    <color name='sig_penColor'>#66009A</color>
+    <!--  RhoBluetoothDeviceListActivity -->
+    <string name='scanning'>scanning for devices...</string>
+    <string name='select_device'>select a device to connect</string>
+    <string name='none_paired'>No devices have been paired</string>
+    <string name='none_found'>No devices found</string>
+    <string name='title_paired_devices'>Paired Devices</string>
+    <string name='title_other_devices'>Other Available Devices</string>
+    <string name='button_scan'>Scan for devices</string>
+</resources>

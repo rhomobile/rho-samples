@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/license_layout"
+	  android:orientation="vertical"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent"
+	  android:background="#4D4D4D"
+	  android:focusable="true"
+	  android:focusableInTouchMode="true">
+		  <LinearLayout	android:id="@+id/license_dialog"
+		    android:orientation="vertical"
+		    android:layout_height="578px"
+		    android:layout_width="428px"
+		    android:background="@drawable/license_back_9_patch"
+		    android:layout_gravity="center" android:weightSum="1">
+		    <FrameLayout
+		      android:layout_width="fill_parent"
+		      android:layout_height="43px">
+		      <TextView
+		      	android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+		        android:text="@string/license_title"
+		        android:textSize="20px" 
+		        android:typeface="sans"
+		        android:textStyle="bold"
+		        android:textColor="#000000"
+		        android:gravity="center_vertical"
+		        android:paddingBottom="11px"/>
+		      <Button android:layout_width="wrap_content" android:text="@string/license_cancel" android:textColor="#ffffff" android:textStyle="bold" android:layout_gravity="right" android:textSize="16px" android:layout_height="37px" android:padding="-4px" android:background="@drawable/license_cancel_button" android:paddingRight="20px" android:paddingLeft="20px" android:gravity="center|top" android:focusableInTouchMode="false" android:visibility="gone" android:id="@+id/license_button_quit"></Button>
+		      </FrameLayout>
+			<LinearLayout
+			  android:orientation="vertical"
+			  android:paddingLeft="13px"
+			  android:paddingRight="13px"
+			  android:paddingTop="32px"
+			  android:layout_width="match_parent"
+			  android:layout_height="491px">
+			  <LinearLayout
+		      	android:layout_width="fill_parent"
+		      	android:layout_height="wrap_content"
+		      	android:orientation="horizontal" android:layout_marginBottom="48px">
+		      	<ImageView
+		      	  android:layout_height="wrap_content"
+		      	  android:layout_width="wrap_content"
+		      	  android:src="@drawable/license_moto"/>
+		     	<TextView 
+		  		  android:layout_width="match_parent"
+		  		  android:layout_height="wrap_content"
+				  android:textSize="40px"
+		  		  android:text="@string/app_name_caps"
+		  		  android:textColor="#000000"
+		  		  android:paddingLeft="15px"
+		  		  android:textStyle="bold"
+		  		  android:textScaleX="0.9"/>
+		      	</LinearLayout>
+			  <LinearLayout android:layout_width="match_parent" android:id="@+id/license_splash_section" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="visible">
+			      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="right">
+			          <TextView android:text="@string/license_version" android:typeface="sans" android:textStyle="bold" android:textSize="20px" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			          <TextView android:typeface="sans" android:textStyle="bold" android:id="@+id/splash_version" android:textSize="20px" android:textColor="#000000" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			      </LinearLayout>
+			      <LinearLayout android:layout_width="match_parent" android:id="@+id/license_unlicensed_info" android:layout_height="wrap_content" android:paddingTop="72px" android:orientation="vertical" android:visibility="gone">
+			          <TextView android:text="@string/license_unlicensed_1" android:id="@+id/textView2" android:textColor="#4B4B4B" android:layout_marginBottom="8px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			          <TextView android:text="@string/license_unlicensed_2" android:textStyle="bold" android:id="@+id/textView3" android:textSize="22px" android:textColor="#4B4B4B" android:layout_marginBottom="8px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			          <TextView android:text="@string/license_unlicensed_3" android:textStyle="bold" android:id="@+id/textView4" android:textColor="#4B4B4B" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			      </LinearLayout>
+			      <LinearLayout android:visibility="gone" android:layout_width="match_parent" android:id="@+id/license_licensed_info" android:layout_height="wrap_content" android:paddingTop="96px" android:orientation="vertical">
+			          <TextView android:text="@string/license_licensed_to" android:id="@+id/textView1" android:textColor="#4B4B4B" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			          <TextView android:text="TextView" android:textStyle="bold" android:id="@+id/license_name" android:textColor="#4B4B4B" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			      </LinearLayout>
+			  </LinearLayout>
+			  <RelativeLayout android:id="@+id/license_start_section" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone">
+			      <LinearLayout android:id="@+id/license_page_1" android:layout_width="match_parent" android:orientation="vertical" android:layout_height="wrap_content">
+			          <TextView android:text="@string/license_instruction_1" android:id="@+id/textView5" android:textSize="19px" android:textColor="#4B4B4B" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			          <TextView android:text="@string/license_instruction_2" android:id="@+id/textView6" android:textSize="17px" android:textColor="#4B4B4B" android:paddingTop="18px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			          <TextView android:text="@string/license_instruction_3" android:id="@+id/textView7" android:textSize="17px" android:textColor="#4B4B4B" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="left"></TextView>
+			      </LinearLayout>
+			      <RelativeLayout android:layout_width="match_parent" android:paddingBottom="42px" android:layout_alignParentBottom="true" android:layout_height="wrap_content" android:id="@+id/license_start_buttons">
+			          <Button android:drawableLeft="@drawable/license_internet" android:layout_width="wrap_content" android:background="@drawable/license_option_button" android:layout_height="wrap_content" android:text="@string/license_button_internet" android:id="@+id/license_button_internet"></Button>
+			          <Button android:drawableLeft="@drawable/license_manual" android:layout_alignParentRight="true" android:layout_width="wrap_content" android:background="@drawable/license_option_button" android:layout_height="wrap_content" android:text="@string/license_button_manual" android:id="@+id/license_button_manual"></Button>
+			      </RelativeLayout>
+			  </RelativeLayout>
+			  <RelativeLayout android:id="@+id/license_form_section" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone">
+			      <LinearLayout android:layout_width="wrap_content" android:orientation="vertical" android:layout_height="wrap_content" android:id="@+id/license_manual_form_1" android:visibility="gone">
+			          <TextView android:text="@string/license_instructions_manual_1" android:id="@+id/textView8" android:textSize="19px" android:textColor="#4B4B4B" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="16px"></TextView>
+			          <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:orientation="vertical" android:background="#F2F2F2" android:paddingLeft="28px" android:paddingRight="28px" android:paddingTop="18px" android:paddingBottom="18px">
+			              <LinearLayout android:layout_width="match_parent" android:id="@+id/LinearLayout01" android:layout_height="wrap_content">
+			                  <TextView android:textColor="#4B4B4B" android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/license_uuid_label_1" android:textSize="18px"></TextView>
+			                  <TextView android:textColor="#4B4B4B" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="18px" android:id="@+id/license_uuid_value_1"></TextView>
+			              </LinearLayout>
+			              <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout4" android:layout_height="wrap_content">
+			                  <TextView android:textColor="#4B4B4B" android:text="@string/license_uuid_label_2" android:id="@+id/textView9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="18px"></TextView>
+			                  <TextView android:textColor="#4B4B4B" android:textSize="18px" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/license_uuid_value_2"></TextView>
+			              </LinearLayout>
+			              <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout3" android:layout_height="wrap_content">
+			                  <TextView android:textColor="#4B4B4B" android:text="@string/license_checksum_label" android:id="@+id/textView11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="18px"></TextView>
+			                  <TextView android:textColor="#4B4B4B" android:textSize="18px" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/license_checksum_value"></TextView>
+			              </LinearLayout>
+			          </LinearLayout>
+			      </LinearLayout>
+			      <LinearLayout android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/license_manual_form_2" android:layout_width="match_parent" android:visibility="gone">
+			          <TextView android:paddingBottom="26px" android:textSize="19px" android:layout_height="wrap_content" android:id="@+id/TextView06" android:text="@string/license_instructions_manual_2" android:layout_width="match_parent" android:textColor="#4B4B4B"></TextView>
+			          <com.rhomobile.rhoelements.rhoelements.RhoLicenseEditText android:id="@+id/license_company_value" android:focusable="true" android:background="@drawable/license_text_input" android:layout_height="wrap_content" android:textColor="#ffffff" android:layout_width="match_parent"></com.rhomobile.rhoelements.rhoelements.RhoLicenseEditText>
+			      </LinearLayout>
+			      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/license_manual_form_3" android:visibility="gone">
+			          <TextView android:paddingBottom="26px" android:textSize="19px" android:layout_height="wrap_content" android:id="@+id/TextView01" android:layout_width="match_parent" android:textColor="#4B4B4B" android:text="@string/license_instructions_manual_3"></TextView>
+			          <com.rhomobile.rhoelements.rhoelements.RhoLicenseEditText android:focusable="true" android:background="@drawable/license_text_input" android:layout_height="wrap_content" android:textColor="#ffffff" android:layout_width="match_parent" android:id="@+id/license_registration_value"></com.rhomobile.rhoelements.rhoelements.RhoLicenseEditText>
+			      </LinearLayout>
+			      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/license_internet_form_1" android:visibility="gone">
+			          <TextView android:paddingBottom="26px" android:textSize="19px" android:layout_height="wrap_content" android:id="@+id/TextView05" android:layout_width="match_parent" android:textColor="#4B4B4B" android:text="@string/license_instructions_internet_1"></TextView>
+			          <com.rhomobile.rhoelements.rhoelements.RhoLicenseEditText android:focusable="true" android:background="@drawable/license_text_input" android:layout_height="wrap_content" android:textColor="#ffffff" android:layout_width="match_parent" android:id="@+id/license_serial_value"></com.rhomobile.rhoelements.rhoelements.RhoLicenseEditText>
+			      </LinearLayout>
+			      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/license_internet_form_2" android:visibility="gone">
+			          <TextView android:paddingBottom="26px" android:textSize="19px" android:layout_height="wrap_content" android:id="@+id/TextView25" android:layout_width="match_parent" android:textColor="#4B4B4B" android:text="@string/license_instructions_internet_2"></TextView>
+			          <com.rhomobile.rhoelements.rhoelements.RhoLicenseEditText android:focusable="true" android:background="@drawable/license_text_input" android:layout_height="wrap_content" android:textColor="#ffffff" android:layout_width="match_parent" android:id="@+id/license_order_value"></com.rhomobile.rhoelements.rhoelements.RhoLicenseEditText>
+			      </LinearLayout>
+			      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/license_internet_form_3" android:visibility="gone">
+			          <TextView android:textSize="18px" android:layout_height="wrap_content" android:textStyle="bold" android:id="@+id/TextView09" android:layout_width="wrap_content" android:textColor="#4B4B4B" android:text="@string/license_communicating_1"></TextView>
+			          <TextView android:textSize="18px" android:layout_height="wrap_content" android:id="@+id/TextView08" android:text="@string/license_communicating_2" android:layout_marginTop="32px" android:layout_width="match_parent" android:textColor="#4B4B4B"></TextView>
+			      </LinearLayout>
+			      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/license_success_form" android:visibility="gone" android:orientation="vertical">
+			          <TextView android:textSize="18px" android:layout_height="wrap_content" android:textStyle="bold" android:id="@+id/textView12" android:text="@string/license_registration_success" android:layout_width="wrap_content" android:textColor="#4B4B4B"></TextView>
+			          <LinearLayout android:background="#F2F2F2" android:paddingBottom="32px" android:id="@+id/LinearLayout03" android:paddingRight="28px" android:layout_height="wrap_content" android:paddingLeft="28px" android:layout_marginTop="32px" android:paddingTop="32px" android:layout_width="match_parent" android:orientation="vertical">
+			              <LinearLayout android:id="@+id/LinearLayout05" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_width="wrap_content">
+			                  <TextView android:textSize="18px" android:layout_height="wrap_content" android:id="@+id/TextView07" android:text="@string/license_licensed_to" android:layout_marginRight="10px" android:layout_width="wrap_content" android:textColor="#4B4B4B"></TextView>
+			                  <TextView android:textSize="18px" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textColor="#4B4B4B" android:id="@+id/license_company_name_2"></TextView>
+			              </LinearLayout>
+			          </LinearLayout>
+			      </LinearLayout>
+			      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/license_fail_form" android:visibility="gone">
+			          <TextView android:textSize="18px" android:layout_height="wrap_content" android:textStyle="bold" android:id="@+id/TextView03" android:text="@string/license_registration_failed_1" android:layout_width="wrap_content" android:textColor="#4B4B4B"></TextView>
+			          <TextView android:textSize="18px" android:layout_height="wrap_content" android:id="@+id/license_fail_reason" android:layout_marginTop="32px" android:layout_width="match_parent" android:textColor="#4B4B4B"></TextView>
+			      </LinearLayout>
+			      <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:id="@+id/license_form_buttons" android:layout_marginBottom="42px">
+			          <Button android:background="@drawable/license_nav_button" android:layout_height="wrap_content" android:text="@string/license_button_back" android:id="@+id/license_nav_back_button" android:textColor="#FFFFFF" android:layout_width="134px" android:textStyle="bold" android:focusable="true" ></Button>
+			          <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/linearLayout5" android:layout_centerHorizontal="true" android:layout_centerVertical="true">
+			              <TextView android:textColor="#4B4B4B" android:text="" android:id="@+id/license_page_number" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			              <TextView android:textColor="#4B4B4B" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/textView14" android:text="@string/license_page_total"></TextView>
+			          </LinearLayout>
+			          <Button android:layout_alignParentRight="true" android:background="@drawable/license_nav_button" android:layout_height="wrap_content" android:text="@string/license_button_next" android:id="@+id/license_nav_next_button" android:textColor="#FFFFFF" android:layout_width="134px" android:textStyle="bold" android:focusable="true"></Button>
+			      </RelativeLayout>
+			  </RelativeLayout>
+		      </LinearLayout>
+			<TextView 
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:textSize="13px"
+			  android:text="@string/license_copyright"
+			  android:textColor="#686868"
+			  android:paddingLeft="13px"
+			  android:paddingRight="13px"
+			  android:gravity="center_horizontal"/>
+		    </LinearLayout>
+	</FrameLayout>
