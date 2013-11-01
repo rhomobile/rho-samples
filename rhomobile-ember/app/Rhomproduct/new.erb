@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>New Product</h2>
+  <form role="form" method="POST" action="<%= url_for :action => :create %>">
+    <div class="form-group">
+    <label >Name</label>
+    
+               <input type="text" id="rhomproduct[name]" name="rhomproduct[name]" <%= placeholder("Name") %> />
+
+    </div>
+    <div class="form-group">
+    <label >Brand</label>
+                <input type="text" id="rhomproduct[brand]" name="rhomproduct[brand]" <%= placeholder("Brand") %> />
+
+    </div>
+    <div class="form-group">
+    <label >Qty</label>
+    
+                <input type="text" id="rhomproduct[qty]" name="rhomproduct[qty]" <%= placeholder("Qty") %> />
+
+    </div>
+    <div >
+     <input type="submit" value="Create" class="btn  btn-success"/>  
+      <a href="<%= url_for :action => :index %>" class="btn btn-default ">Cancel</button></a>
+    
+  </div>          
+  </form>
+</div>
+
+
