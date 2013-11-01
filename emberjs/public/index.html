@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tracker</title>
+    <link href="libs/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<script type="text/x-handlebars" data-template-name="stories">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header"><h1>Tracker <small> emberjs sample application</small></h1></div>
+                {{outlet}}
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="stories/index">
+    {{#link-to "stories.new" class="btn btn-primary"}}New story{{/link-to}}
+    <div class="panel panel-default">
+        {{#each itemController="story"}}
+        <div class="panel-heading">
+            <div class="row">
+
+                {{#if isVisible}}
+                <div class="col-md-4">
+                    <button class="btn btn-default btn-xs" {{action toggleVisible}}><span class="glyphicon glyphicon-chevron-up"></span></button> {{title}}
+                </div>
+                <div  class="col-md-2">
+                    <button class="btn btn-warning btn-xs" {{action editStory}}>Edit</button>
+                    <button class="btn btn-danger btn-xs" {{action deleteStory}}>Delete</button>
+
+                </div>
+                {{else}}
+                <div class="col-md-4">
+                    <button class="btn btn-default btn-xs" {{action toggleVisible}}><span class="glyphicon glyphicon-chevron-down"></span></button> {{title}}
+                </div>
+                <div class="col-md-1"><span {{bind-attr class="stateClass"}}>{{state}}</span></div>
+                <div class="col-md-2">
+                    {{#each tag in getTags}}
+                         <span class="badge">{{tag}}</span>
+                    {{/each}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        {{#if isVisible}}
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1">State:</div>
+                <div class="col-md-1"><span {{bind-attr class="stateClass"}}>{{state}}</span></div>
+                <div class="col-md-1">Points:</div>
+                <div class="col-md-1">{{points}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">Tags:</div>
+                <div class="col-md-11">{{tags}}</div>
+            </div>
+            <span>Description:</span>
+            <p class="list-group-item-text">{{description}}</p>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="stories/edit">
+    <h3>Edit story</h3>
+   <form class="form-horizontal" role="form">
+       <div class="form-group">
+           <label class="col-md-1 control-label">Title:</label><div class="col-md-1">{{input type="text"  value=title}}</div>
+       </div>
+       <div class="form-group">
+           <label class="col-md-1 control-label">State:</label><div class="col-md-2">{{view Ember.Select viewName="select"
+           class="form-control"
+           contentBinding="states"
+           value=model.state
+           selectionBinding="model.state"}}</div>
+       </div>
+       <div class="form-group">
+           <label class="col-md-1 control-label">Points:</label><div class="col-md-1">{{view Ember.Select viewName="select"
+           class="form-control"
+           contentBinding="availablePoints"
+           value=model.points
+           selectionBinding="model.points"}}</div>
+       </div>
+       <div class="form-group">
+       <label class="col-md-1 control-label">Tags:</label><div class="col-md-1">{{input type="text"  value=tags}}</div>
+       </div>
+       <div class="form-group">
+           <label class="col-md-1 control-label">Description:</label><div class="col-md-1">{{textarea  value=description}}</div>
+       </div>
+       <div class="form-group">
+           <div class="col-md-offset-1 col-md-2">
+               <button class="btn btn-default" {{action cancel}}>Cancel</button>
+               <button class="btn btn-primary" {{action save}}>Submit</button>
+           </div>
+       </div>
+   </form>
+</script>
+
+<script type="text/x-handlebars" data-template-name="stories/new">
+    <h3>New story</h3>
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-md-1 control-label">Title:</label><div class="col-md-1">{{input type="text"  value=title}}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">State:</label><div class="col-md-2">{{view Ember.Select viewName="select"
+            class="form-control"
+            contentBinding="states"
+            selectionBinding="model.state"}}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">Points:</label><div class="col-md-1">{{view Ember.Select viewName="select"
+            class="form-control"
+            contentBinding="availablePoints"
+            selectionBinding="model.points"}}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">Tags:</label><div class="col-md-1">{{input type="text"  value=tags}}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">Description:</label><div class="col-md-1">{{textarea  value=description}}</div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-1 col-md-2">
+                <button class="btn btn-default" {{action cancel}}>Cancel</button>
+                <button class="btn btn-primary" {{action save}}>Submit</button>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script src="libs/jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="libs/handlebars/handlebars-1.0.0.js" type="text/javascript"></script>
+<script src="libs/ember/ember.js" type="text/javascript"></script>
+<script src="libs/ember/ember-data.js" type="text/javascript"></script>
+
+<script src="js/application.js" type="text/javascript"></script>
+<script src="js/router.js" type="text/javascript"></script>
+<script src="js/models/story.js" type="text/javascript"></script>
+<script src="js/controllers/stories_controller.js" type="text/javascript"></script>
+<script src="js/controllers/story_controller.js" type="text/javascript"></script>
+<script src="js/controllers/stories_new_controller.js" type="text/javascript"></script>
+<script src="js/controllers/stories_edit_controller.js" type="text/javascript"></script>
+
+</body>
+</html>

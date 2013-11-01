@@ -1,0 +1,22 @@
+javascript_application: true
+sdkversion: 4.0.0
+name: emberjs
+version: 1.0
+vendor: rhomobile
+build: debug
+bbver: 6.0
+applog: rholog.txt
+iphone:
+  configuration: Release
+  sdk: iphonesimulator6.0
+  provisionprofile:
+  codesignidentity:
+  entitlements:
+  BundleIdentifier: com.rhomobile.emberjs
+  BundleURLScheme: emberjs
+wp:
+  productid: '8fc98100-2529-0131-d22d-14109fdf482f'
+symbian:
+  uid: '0xe5ec114d'
+android:
+  version: 2.3.3
