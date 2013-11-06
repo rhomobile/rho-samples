@@ -1,0 +1,164 @@
+<script type="text/javascript">
+
+var curPage = 0;
+var itemsPerPage = 9;
+var filterpublic = '<%=@ispublic%>'; //This comes from the report_controller.erb
+
+$(document).ready(function() {
+  
+  if(Rho.ORM.haveLocalChanges()){
+    $('#message').show();
+    $('#message').html('<a href="/app/Sync" class=""><i class="icon icon-warning-sign icon-small"></i><strong>Local Changes Not Synced</strong></a>');
+  }
+  else
+  {
+        $('#message').hide();
+
+  }
+
+  load_reports();
+
+  //setup pager handlers
+  $('.previous').click(function(){
+    curPage -=1;
+    load_reports();
+
+  });
+
+  $('.next').click(function(){
+    curPage +=1;
+    load_reports();
+
+  });
+
+  if(filterpublic == "false"){
+    $('#private_tab').addClass("active");
+    
+  }
+  else{
+    $('#public_tab').addClass("active");
+    
+  }
+
+});
+
+
+function load_reports()
+{
+  reports = Report.find('all',{
+    conditions:{
+      ispublic: filterpublic
+    }
+  });
+  $('.list-group').html('');
+  if(reports.length>0)
+  {
+    $('.panel').show();
+    $('.panel-heading').append('<span class="badge pull-right">' + reports.length + ' Reports</span>');
+    start_index=curPage*itemsPerPage;
+    end_index = start_index+itemsPerPage;
+    if(end_index > reports.length)
+    {
+      end_index = reports.length;
+    }
+
+
+    for(i=start_index;i<end_index;i++)
+    {
+
+      reportIcon = "<i class='pull-left icon icon-warning-sign icon-warning icon-large'></i>"
+      if(reports[i].get('pass')=="true")
+      {
+        reportIcon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>"
+      
+      }
+      
+      //get count of ReportItems
+      reportItems = ReportItem.find('count',{
+        conditions:{reportid:reports[i].get('reportid')}
+      });
+      countBadge = '<span class="badge">' + reportItems + ' Items</span>'
+      $('.list-group').append('<li class="list-group-item">' + countBadge + 
+        '<a href="/app/Report/{' + 
+        reports[i].get('object') + '}/edit" class="">' 
+        + reportIcon  + reports[i].get('name') + ' <span class="label label-primary"><i class="icon icon-user"></i>' + reports[i].get('author')  + '</span></a>'  +  '</li>');
+    }
+    
+  
+  }
+  else
+  {
+      $('.panel').hide();
+  }
+
+  if(reports.length<=itemsPerPage)
+  {
+    $('.pager').hide();
+     $('#pager').hide();
+  }
+  else
+  {
+    $('.pager').show();
+    $('#pager').show();
+    $('.previous').removeClass('disabled');
+    $('.next').removeClass('disabled');
+    if(start_index==0)
+    {
+      $('.previous').addClass('disabled');
+    
+    }
+    else
+    {
+      if(end_index!=reportItems.length)
+      {
+        $('.next').addClass('disabled');
+      }
+    }
+  }
+
+}
+</script>
+
+
+
+<div  id="message" class="alert alert-warning">
+  
+</div>
+<div >
+<ul class="nav nav-tabs">
+  <li id="private_tab"><a href="/app/Report"><i class='icon icon-lock'></i> Private</a></li>
+  <li id="public_tab"><a href="/app/Report/public"><i class='icon icon-group'></i> Public</a></li>
+  <li class="pull-right"><a href="/app/Report/new" class="label label-primary" ><i class="icon-plus-sign  icon-white" ></i>  New</a></li>
+</ul>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-4">
+
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading"><i class='icon icon-edit'></i> Reports<span ></span></div>
+      
+
+      <!-- List group -->
+      <ul class="list-group">
+      </ul>
+    </div>
+
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-8 visible-sm visible-md visible-lg">
+    <H3>Directions to Next Store</H3>
+    <div class="span12">
+      <a href="#" class="thumbnail">
+        <img data-src="holder.js/100%x180" alt="...">
+      </a>
+    </div>
+  </div>
+  
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom" id="pager" role="navigation">
+  <ul class="pager">
+    <li class="previous"><a href="#">&larr; Prev</a></li>
+    <li class="next"><a href="#">Next &rarr;</a></li>
+  </ul>
+
+</nav>

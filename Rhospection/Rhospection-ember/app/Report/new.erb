@@ -1,0 +1,427 @@
+<script type="text/javascript">
+
+var thisReport;
+var editId = '<%=@params['id']%>';
+editId = editId.replace('{','').replace('}','');
+
+$(document).ready(function() {
+
+  $('#pass-switch').bootstrapSwitch('setOnClass', 'success');
+  $('#pass-switch').bootstrapSwitch('setOffClass', 'warning');
+  $('.panel').hide();
+  $('#message').hide();
+          
+  if(editId == '')
+  {
+    $('#reportdelete').hide();
+  }
+  else
+  {
+    thisReport = Report.find('first',{
+      conditions:{
+        object:editId
+      }
+    });
+    if(typeof(thisReport) !='undefined')
+    {
+      $('.panel').show();
+      $('#name').val(thisReport.get('name'));
+      if(thisReport.get('pass')=='true')
+      {
+        $('#pass').prop('checked', true);
+        $('#pass-switch').bootstrapSwitch('setState', true);
+      }
+      if(thisReport.get('ispublic')=='true')
+      {
+        $('#public-switch').bootstrapSwitch('setState', true);
+        $('#ispublic').prop('checked', true);
+        /* Commenting out for RhoCOnnect Exception test
+        if(thisReport.get('author') != Rho.RhoConnectClient.userName)
+        {
+          //if not owner or not logged in and the item is public then disable the buttons to update/addd or delete
+          $('#reportsave').attr("disabled", "disabled");
+          $('#reportdelete').attr("disabled", "disabled");
+          $('#newItem').attr("disabled", "disabled");
+          $('#name').attr("disabled", "disabled");
+          $('#pass').attr("disabled", "disabled");
+          $('#ispublic').attr("disabled", "disabled");
+          $('#message').show();
+          $('#message').html('<i class="icon icon-warning-sign icon-small"></i><strong>You are not the author of this report and have view only access. <i class="icon icon-user icon-small"></i>: </strong>' + thisReport.get('author'));
+        }
+        */
+      }
+      $('#reportdelete').show();
+
+      load_report_items();     
+
+    }
+  }
+  
+
+  $('#reportsave').click(function() {
+    // Save Report data
+    if(typeof(thisReport)!='undefined')
+    {
+      thisReport.updateAttributes({
+              name:$('#name').val(),
+              pass:$('#pass').is(':checked'),
+              ispublic:$('#ispublic').is(':checked')
+            });
+      if($('#ispublic').is(':checked')){
+        Rho.WebView.navigate('/app/Report/public');
+
+      }
+      else {
+        Rho.WebView.navigate('/app/Report');
+
+      }
+
+
+    }
+    else
+    {
+      thisReport = Report.create({
+              name:$('#name').val(),
+              pass:$('#pass').is(':checked'),
+              author:Rho.RhoConnectClient.userName,
+              ispublic:$('#ispublic').is(':checked')
+            });
+      //update reportid field to use object
+      //so after rhoconnect sync can still link
+      //to ReportItems
+      thisReport.updateAttributes({reportid:thisReport.get("object")});
+
+      $('#reportdelete').show();
+      $('.panel').show();
+       $('#itemsave').show();
+      $('#itemupdate').hide();
+      $('#itemdelete').hide();
+
+     $('.modal').modal('show');
+
+    }
+  });
+  
+
+  $('#reportdelete').click(function() {
+    //delete Report Data
+    thisReport.destroy();
+
+    //Delete report Items also
+
+    Rho.WebView.navigate('/app/Report');
+  });
+  
+  $('#reportcancel').click(function() {
+    
+    //don't save changes just go back to Report listing
+    Rho.WebView.navigate('/app/Report');
+  });
+  
+  //handler for loading form to create new reportItem
+  $('#newItem').click(function() {
+      //Show modal for new Report item
+      //change buttons
+      $('#itemsave').show();
+      $('#itemupdate').hide();
+      $('#itemdelete').hide();
+
+      $('#itemid').val('');
+      $('#itemstatus').val('Ok');
+     $('.modal').modal('show');
+  });
+
+  //hanlder for saving a new reportItem
+  $('#itemsave').click(function() {
+    
+    //Save new item to the database
+    thisReportItem = ReportItem.create({
+            reportid: thisReport.get('reportid'),
+            productid:$('#itemid').val(),
+            status:$('#itemstatus').val(),
+            imgsrcLocal:$('#itemimgsrc').attr('src')
+          });
+
+    load_report_items();
+    //hide modal form
+    $('.modal').modal('hide');
+  });
+
+  
+  
+  //handler for updating a reportItem
+  $('#itemupdate').click(function() {
+    
+    thisReportItem = ReportItem.find('first',{
+        conditions:{
+          object:$('#itemobject').val()
+        }
+      });
+    //Update existing item to the database
+    thisReportItem.updateAttributes({
+            productid:$('#itemid').val(),
+            status:$('#itemstatus').val(),
+            imgsrcLocal:$('#itemimgsrc').attr('src')
+          });
+    load_report_items();
+    //hide modal form
+    $('.modal').modal('hide');
+  });
+
+
+//handler for deleting a reportItem
+  $('#itemdelete').click(function() {
+    
+    thisReportItem = ReportItem.find('first',{
+        conditions:{
+          object:$('#itemobject').val()
+        }
+      });
+    //Delete item from the database
+    thisReportItem.destroy();
+    load_report_items();
+    //hide modal form
+    $('.modal').modal('hide');
+  });
+
+//handler for barcode
+  $('.icon-barcode').click(function()
+  {
+    validDevice = true;
+    if(Rho.System.isEmulator || Rho.System.isRhoSimulator)
+    {
+      validDevice = false;
+    }
+    else
+    {
+      var scanners = Rho.Barcode.enumerate(); //just checking for existance of a scanner
+      console.log(typeof(scanners));
+      if(typeof(scanners) == 'undefined')
+      {
+        validDevice = false;
+      }
+
+    }
+    if(!validDevice)
+    { 
+      $('#barcode').append('<div class="alert alert-danger">You device does not have a capable bar code reader. Please enter the barcode number in the text box.</div>')
+      
+    }
+    else
+    {
+      //  On MSI devices I could be using Barcode.enable to just enable the 
+      // dedicated barcode trigger button. barcode.Take will work on all devices
+      Rho.Barcode.take({}, function(b){
+        $('#itemid').val(b.barcode);
+      });
+    }
+  });
+
+//handler for camera handling
+  $('.icon-camera').click(function(){
+    if(!Rho.System.isEmulator && !Rho.System.isRhoSimulator && Rho.System.hasCamera)
+    {
+      // Using AJAX here since Camera JS is not available in 4.0 need to use Ruby calls
+      // look in /app/Camera/controller
+      Rho.Barcode.disable();
+      $.ajax({
+        url: "/app/Camera/take_picture_with_default_camera"
+      }).done(function() {
+
+      });
+        
+
+    }
+    else
+    {
+      $('#imagecapture').append('<div class="alert alert-danger">You device does not have a camera to take images. .</div>')
+    }
+  });  
+
+});
+
+function change_image_source(img)
+{
+  $('#itemimgsrc').attr('src',img);
+}
+
+function picture_taken_callback_save_to_gallery(params) {
+    if (params.status == "ok") {
+      alert(Rho.Application.expandDatabaseBlobFilePath(params.imageUri));
+
+      // alert("Image saved to gallery");
+    }
+  }
+
+function load_report_items()
+{
+//get report items and show in list
+      reportItems = ReportItem.find('all',{
+        conditions:{reportid:thisReport.get('reportid')}
+      });
+        $('.media-list').html('');
+        if(reportItems.length>0)
+        {
+          for(i=0;i<reportItems.length;i++)
+          {
+            add_report_item(reportItems[i]);
+            
+          }
+          
+          
+        
+        }  
+
+//setup handler for clicking
+//hanlder for loading form with existing reportItem
+  $('.reportItems > li').click(function() {
+    
+      //load reportItem data
+      reportItem = ReportItem.find('first',{
+        conditions:{
+          object:$(this).attr('data-id')
+        }
+      });
+
+      //load data into form
+      $('#itemid').val(reportItem.get('productid'));
+      $('#itemobject').val(reportItem.get('object'));
+      $('#itemstatus').val(reportItem.get('status'));
+      $('#itemimgsrc').attr('src',reportItem.get('imgsrcLocal'));
+      $('.modal').modal('show');
+
+      //change buttons
+      $('#itemsave').hide();
+      $('#itemupdate').show();
+      $('#itemdelete').show();
+
+    
+  });
+
+
+}
+function add_report_item(item)
+{
+  console.log(typeof(item.get('productid')) + ' ' + item.get('productid'));
+  reportIcon = ""
+            if(item.get('status')=="Ok")
+            {
+              reportIndicator = "<span class='pull-left label-success indicator'>&nbsp;</span>";
+            
+            }
+            if(item.get('status')=="Damaged")
+            {
+              reportIndicator = "<span class='pull-left label-warning indicator'>&nbsp;</span>";
+            
+            }
+            if(item.get('status')=="Destroyed")
+            {
+              reportIndicator = "<span class='pull-left label-danger indicator'>&nbsp;</span>";
+            
+            }
+            imgsrc = item.get('imgsrcLocal');
+            reportImage = '<a href="#" class="pull-left">' + reportIndicator + '<img class="media-object image-thumb" src="' + imgsrc +'" ></a>';
+            $('.media-list').append('<li class="media" data-id="' + item.get('object') + '">'  + reportImage + '<div class="media-body"><a href="#">'  + item.get('productid') + '</a></div>' + '</li>');
+}
+</script>
+
+<div  id="message" class="alert alert-warning">
+  
+</div>    
+<div id="report" role="form">
+  <div >
+    <button id="reportsave" class="btn  btn-success">Save</button>
+    <button id="reportcancel" class="btn btn-default ">Cancel</button>
+    <button id="reportdelete" class="btn btn-danger pull-right">Delete</button>
+  </div>
+  <div class="form-group">
+    <label for="name" class="control-label">Store Name:</label>
+      <input type="text" class="form-control" id="name" placeholder="Report Title">
+    
+  </div>
+  <div class="form-group">
+    <div class='row'>
+      <div class="col-xs-6 col-md-6">
+          <div id="pass-switch" class="make-switch" data-on-label="    <i class='icon-ok-circle icon-white'></i> Pass    " data-off-label="    <i class='icon-warning-sign icon-white'></i> Fail    ">
+            <input type="checkbox" id="pass">
+          </div>
+      </div>
+      <div class="col-xs-6 col-md-6">
+          <div id="public-switch" class="make-switch" data-on-label="    <i class='icon-group icon-white'></i> Public    " data-off-label="    <i class='icon-lock '></i> Private    ">
+          
+            <input type="checkbox" id="ispublic">
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Inspection Items<button class="pull-right btn btn-xs btn-primary" id="newItem"><i class="icon-plus  icon-white" ></i></button></div>
+  
+
+  <!-- List group -->
+  <ul class="media-list reportItems">
+   
+  </ul>
+</div>
+
+
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <div class="bs-example bs-example-tabs">
+          <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#barcode" data-toggle="tab"><i class="icon-edit-sign icon-large icon-primary"></i></a></li>
+            <li class=""><a href="#imagecapture" data-toggle="tab"><i class="icon-camera icon-large icon-primary"></i></a></li>
+            
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="barcode">
+              <div role="form">
+                <div class="form-group">
+                  <div id="itemobject" style="display:none"></div>
+                  <label for="itemid" class="control-label">Product ID:</label>
+                  <div class="input-group">
+                      
+                        <input type="text" class="form-control" id="itemid" placeholder="Enter or press button to scan">
+                         <span class="input-group-btn">
+                        <button class="icon-barcode icon-large input-group-addon"></button>
+                        </span>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="itemStatus" class="control-label">Status:</label>
+                    <select class="form-control" id="itemstatus">
+                      <option>Ok</option>
+                      <option>Damaged</option>
+                      <option>Destroyed</option>
+                    </select>
+                </div>
+                
+              </div>
+            </div>
+            <div class="tab-pane fade" id="imagecapture">
+              <img src="http://placehold.it/200x200" id="itemimgsrc" style="width:200px;height200px;">
+            </div>
+            
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="itemupdate">Save</button>
+        <button type="button" class="btn btn-success" id="itemsave">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="itemdelete">Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

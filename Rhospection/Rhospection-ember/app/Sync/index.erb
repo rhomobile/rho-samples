@@ -1,0 +1,116 @@
+	<script type="text/javascript">
+$(document).ready(function() {
+	if(!Rho.RhoConnectClient.isLoggedIn()){
+		Rho.WebView.navigate('/app'); //home page is login page
+	}
+
+	//setup notification to show status
+  	Rho.RhoConnectClient.setNotification('Report',report_sync_notify);
+	Rho.RhoConnectClient.setNotification('ReportItem',report_item_sync_notify);
+	
+	//show status for starting sync
+	$('#status_list').append('<li class="list-group-item" id="report"><i class="icon-spinner icon-spin icon-large"  id="report_spinner"></i>Reports</li>');
+
+	// start to sync the Report model
+	// controlling behavior of sync is typical instead of doing
+	// bulk sync.
+	Rho.RhoConnectClient.doSyncSource('Report',false,'');
+	
+});
+
+
+function report_item_sync_notify(params)
+{
+	console.log("PARAMS FROM SYNC ****** " + JSON.stringify(params));
+	
+	statusicon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>";
+	if(params.status=="error" )
+	{
+		statusicon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>";
+	
+	}
+	countBadge = '<ul><li><span class="badge">' + params.processed_count + ' Processed</span></li>' + '<li><span class="badge">' + params.total_count + ' Total</span></li>' + '<li><span class="badge">' + params.cumulative_count + ' Cumulative</span></li>';
+
+	$('#reportitems').append(statusicon);	
+ 	$('#reportitems').append(countBadge);
+ 	$('#item_spinner').hide();	
+ 		
+ 	$('#status_list').append('<li class="list-group-item">Done</li>');
+ 	$('#syncpage').append('<a href="/app/Report" class="btn btn-primary btn-block"><i class="icon-edit icon-white icon-2x"></i> View Inspection Reports</a>');
+}
+
+function report_sync_notify(params)
+{
+	try
+	{
+
+	console.log("PARAMS FROM SYNC ****** " + JSON.stringify(params));
+	statusicon = "<i class='pull-left icon icon-ok-circle icon-success icon-large'></i>";
+	errormsg = "";
+	if(params.status=="error")
+	{
+		statusicon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>";
+		console.log("SERVER ERRORS" + JSON.stringify(params.server_errors["update-error"]));
+	
+		if(typeof(params.server_errors["update-error"]) !='undefined'){
+
+			errormsg += '<div class="panel panel-danger"><div class="panel-heading">Report Update Errors</div><ul class="list-group">';
+  
+			update_errors = params.server_errors["update-error"];
+			console.log('update errors'+JSON.stringify(update_errors));
+			for ( property in update_errors ) {
+			  errormsg +='<li class="list-group-item">' + update_errors[property].message + '</li>'; 
+			}
+			errormsg += '</ul></div>';
+			
+		}
+		// if(typeof(params.server_errors["delete-error"]) !='undefined'){
+
+		// 		errormsg += '<div class="panel panel-danger"><div class="panel-heading">Report Delete Errors</div><ul class="list-group">';
+	  
+		// 		delete_errors = params.server_errors["delete-error"];
+		// 		console.log('delete errors'+JSON.stringify(delete_errors));
+		// 		for ( property in delete_errors ) {
+		// 		  errormsg +='<li class="list-group-item">' + delete_errors[property].message + '</li>'; 
+		// 		}
+		// 		errormsg += '</ul></div>';
+				
+		// 	}
+
+	}
+	countBadge = '<ul><li><span class="badge">' + params.processed_count + ' Processed</span></li>' + '<li><span class="badge">' + params.total_count + ' Total</span></li>' + '<li><span class="badge">' + params.cumulative_count + ' Cumulative</span></li></ul>';
+      
+	$('#report').append(statusicon);	
+ 	$('#report').append(countBadge);
+ 	$('#syncpage').append(errormsg);
+ 	$('#report_spinner').hide();	
+ 		
+
+
+	$('#status_list').append('<li class="list-group-item" id="reportitems"><i class="icon-spinner icon-spin icon-large" id="item_spinner"></i>Report Items</li>');
+ 
+ 	Rho.RhoConnectClient.doSyncSource('ReportItem',false,'');
+ 	}
+ 	catch (err){
+ 		statusicon = "<i class='pull-left icon icon-remove-sign icon-warning icon-large'></i>";
+		$('#report').append(statusicon);	
+	 	$('#report_spinner').hide();	
+		$('#status_list').append('<li class="list-group-item" id="reportitems"><i class="icon-spinner icon-spin icon-large" id="item_spinner"></i>Report Items</li>');
+	 
+	 	Rho.RhoConnectClient.doSyncSource('ReportItem',false,'');
+ 	}
+}
+</script>
+<div id='syncpage'>
+	
+	<div class="panel panel-default">
+	  <!-- Default panel contents -->
+	  <div class="panel-heading">Sync Status</div>
+	  
+
+	  <!-- List group -->
+	  <ul class="list-group" id="status_list">
+	  </ul>
+	</div>
+</div> 
+

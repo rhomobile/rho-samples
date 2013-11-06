@@ -1,0 +1,261 @@
+	<script type="text/javascript">
+$(document).ready(function() {
+
+  	Parse.initialize(parse_config.app_id, parse_config.key_js);
+    $('.login-alert').hide();
+	if(Rho.ORM.haveLocalChanges()){
+		$('.login-alert').show();
+		$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>Local Changes Not Synced:</strong></div><div>There are local changes from the previous user <strong>(' + Rho.RhoConnectClient.userName + ')</strong> that have not been synced to the backend. Logging in as another user will erase all of those changes.</div>');
+	}
+
+	$('#login').focus(function (){
+		$('.login-alert').hide();
+	});
+	$('#btnLogin').click(function(){
+		
+		Parse.User.logIn($('#login').val(), $('#password').val(), {
+		      success: function(user) {
+		      	startpage = '/app/Report';
+		      	if(Rho.RhoConnectClient.userName != $('#login').val())
+		      	{
+		      		startpage = '/app/Sync'; //change of user wil wipe the db need to sync
+		      	}
+				Rho.RhoConnectClient.login($('#login').val(),$('#password').val(), function(e){
+					console.log('LOgin Callback');
+					console.log(e);
+					if(e.error_code == "0")
+					{
+						Rho.WebView.navigate(startpage);
+					}
+					else
+					{
+						$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>RhoConnect Login Error</strong>: </div>' + e.error_message + ' Try again or <strong>Select Reports</strong> from the menu to continue as last logged in user');
+		      			$('.login-alert').show();	
+					}
+
+				});
+				
+		      },
+		      error: function(user, error) {
+		      	console.log(user);
+				$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>Could not log into backend</strong>: </div>' + error.message + ' Try again or <strong>Select Reports</strong> from the menu to continue as last logged in user.');
+		      	$('.login-alert').show();
+
+		      }
+		    });
+
+
+	});
+
+
+	$('#btnRegisterForm').click(function(){
+	 	$('#login-register').val('');
+		$('#password-register').val('');
+		$('#password-confirm').val('');
+		$('#email-register').val('');
+			
+		$('#btnRegister').show();
+		$('.register .form-group').show();
+		$('.register .alert').hide();	    
+		$('.register').modal('show');
+	});
+
+	$('#btnForgot').click(function(){
+		 $('.forgotPassword .email').val('');
+		$('#btnPasswordReset').show();
+		$('.forgotPassword .form-group').show();
+		$('.forgotPassword .alert').hide();
+		        
+		$('.forgotPassword').modal('show');
+	});
+
+	$('#btnRegister').click(function(){
+		var bOkToRegister = true;
+		if($('#login-register').val() == '')
+		{
+			$('#login-register').parent().addClass('has-error');
+			bOkToRegister = false;
+		}
+		else
+		{
+			$('#login-register').parent().removeClass('has-error');
+		}
+		if($('#password-register').val() == '')
+		{
+			$('#password-register').parent().addClass('has-error');
+			bOkToRegister = false;
+		}
+		else
+		{
+			$('#password-register').parent().removeClass('has-error');
+			if($('#password-register').val() != $('#password-confirm').val())
+			{
+				$('#password-register').parent().addClass('has-error');
+				$('#password-confirm').parent().addClass('has-error');
+				bOkToRegister = false;
+			}
+			else
+			{
+				$('#password-register').parent().removeClass('has-error');
+				$('#password-confirm').parent().removeClass('has-error');
+			}
+		}
+		
+		if(bOkToRegister)
+		{
+			var user = new Parse.User();
+			user.set("username", $('#login-register').val());
+			user.set("password", $('#password-register').val());
+			user.set("email", $('#email-register').val());
+			 
+			 
+			user.signUp(null, {
+			  success: function(user) {
+			  	$('#btnRegister').hide();
+			    $('.register .form-group').hide();
+			    // Password reset request was sent successfully
+			    $('.register .alert').addClass('alert-success');
+			    $('.register .alert').html('Your account has been created successfully. Click the Cancel button and then login using the username and pasword provided.');
+			    $('.register .alert').show();
+			    
+		
+			  },
+			  error: function(user, error) {
+			    $('.register .form-group').show();
+		    
+			    $('.register .alert').addClass('alert-danger');
+			    $('.register .alert').html("Error: " + error.code + " " + error.message);
+			    $('.register .alert').show();
+			  }
+			});			
+		}
+	});
+
+	$('#btnPasswordReset').click(function(){
+		userEmail = $('.forgotPassword .email').val();
+		Parse.User.requestPasswordReset(userEmail, {
+		  success: function() {
+		  	$('.forgotPassword .form-group').hide();
+		    // Password reset request was sent successfully
+		    $('.forgotPassword .alert').addClass('alert-success');
+		    $('.forgotPassword .alert').html('Your password has been reset and you should receive an email with instructions for resetting. After it has been reset you may login');
+		    $('.forgotPassword .alert').show();
+		    $('#btnPasswordReset').hide();
+		  },
+		  error: function(error) {
+		  	$('.forgotPassword .form-group').show();
+		    
+		    $('.forgotPassword .alert').addClass('alert-danger');
+		    $('.forgotPassword .alert').html("Error: " + error.code + " " + error.message);
+		    $('.forgotPassword .alert').show();
+
+		    
+		  }
+		});
+	});
+});
+</script>
+
+<div  style='display:none'>
+      <a href="/app/Report" class="col-xs-5 col-md-5 btn btn-primary" ><i class="icon-edit icon-4x icon-white" id='navsequence'></i>REPORTS</a>
+      <span class="col-xs-1 col-md-1"></span>
+      <a href="/app/Sync" class="col-xs-5 col-md-5 btn  btn-info" ><i class="icon-cloud-upload icon-4x icon-white" id='navsequence'></i>SYNC</a>
+
+</div>
+<div id='loginpage' >
+	<div class="alert alert-danger login-alert"></div>
+
+	
+		  <div >
+		    <button class="btn btn-primary" id="btnLogin">Login</button>
+		  </div>
+		  <div class="form-group">
+		    <label for="login" class="control-label">Username:</label>
+		    	<div class="input-group">
+		  
+		      <input type="text" class="form-control" id="login" placeholder="Did you register yet?">
+		      <span class="input-group-btn">
+	        	<button class="btn  btn-default" id="btnRegisterForm"><i class="icon-pencil"></i> Register</button>
+		  		</span>	
+		    	</div>
+		  </div>
+		  <div class="form-group">
+		    <label for="password" class="control-label">Password:</label>
+		    <div class="input-group">
+		  
+		      <input type="password" class="form-control" id="password" placeholder="Password">
+		      <span class="input-group-btn">
+	        	<button class="btn  btn-default" id="btnForgot"><i class="icon-envelope"></i> Forgot?</button>
+		  		</span>	
+		    	</div>
+		    
+		  </div>
+		  
+	
+</div>   
+<div class="modal fade register">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+		<div class="alert register-alert" style='display:none'></div>
+
+		<div  class="form" role="form">
+		  
+		  <div class="form-group">
+			<label for="login-register" class="control-label">Username:</label>
+	      	<input type="text" class="form-control" id="login-register" placeholder="Username">
+		      
+		  </div>
+		  <div class="form-group">
+		    <label for="password-register" class="control-label">Password:</label>
+			<input type="password" class="form-control" id="password-register" placeholder="	Password">
+		  </div>
+		  <div class="form-group">
+		    <label for="password-confirm" class="control-label">Confirm Password:</label>
+			<input type="password" class="form-control" id="password-confirm" placeholder="	Password">
+		  </div>
+		  <div class="form-group">
+		    <label for="email" class="control-label">Email:</label>
+			<input type="text" class="form-control" id="email-register" placeholder="Used for forgot password">
+		  </div>
+		  
+		</div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btnRegister">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+       
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade forgotPassword">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+		<div class="alert forgot-alert" style='display:none'></div>
+
+		<div  role="form">
+		  
+		  
+		  <div class="form-group">
+		    <label for="email" class="control-label">Email:</label>
+			<input type="text" class="form-control email" id="" placeholder="Email Registered With">
+		  </div>
+		  
+		</div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btnPasswordReset">Reset</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+       
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
