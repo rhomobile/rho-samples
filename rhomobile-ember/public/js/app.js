@@ -1,7 +1,19 @@
+Rho.ORM.addModel(function(model){
+  model.modelName("Product");
+  model.property("name","string");
+  
+});
+
 
 
 App = Ember.Application.create();
-App.ApplicationAdapter = DS.FixtureAdapter.extend();
+
+
+ App.ApplicationAdapter = DS.FixtureAdapter.extend();
+
+// App.store = DS.Store.create({
+//   adapter: App.RhomAdapter
+// });
 
 App.Router.map(function() {
   // put your routes here
@@ -19,11 +31,11 @@ App.ProductsIndexRoute = Ember.Route.extend({
   },
   actions: {
     up: function(m) {
-    	m.set('qty',m.get('qty') + 1);
+    	m.set('qty',parseInt(m.get('qty')) + 1);
     	m.save();
     },
     down: function(m) {
-    	m.set('qty',m.get('qty') - 1);
+    	m.set('qty',parseInt(m.get('qty')) - 1);
     	m.save();
     }
   }

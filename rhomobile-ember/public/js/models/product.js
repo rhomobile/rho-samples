@@ -5,6 +5,10 @@ App.Product = DS.Model.extend({
   isAvailable: DS.attr('boolean')
 });
 
+App.ProductAdapter = DS.RhomAdapter.extend({
+  model: "Product"
+});
+
 App.Product.FIXTURES = [
  {
   id: 1,
