@@ -2,7 +2,7 @@ App.Product = DS.Model.extend({
   name: DS.attr('string'),
   brand: DS.attr('string'),
   qty: DS.attr('number'),
-  isAvailable: DS.attr('boolean')
+  isavailable: DS.attr('boolean')
 });
 
 App.ProductAdapter = DS.RhomAdapter.extend({
@@ -15,20 +15,20 @@ App.Product.FIXTURES = [
   name: '328i',
   brand: 'BMW',
   qty: 5,
-  isAvailable: true
+  isavailable: true
  },
  {
   id: 2,
   name: '528i',
   brand: 'BMW',
   qty: 3,
-  isAvailable: true
+  isavailable: true
  },
  {
   id: 3,
   name: '728i',
   brand: 'BMW',
   qty: 0,
-  isAvailable: false
+  isavailable: false
  },
 ];

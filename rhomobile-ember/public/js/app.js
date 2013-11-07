@@ -58,6 +58,7 @@ App.ProductsDeleteRoute = Ember.Route.extend({
 
 
 Ember.Handlebars.helper('log-model', function(input) {
-  console.log(input);
+
+  console.log(input.get('qty'));
   return ;
 });

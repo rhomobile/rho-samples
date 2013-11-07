@@ -1,7 +1,18 @@
 DS.RhomAdapter = DS.Adapter.extend(Ember.Evented, {
 
     extractVars: function(rhomRecord) {
-        return rhomRecord.vars();
+    	data = rhomRecord.vars();
+    	//need to convert bool since RHom stores as string
+    	// ember bind-attr works only with bools
+    	for (var key in data) {
+    		if(data[key] == 'true'){
+    			data[key] = true;
+    		}
+    		if(data[key] == 'false'){
+    			data[key] = false;
+    		}
+		}
+        return data;
     },
 
     objectToId: function(record) {
@@ -10,7 +21,6 @@ DS.RhomAdapter = DS.Adapter.extend(Ember.Evented, {
     },
 
     find: function(store, type, id) {
-        console.log('find');
         var record = Rho.ORM.getModel(this.model).find(
             'first',
             {
@@ -23,7 +33,6 @@ DS.RhomAdapter = DS.Adapter.extend(Ember.Evented, {
     },
 
     findAll: function(store, type) {
-        console.log('findALl');
         var records = Rho.ORM.getModel(this.model).find('all');
         var results = records.map(this.extractVars);
         var results = results.map(this.objectToId);

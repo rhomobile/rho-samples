@@ -43,7 +43,7 @@
 <script type="text/x-handlebars" id="productedit">
 <div class="container">
   <h2>Edit {{name}}</h2>
-
+  {{log-model model}}
   {{partial "productForm"}}
 </div>
 </script>
@@ -90,6 +90,10 @@
     
     {{input type="text" id="new-qty" placeholder="Qty" 
               value=qty }}
+    </div>
+    <div class="form-group">
+      <label> Available</label>
+      <input type="checkbox" id="isavailable" {{bind-attr checked=isavailable}}>
     </div>
     <div >
     <button id="save" class="btn  btn-success" {{action "save" on="click"}} type="button">Save</button>
