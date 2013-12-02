@@ -1,0 +1,27 @@
+#sdk: "/Users/robgalvin/.rvm/gems/ruby-1.9.3-p194/gems/rhodes-4.0.0"
+sdkversion: "4.0.0"
+name: "RhoStripe"
+version: 1.0
+vendor: "rhomobile"
+build: "debug"
+bbver: 6.0
+applog: "rholog.txt"
+iphone:
+  configuration: "Release"
+  sdk: "iphonesimulator6.0"
+  provisionprofile: 
+  codesignidentity: 
+  entitlements: 
+  BundleIdentifier: "com.rhomobile.rhostripe"
+  BundleURLScheme: "rhostripe"
+wp:
+  productid: "8106f920-39a1-0131-6ad6-3c07547b3491"
+symbian:
+  uid: "0xe5e29c9d"
+android:
+  version: "2.3.3"
+extensions:
+  - rhoconnect-client
+  - cardreader
+app_type: "rhoelements"
+  

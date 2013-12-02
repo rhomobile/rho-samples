@@ -41,6 +41,12 @@ App.ProductsIndexRoute = Ember.Route.extend({
   }
 });
 
+App.ProductsNewRoute = Ember.Route.extend({
+  model: function(params) {
+    return this.store.modelFor('product');
+    
+  }
+});
 
 App.ProductsEditRoute = Ember.Route.extend({
   model: function(params) {

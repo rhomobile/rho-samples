@@ -1,18 +1,9 @@
-var	Report = Rho.ORM.addModel(function(model){
+Rho.ORM.addModel(function(model){
   model.modelName("Report");
-  model.property("name","string");
-  model.property("pass","boolean");
-  model.property("date","string");
-  model.property("location","string");
-  model.property("author","string");
-  model.property("ispublic","boolean");
-  model.property("reportid","string");
-  model.enable("sync");
-  model.set("partition","user");
+  
 });
 
 App.Report = DS.Model.extend({
-  object: DS.attr('string'),
   name: DS.attr('string'),
   pass: DS.attr('boolean'),
   ispublic: DS.attr('boolean'),
@@ -27,13 +18,15 @@ App.ReportAdapter = DS.RhomAdapter.extend({
 
 App.ReportsRoute = Ember.Route.extend({
   model: function(){
+    console.log(this.store.find('report').length);
     return this.store.find('report');
    }
 });
 
 App.ReporteditRoute = Ember.Route.extend({
   model: function(params) {
-        console.log(params.report_id);
+        console.log('Edit');
+        console.log(this.store.findBy('id',params.report_id));
         return this.store.findBy('id',params.report_id);
 
     

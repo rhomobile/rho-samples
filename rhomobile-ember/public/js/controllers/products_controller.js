@@ -1,6 +1,7 @@
 
 
-App.ProductnewController = Ember.ArrayController.extend({
+App.ProductnewController = Ember.ObjectController.extend({
+   content: Ember.Object.create(),
   actions: {
     save: function () {
       var name = this.get('name');

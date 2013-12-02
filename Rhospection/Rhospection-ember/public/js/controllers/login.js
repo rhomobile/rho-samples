@@ -1,3 +1,66 @@
+App.IndexView = Ember.View.extend({
+	  didInsertElement: function() {
+	    this._super();
+	    this.$('.login-alert').hide();
+	    this.$('#menuLogout').hide();
+		if(Rho.ORM.haveLocalChanges()){
+			this.$('.login-alert').show();
+			this.$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>Local Changes Not Synced:</strong></div><div>There are local changes from the previous user <strong>(' + Rho.RhoConnectClient.userName + ')</strong> that have not been synced to the backend. Logging in as another user will erase all of those changes.</div>');
+		}
+
+	    console.log('AppInit');
+	  }
+
+});
+
+App.IndexController = Ember.ArrayController.extend({
+  actions: {
+	  login: function(){
+	  		controller = this;						
+	  		Parse.initialize(parse_config.app_id, parse_config.key_js);
+	  		console.log($('#login').val(), $('#password').val());
+			Parse.User.logIn($('#login').val(), $('#password').val(), {
+		      success: function(user) {
+		      	startpage = '/app/Report';
+		      	if(Rho.RhoConnectClient.userName != $('#login').val())
+		      	{
+		      		startpage = '/app/Sync'; //change of user wil wipe the db need to sync
+		      	}
+				Rho.RhoConnectClient.login($('#login').val(),$('#password').val(), function(e){
+					console.log('LOgin Callback');
+					console.log(e);
+					if(e.error_code == "0")
+					{
+					    $('#menuLogout').show();
+					 	$('#menuLogout').html('<a href=""><i class="icon-key icon-large icon-primary"></i> ' + Rho.RhoConnectClient.userName + '- Logout</a>');
+						controller.transitionToRoute('reports');
+
+					}
+					else
+					{
+						$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>RhoConnect Login Error</strong>: </div>' + e.error_message + ' Try again or <strong>Select Reports</strong> from the menu to continue as last logged in user');
+		      			$('.login-alert').show();	
+					}
+
+				});
+				
+		      },
+		      error: function(user, error) {
+		      	console.log(user);
+				$('.login-alert').html('<div><i class="pull-left icon icon-warning-sign icon-large"></i><strong>Could not log into backend</strong>: </div>' + error.message + ' Try again or <strong>Select Reports</strong> from the menu to continue as last logged in user.');
+		      	$('.login-alert').show();
+
+		      }
+		    });
+    
+		
+
+	  }
+
+  }
+});
+
+
 App.RegisterController = Ember.ObjectController.extend({
   actions: {
 	  register: function(){

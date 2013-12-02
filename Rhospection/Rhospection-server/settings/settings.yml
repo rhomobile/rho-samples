@@ -1,5 +1,9 @@
 :sources:
-
+Report:
+  :partition_type: app
+ReportItem:
+  :partition_type: app
+  
 :development:
   :licensefile: settings/license.key
   :redis: localhost:6379
