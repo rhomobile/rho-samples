@@ -2,24 +2,24 @@ var rhoconnectExists = function() {
   return Rho.RhoConnectClient !== undefined;
 }
 
-var productModelSpec = function(model){
-  model.modelName('Product');
-  if(rhoconnectExists()) {
-    model.enable('sync');    
-  }
-};
-
-var customerModelSpec = function(model){
-  model.modelName('Customer');
-  if(rhoconnectExists()) {
-    model.enable('sync');    
-  }
-};
-
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
-  productModel: Rho.ORM.addModel(productModelSpec),
-  customerModel: Rho.ORM.addModel(customerModelSpec)
+  productModel: Rho.NewORM.addModel('Product', function(model){
+    model.fixed_schema = true;
+    model.enable('sync');
+    model.setProperty('schema_version','1.0.1');
+    model.setModelProperty('name','string','');
+    model.setModelProperty('sku','string','');
+    model.setModelProperty('brand','string','');
+    model.setModelProperty('price','string','');
+    model.setModelProperty('quantity','string','');
+    model.setModelProperty('created_at', 'string', '');
+    model.setModelProperty('updated_at', 'string', '');
+  }),
+  customerModel: Rho.NewORM.addModel('Customer', function(model){
+    model.fixed_schema = false;
+    model.enable('sync'); 
+  })
 });
 
 
@@ -41,47 +41,46 @@ if(!rhoconnectExists()) {
   });
 
   App.customerModel.create({
-    first: "Tim", 
-    last: "Cook", 
-    email: "tim@apple.com", 
-    phone: "+1234567890", 
-    address: "1 Infinity Loop", 
-    city: 'Cupertino' 
+    name: "Galaxy S3",
+    sku: '5678', 
+    brand: 'Samsung', 
+    price: 199, 
+    quantity: 2 
   });
   App.customerModel.create({
-    first: "Bill", 
-    last: "Gates", 
-    email: "bill@microsoft.com", 
-    phone: "+0987654321", 
-    address: "Blue screen of death", 
-    city: 'Redmond' 
+    name: "iPhone 5",
+    sku: '1234', 
+    brand: 'Apple', 
+    price: 219, 
+    quantity: 3 
   });
 }
 
 ProductProxy = Ember.Object.extend({
 
   object: function () {
-    return this.subject.get('object');
+    //console.log("Subject is : " + JSON.stringify(this.subject));
+    return this.subject.object;
   }.property('subject'),
 
   name: function () {
-    return this.subject.get('name');
+    return this.subject.name;
   }.property('subject'),
 
   sku: function () {
-    return this.subject.get('sku');
+    return this.subject.sku;
   }.property('subject'),
 
   brand: function () {
-    return this.subject.get('brand');
+    return this.subject.brand;
   }.property('subject'),
 
   price: function () {
-    return this.subject.get('price');
+    return this.subject.price;
   }.property('subject'),
 
   quantity: function () {
-    return this.subject.get('quantity');
+    return this.subject.quantity;
   }.property('subject')
 
 });
@@ -89,31 +88,27 @@ ProductProxy = Ember.Object.extend({
 CustomerProxy = Ember.Object.extend({
 
   object: function () {
-    return this.subject.get('object');
+    return this.subject.object;
   }.property('subject'),
 
-  first: function () {
-    return this.subject.get('first');
+  name: function () {
+    return this.subject.name;
   }.property('subject'),
 
-  last: function () {
-    return this.subject.get('last');
+  sku: function () {
+    return this.subject.sku;
   }.property('subject'),
 
-  email: function () {
-    return this.subject.get('email');
+  brand: function () {
+    return this.subject.brand;
   }.property('subject'),
 
-  phone: function () {
-    return this.subject.get('phone');
+  price: function () {
+    return this.subject.price;
   }.property('subject'),
 
-  address: function () {
-    return this.subject.get('address');
-  }.property('subject'),
-
-  city: function () {
-    return this.subject.get('city');
+  quantity: function () {
+    return this.subject.quantity;
   }.property('subject')
 
 });
@@ -223,6 +218,8 @@ App.HomeRoute = Ember.Route.extend({
 App.ProductsIndexRoute = Ember.Route.extend({
   model: function (params) {
     var _readedProducts = App.productModel.find('all');
+    console.log("MZV_DEBUG:" + JSON.stringify(_readedProducts));
+    console.log("MZV_DEBUG:" + JSON.stringify(params));
     var _products = [];
     for (var i = 0; i < _readedProducts.length; i++) {
       var _productProxy = ProductProxy.create({subject: _readedProducts[i]});
@@ -246,14 +243,14 @@ App.ProductRoute = Ember.Route.extend({
     var _productProxy = null;
     var _products = App.productModel.find('all');
     for (var i = 0; i < _products.length; i++) {
-      if (_products[i].get('object') == params.product_id) {
+      if (_products[i].object == params.product_id) {
         _productProxy = ProductProxy.create({subject: _products[i]});
       }
     }
     return  _productProxy;
   },
   serialize: function (product) {
-    return {product_id: product.get('object')}
+    return {product_id: product.subject.object}
   },
   setupController: function (controller, model) {
     controller.set('model', model);
@@ -274,7 +271,7 @@ App.ProductEditRoute = Ember.Route.extend({
     return this.modelFor('product')
   },
   serialize: function (product) {
-    return {product_id: product.get('object')}
+    return {product_id: product.subject.object}
   },
   setupController: function (controller, model) {
     controller.set('model', model);
@@ -327,23 +324,24 @@ App.EditProductFormView = Ember.View.extend({
   willInsertElement: function () {
     this.get('controller').get('model').tag = '123';
     var object = this.get('controller').get('model').subject;
-    this.set('brand', object.get('brand'));
-    this.set('name', object.get('name'));
-    this.set('sku', object.get('sku'));
-    this.set('price', object.get('price'));
-    this.set('quantity', object.get('quantity'));
+    this.set('brand', object.brand);
+    this.set('name', object.name);
+    this.set('sku', object.sku);
+    this.set('price', object.price);
+    this.set('quantity', object.quantity);
   },
 
   submit: function (event) {
     event.preventDefault();
     var productProxy = this.get('controller').get('model');
     var product = productProxy.subject;
-    product.set('brand', this.get('brand'));
-    product.set('name', this.get('name'));
-    product.set('sku', this.get('sku'));
-    product.set('price', this.get('price'));
-    product.set('quantity', this.get('quantity'));
-    product.save();
+    var newAttrs = {};
+    newAttrs.brand = this.get('brand');
+    newAttrs.name = this.get('name');
+    newAttrs.sku = this.get('sku');
+    newAttrs.price = this.get('price');
+    newAttrs.quantity = this.get('quantity');
+    product.updateAttributes(newAttrs);
     //TODO: it's weird, but productProxy.set('subject', object) not updated computed properties as expected
     productProxy = ProductProxy.create({"subject": product});
     this.get('controller').transitionToRoute('product', productProxy)
@@ -458,54 +456,49 @@ App.CustomerSearchFormView = Ember.View.extend({
 
 App.NewCustomerFormView = Ember.View.extend({
   tagName: 'form',
-  first: null,
-  last: null,
-  email: null,
-  phone: null,
-  address: null,
-  city: null,
+  brand: null,
+  name: null,
+  sku: null,
+  price: null,
+  quantity: null,
   submit: function (event) {
     event.preventDefault();
-    var newCustomer = {};
-    newCustomer.first = this.get('first');
-    newCustomer.last = this.get('last');
-    newCustomer.email = this.get('email');
-    newCustomer.phone = this.get('phone');
-    newCustomer.address = this.get('address');
-    newCustomer.city = this.get('city');
-    App.customerModel.create(newCustomer);
+    var brand = this.get('brand');
+    var name = this.get('name');
+    var sku = this.get('sku');
+    var price = this.get('price');
+    var quantity = this.get('quantity');
+    App.customerModel.create({name: name, brand: brand, sku: sku, price: price, quantity: quantity})
     this.get('controller').transitionToRoute('customers.index')
   }
 });
 
 App.EditCustomerFormView = Ember.View.extend({
   tagName: 'form',
-  first: null,
-  last: null,
-  email: null,
-  phone: null,
-  address: null,
-  city: null,
+  brand: null,
+  name: null,
+  sku: null,
+  price: null,
+  quantity: null,
   willInsertElement: function () {
+    this.get('controller').get('model').tag = '123';
     var object = this.get('controller').get('model').subject;
-    this.set('first', object.get('first'));
-    this.set('last', object.get('last'));
-    this.set('email', object.get('email'));
-    this.set('phone', object.get('phone'));
-    this.set('address', object.get('address'));
-    this.set('city', object.get('city'));
+    this.set('brand', object.get('brand'));
+    this.set('name', object.get('name'));
+    this.set('sku', object.get('sku'));
+    this.set('price', object.get('price'));
+    this.set('quantity', object.get('quantity'));
   },
 
   submit: function (event) {
     event.preventDefault();
     var customerProxy = this.get('controller').get('model');
     var customer = customerProxy.subject;
-    customer.set('first', this.get('first'));
-    customer.set('last', this.get('last'));
-    customer.set('email', this.get('email'));
-    customer.set('phone', this.get('phone'));
-    customer.set('address', this.get('address'));
-    customer.set('city', this.get('city'));
+    customer.set('brand', this.get('brand'));
+    customer.set('name', this.get('name'));
+    customer.set('sku', this.get('sku'));
+    customer.set('price', this.get('price'));
+    customer.set('quantity', this.get('quantity'));
     customer.save();
         //TODO: it's weird, but customerProxy.set('subject', object) not updated computed properties as expected
         customerProxy = CustomerProxy.create({"subject": customer});

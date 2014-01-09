@@ -1,5 +1,5 @@
-#sdk: "/Users/sv/.rvm/gems/ruby-1.9.3-p374/gems/rhodes-4.0.0.beta.4"
-sdk: ../../rhodes
+---
+sdk: /Users/mzverev/Projects/master/rhodes
 sdkversion: 4.0.0
 name: js-store
 version: 1.0
@@ -10,19 +10,19 @@ applog: rholog.txt
 iphone:
   configuration: Release
   sdk: iphonesimulator6.1
-  provisionprofile:
-  codesignidentity:
-  entitlements:
+  provisionprofile: 
+  codesignidentity: 
+  entitlements: 
   BundleIdentifier: com.rhomobile.js-store
   BundleURLScheme: js-store
 wp:
-  productid: '3456e9c0-6f92-0130-c7f1-3c075403c5b4'
+  productid: 3456e9c0-6f92-0130-c7f1-3c075403c5b4
 symbian:
   uid: '0xeb5954be'
 android:
-  version: 2.1
-
+  version: 2.3.3
 paths:
- extensions: ../../rhoconnect-client/ext
-
-extensions: ["json", "rhoconnect-client"]
+  extensions: ../../rhoconnect-client/ext
+extensions:
+- json
+- rhoconnect-client
