@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>IntentTest</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.dltk.core.scriptbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>rhogenwizard.builder.RhogenBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.rhomobile.rhostudio.rhogenNature</nature>
+		<nature>org.eclipse.dltk.ruby.core.nature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>framework</name>
+			<type>2</type>
+			<location>/Users/robgalvin/.rvm/gems/ruby-1.9.3-p194/gems/rhodes-4.1.0/lib/framework</location>
+		</link>
+	</linkedResources>
+</projectDescription>

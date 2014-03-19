@@ -1,0 +1,28 @@
+#sdk: "/Users/robgalvin/.rvm/gems/ruby-1.9.3-p194/gems/rhodes-4.1.0"
+BundleIdentifier: "com.rhomobile.intenttest"
+sdkversion: "4.1.0"
+name: "IntentTest"
+version: 1.0
+vendor: "rhomobile"
+build: "debug"
+applog: "rholog.txt"
+iphone:
+  configuration: "Release"
+  sdk: "iphonesimulator7.0"
+  provisionprofile: 
+  codesignidentity: "iPhone Developer"
+  entitlements: 
+  BundleIdentifier: "com.rhomobile.intenttest"
+  BundleURLScheme: "intenttest"
+wp8:
+  productid: "a5bf9900-90cc-0131-e3f7-3c07547b3491"
+android:
+  manifest_template: "AndroidManifest.erb"
+  version: "2.3.3"
+  emulator: "ET1"
+#sdk: "MC3000c50b (ARMV4I)"
+#sdk: "Windows Mobile 6.5.3 Professional DTK (ARMV4I)"
+wm: 
+extensions:
+  - rhoconnect-client
+app_type: "rhoelements"
