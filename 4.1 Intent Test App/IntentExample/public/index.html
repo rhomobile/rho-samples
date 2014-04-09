@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Intent samples</title>
+  <script type="text/javascript" src="jquery/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="api/rhoapi-modules.js"></script>
+  <script type="text/javascript">
+    function sendMail() {
+      Rho.Intent.send({intentType: Rho.Intent.START_ACTIVITY, action: "ACTION_SEND", mimeType: "text/plain",
+						data: {"EXTRA_EMAIL":["abc@domain.com", "def@domain.com"],
+                               "EXTRA_CC":["carbon.copy@domain.com"],
+                               "EXTRA_SUBJECT":"Sample Subject !",
+                               "EXTRA_TEXT":"Email body content !"}
+                       });
+    }
+    
+    function openPdf() {
+      Rho.Intent.send({intentType: Rho.Intent.START_ACTIVITY, action: "ACTION_VIEW", uri: "content://com.rhomobile.intentexample/rhodata/apps/public/Rhodes.pdf"});
+    }
+    
+    function startActivity() {
+      Rho.Intent.send({intentType: Rho.Intent.START_ACTIVITY, action: "ACTION_MAIN", appName: "com.rhomobile.targetapp", data: {"message": "Test message!"}},
+          function(intentParams) {
+            Rho.Notification.showPopup({types:Rho.Notification.TYPE_DIALOG, title: "Response", message: intentParams.data.message, buttons: ["Dismiss"]});
+          }
+        );
+    }
+    
+    function broadcast() {
+      Rho.Intent.send({intentType: Rho.Intent.BROADCAST, action: "com.rhomobile.targetapp.BROADCAST", appName: "com.rhomobile.targetapp", data: {"message": "Test broadcast message!"}});
+    }
+    
+    function listenForIntents() {
+      Rho.Intent.startListening(
+		function(intentParams) {
+          Rho.Notification.showPopup({types:Rho.Notification.TYPE_DIALOG, title: "Response", message: intentParams.data.message, buttons: ["Dismiss"]});
+        }
+      )
+    }
+    
+  </script>
+</head>
+<body>
+  <div>
+    <ulist>
+      <li><a href="#" onclick="sendMail()">Compose mail to a number of recipients</a></li>
+      <li><a href="#" onclick="openPdf()">Open local PDF document</a></li>
+      <li><a href="#" onclick="startActivity()">Open native activity and get data back</a></li>
+      <li><a href="#" onclick="broadcast()">Send broadcast</a></li>
+      <li><a href="#" onclick="listenForIntents()">Start listening</a></li>
+    </ulist>
+  </div>
+</body>
+</html>

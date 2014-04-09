@@ -1,0 +1,27 @@
+#sdk: "/usr/local/rvm/gems/ruby-1.9.3-p327/gems/rhodes-4.1.1"
+sdkversion: "4.1.0"
+name: "IntentExample"
+version: 1.0
+vendor: "rhomobile"
+build: "debug"
+applog: "rholog.txt"
+javascript_application: true
+iphone:
+  configuration: "Release"
+  sdk: "iphonesimulator7.0"
+  provisionprofile: 
+  codesignidentity: "iPhone Developer"
+  entitlements: 
+  BundleIdentifier: "com.rhomobile.intentexample"
+  BundleURLScheme: "intentexample"
+wp8:
+  productid: "a2a22250-a076-0131-681e-3c0754255b71"
+android:
+  manifest_template: "AndroidManifest.erb"
+  version: 4.3
+  emulator: "rhoAndroid43"
+wm: 
+#sdk: "MC3000c50b (ARMV4I)"
+#sdk: "Windows Mobile 6.5.3 Professional DTK (ARMV4I)"
+extensions:
+  - rhoconnect-client

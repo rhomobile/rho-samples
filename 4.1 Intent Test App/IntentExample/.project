@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>IntentExample</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.dltk.core.scriptbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>rhogenwizard.builder.RhogenBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.rhomobile.rhostudio.rhogenNature</nature>
+		<nature>org.eclipse.dltk.ruby.core.nature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>framework</name>
+			<type>2</type>
+			<location>/usr/local/rvm/gems/ruby-1.9.3-p327/gems/rhodes-4.1.1/lib/framework</location>
+		</link>
+	</linkedResources>
+</projectDescription>
