@@ -1,0 +1,12 @@
+        <div data-role="header">
+          <h1><span data-ng-show="product.object">Edit</span> <span data-ng-hide="product.object">New</span> product</h1>
+        </div>
+        <div data-role="content" >
+                  <form class="edit-product-form">
+                    
+                    <label>Name<input type="text" name="name" data-ng-model="product.name"></label>
+                    <label>Brand<input type="text" name="brand" data-ng-model="product.brand"></label>
+
+                    <a data-role="button" class="save" data-ng-click="save()">Save</a>
+                  </form>
+        </div>

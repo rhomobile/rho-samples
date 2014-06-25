@@ -1,0 +1,2 @@
+/Users/michaeltoews/repos/rho-private-apps/rhomobile-angular-sample/project/iphone/build/rhorunner.build/Release-iphonesimulator/rhorunner.build/libCoreAPI.a
+/Users/michaeltoews/repos/rho-private-apps/rhomobile-angular-sample/project/iphone/build/rhorunner.build/Release-iphonesimulator/rhorunner.build/libRhoconnect-client.a

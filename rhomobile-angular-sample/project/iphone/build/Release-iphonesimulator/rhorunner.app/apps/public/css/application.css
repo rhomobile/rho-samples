@@ -1,0 +1,11 @@
+table.products {
+	width: 100%;
+}
+
+table.products td.name {
+	width: 50%;
+}
+
+table.products td.brand {
+	width: 50%;
+}

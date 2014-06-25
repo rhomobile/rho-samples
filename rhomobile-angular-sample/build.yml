@@ -1,0 +1,25 @@
+# sdk: "/Users/javier/.rvm/gems/ruby-1.9.3-p392/gems/rhodes-4.0.0.beta.39"
+sdkversion: "4.0.0"
+name: "angular"
+version: 1.0
+vendor: "rhomobile"
+build: "debug"
+applog: "rholog.txt"
+iphone:
+  configuration: "Release"
+  sdk: "iphonesimulator7.1"
+  provisionprofile: 
+  codesignidentity: 
+  entitlements: 
+  BundleIdentifier: "com.rhomobile.angular"
+  BundleURLScheme: "angular"
+wp:
+  productid: "c0a453b0-d6b3-0130-e6d9-38f6b118e4ff"
+android:
+  version: 2.1
+extensions:
+  - rhoconnect-client
+# To avoid having to introduce dependency injection annotations in this example, minify_js is set to false.
+# In a real application, you will instead use the annotated injection syntax, otherwise minification will
+# break your code
+minify_js: false

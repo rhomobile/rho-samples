@@ -1,0 +1,26 @@
+
+      <a data-role="button" data-ng-click="create()">New product</a>
+      <a data-role="button" data-ng-click="create_with_data()">New product with data</a>
+      <!-- uncomment for RhoConnect integration 
+      <button data-ng-click="sync">Sync</button>
+      -->
+
+      <table class="products">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Brand</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="product in products" data-jqm-element="">
+              <td class="name">{{ product.name }}</td>
+              <td class="brand">{{ product.brand }}</td>
+              <td class="actions">
+                <a data-role="button" data-ng-href="#/edit/{{product.object}}">Edit</a>
+                <a data-role="button" data-ng-click="del(product.object)">Delete</a>
+              </td>
+            </tr>
+        </tbody>
+      </table>    
