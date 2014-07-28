@@ -8,8 +8,8 @@ bbver: 6.0
 applog: "rholog.txt"
 iphone:
   configuration: "Release"
-#sdk: "iphoneos6.1"
-  sdk: "iphonesimulator6.1"
+#sdk: "iphoneos7.1"
+  sdk: "iphonesimulator7.1"
   provisionprofile: 
   codesignidentity: 
   entitlements: 
