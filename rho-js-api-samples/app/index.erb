@@ -1,0 +1,789 @@
+<div data-role="page" data-url="<%= Rho::RhoConfig.start_path %>/">
+
+  <div data-role="header" data-position="inline">
+    <h1>Jsapi</h1>
+    <% if SyncEngine::logged_in > 0 %>
+    <a href="<%= url_for :controller => :Settings, :action => :do_sync %>" class="ui-btn-left" data-icon="refresh">
+      Sync
+    </a>
+    <a href="<%= url_for :controller => :Settings, :action => :logout %>" class="ui-btn-right" data-icon="star">
+	    Logout
+	  </a>
+    <% else %>
+        <a href="<%= url_for :controller => :Settings, :action => :login %>" class="ui-btn-right" data-icon="star">Login</a>
+    <% end %>
+  </div>
+
+  <script type="text/javascript">
+      var mapParams = {
+          provider: 'Google',
+          settings: {
+              map_type: "hybrid",
+              region: [37.32, 122.04, 0.2, 0.2],
+              zoom_enabled: true,
+              scroll_enabled: true,
+              shows_user_location: false,
+              api_key: '0lwImvCyuUHClkXc9OtiFNfeL7LAeXiEJSbkTpg' // IMPORTANT NOTE!!! Put your real key here pls.
+          },
+          annotations: [
+              {latitude: 37.32, longitude: 122.04, title:"Initial location", subtitle:""},
+              {street_address:"Cupertino, CA 95014", title:"Cupertino", subtitle:"zip 95014"},
+              {street_address:"Santa Clara, CA 95051", title:"Santa Clara", subtitle:"zip 95051"}
+          ]
+      }
+
+      function tab(level) {
+          var str = '';
+          for (var i=0; i<level; i++) {
+              str = str + '  ';
+          }
+          return str;
+      }
+
+      function dumpValue(value, dumpLevel) {
+          dumpLevel = dumpLevel || 0;
+          var str = '';
+          if ("undefined" == typeof value)
+              str = str + 'undefined';
+          else if (null == value)
+              str = str + 'null';
+          else if (value instanceof Date)
+              str = str + value;
+          else if ('object' == typeof value) {
+              var tabStr = tab(dumpLevel);
+              str = str + '{\n'
+              for (var fld in value) {
+                  str = str + tabStr + fld + ': ' + dumpValue(value[fld], dumpLevel+1) +'\n';
+              }
+              str = str + tab(dumpLevel-1) + '}'
+          } else {
+              str = str + value;
+          }
+          return str;
+      }
+
+      function showValue(value) {
+          alert('result: ' + dumpValue(value, 1));
+      }
+
+      function reportResult(dfr) {
+          dfr.done(function (result) {
+              showValue(result)
+          }).fail(function (message, details) {
+              alert('error: ' + message);
+              //alert('error: ' + message + '\nstack: ' + details.stack.join('\n'));
+          });
+      }
+
+      function reportErrorOn(method) {
+          return function(msg) {
+              alert('Error on ' + method + ': ' +msg);
+          };
+      }
+
+      function testFileWrite(fileName, content, callback) {
+          var showAlert = true;
+          if ("function" == typeof callback) {
+            showAlert = false;
+          }
+          Rho.RhoApplication.get_blob_folder().done(function(blobDir) {
+              Rho.File.join(blobDir, fileName).done(function(absFileName) {
+                  Rho.File.open(absFileName, 'w').done(function (file) {
+                      if (showAlert) alert('File.open OK, id: ' + file.getId());
+                      file.puts(content).done(function (str) {
+                          if (showAlert) alert('someFile.puts OK, result: "' + str + '"');
+                          file.close().done(function (result) {
+                              if (showAlert)
+                                  alert('someFile.close OK, result: ' + result);
+                              else
+                                  callback(absFileName);
+                          }).fail(reportErrorOn('someFile.close'));
+                      }).fail(reportErrorOn('someFile.gets'));
+                  }).fail(reportErrorOn('File.open'));
+              }).fail(reportErrorOn('File.join'));
+          }).fail(reportErrorOn('RhoApplication.get_blob_folder'));
+      }
+
+      function setupTestFiles(fileToCreate, fileToDelete, callback) {
+          function doCreate() {
+              testFileWrite(fileToCreate, 'Hi! I am a test file :)', callback);
+          }
+          if (null == fileToDelete) {
+              doCreate();
+          } else {
+              Rho.RhoApplication.get_blob_folder().done(function (blobDir) {
+                  Rho.File.join(blobDir, fileToDelete).done(function (absFileName) {
+                      Rho.File.is_exist(absFileName).done(function(isExist){
+                          if (isExist) {
+                              Rho.File.do_delete(absFileName).done(function(result){
+                                  doCreate();
+                              }).fail(reportErrorOn('File.do_delete'));
+                          } else {
+                              doCreate();
+                          }
+                      }).fail(reportErrorOn('File.is_exist'));
+                  }).fail(reportErrorOn('File.join'));
+              }).fail(reportErrorOn('RhoApplication.get_blob_folder'));
+          }
+      }
+
+      function testFileRead(fileName) {
+          Rho.RhoApplication.get_blob_folder().done(function(blobDir) {
+              Rho.File.join(blobDir, fileName).done(function(absFileName) {
+                  Rho.File.open(absFileName).done(function (file) {
+                      alert('File.open OK, id: ' + file.getId());
+                      file.gets().done(function (str) {
+                          alert('someFile.gets OK, result: "' + str + '"');
+                          file.close().done(function (result) {
+                              alert('someFile.close OK, result: ' + result);
+                          }).fail(reportErrorOn('someFile.close'));
+                      }).fail(reportErrorOn('someFile.gets'));
+                  }).fail(reportErrorOn('File.open'));
+              }).fail(reportErrorOn('File.join'));
+          }).fail(reportErrorOn('RhoApplication.get_blob_folder'));
+      }
+
+      function testCameraToBarcode() {
+          Rho.Camera.take_picture(function(result) {
+              if (result && result.status) {
+                  if ('ok' == result.status) {
+                      Rho.RhoApplication.get_blob_path(result.image_uri).done(function(absFilename) {
+                          alert('absFilename: ' +absFilename);
+                          Rho.Barcode.barcode_recognize(absFilename).done(function(barcode) {
+                              alert('barcode: ' +barcode);
+                          }).fail(reportErrorOn('Barcode.barcode_recognize'));
+                      }).fail(reportErrorOn('RhoApplication.get_blob_path'));
+                  } else alert('Camera.take_picture result.status:' +result.status);
+              } else { alert('Camera.take_picture result:' + result); }
+          }, {color_model: 'Grayscale', desired_width: 1000, desired_height: 1000}).fail(reportErrorOn('Camera.take_picture'));
+      }
+
+      function reportDatabaseResult(container, res) {
+          container = $(container);
+          if ("object" == typeof res && "object" == typeof res[0]) {
+              var str = '<table><tr style="text-decoration:underline;">';
+              for (fld in res[0]) {
+                  str = str+'<th>'+fld+'</th>';
+              }
+              str = str+'</tr>';
+              for (row in res) {
+                  str = str+'<tr>';
+                  for (fld in res[row]) {
+                      str = str+'<td>'+res[row][fld]+'</td>';
+                  }
+                  str = str+'</tr>';
+              }
+              str = str+'</table>';
+              container.html(str);
+          } else {
+              container.innerText = 'empty result';
+          }
+      }
+
+      function testDatabaseOpen(name, resultContainer) {
+          Rho.Database.openDatabase(name, '1.0', 'Test DB', 2 * 1024 * 1024).done(function(db) {
+              db.transaction(function (tx) {
+                  tx.executeSql("SELECT name,rootpage,type FROM sqlite_master WHERE type=?", ['table'],
+                      function(rows){
+                          reportDatabaseResult(resultContainer, rows);
+                      });
+              });
+          });
+      }
+
+      function testBarcodeRecognize(fileName) {
+          Rho.File.absolute_path(fileName).done(function(absFileName){
+              reportResult(Rho.Barcode.barcode_recognize(absFileName));
+          });
+      }
+
+      function setSensorsApiEMML(value) {
+          if ('undefined' == typeof RawSensors || null == RawSensors) {
+              alert('RawSensors unaccessible!');
+              return false;
+          }
+          var additionalParams = "minimumInterval:200;sensorEvent:url('javascript:onSensor(%json);');";
+          RawSensors.setEMML(value+';'+additionalParams);
+      }
+
+      function enableAllSensorsApi() {
+          setSensorsApiEMML("all:enabled;");
+      }
+
+      function enableAccelAndMagnetSensorsApi() {
+          setSensorsApiEMML("accelerometer:enabled;magnetometer:enabled;");
+      }
+
+      function disableAllSensorsApi() {
+          setSensorsApiEMML("all:disabled;");
+      }
+
+      function onSensor(jsonObject) {
+          var sensorsResultContainer = $('div.sensorsResult');
+          if (null != sensorsResultContainer) {
+              sensorsResultContainer.html('');
+              sensorsResultContainer.html('sensors: ' + dumpValue(jsonObject, 1));
+          } else {
+              alert('onSensor: result container is undefined!');
+          }
+      }
+
+      // Tennis game -------------------------
+
+      // field size
+      var fH = 0;
+      var fW = 0;
+      // rocket size
+      var rH = 0;
+      var rW = 0;
+      // ball size
+      var bH = 0;
+      var bW = 0;
+
+      // ball coordinates and increments
+      var bX = 0;
+      var bY = 0;
+      var bdX = 0;
+      var bdY = 0;
+
+      // user racket coordinates
+      var r1X = 0;
+      var r1Y = 0;
+      var r1dY = 0;
+      // auto racket coordinates
+      var r2X = 0;
+      var r2BallYOffset = 0;
+
+      var score = 0;
+
+      function setupPositions() {
+          $('div.tennis div.ball').css('left', bX +'px').css('top', bY);
+          $('div.tennis div.racket2').css('top', bY - r2BallYOffset /*ball at center of racket*/ +'px');
+          $('div.tennis div.racket1').css('top', r1Y +'px');
+          $('div.tennis div.score2').html(score);
+      }
+
+      function resetTennis() {
+          fW = $('div.tennis div.field').width();
+          fH = $('div.tennis div.field').height();
+          rW = $('div.tennis div.racket1').width();
+          rH = $('div.tennis div.racket1').height();
+          bW = $('div.tennis div.ball').width();
+          bH = $('div.tennis div.ball').height();
+          r1X = $('div.tennis div.racket1').position().left;
+          r2X = $('div.tennis div.racket2').position().left;
+          r2BallYOffset = (rH/2 - bH/2);
+          bX = fW/2;
+          bY = fH/2;
+          r1Y = 40;
+          bdX = 5;
+          bdY = 5;
+          r1dY = 0;
+          score = 0;
+          setupPositions();
+      }
+
+      function moveRacket() {
+          if ( (r1dY < 0 && r1Y >= 0)  || (r1dY > 0 && r1Y <= (fH-rH)) ) r1Y += r1dY;
+      }
+
+      function gameOver(){
+          alert('Game over!');
+          //$('div.tennis').trigger('collapse');
+          stopTennis();
+      }
+
+      function checkBallCollision() {
+          if (bX <= r1X || bX >= r2X-bW
+              || (bY > r1Y-bH && bY <= r1Y+(rH) && bX <= r1X+rW) ) bdX = -bdX;
+          if (bY <= bH/2 || bY >= fH-r2BallYOffset) bdY = -bdY;
+
+          if (bX <= r1X) {
+              score++;
+              if (score >= 10) gameOver();
+          }
+      }
+
+      function moveBall() {
+          bX += bdX;
+          bY += bdY;
+          checkBallCollision();
+      }
+
+      function tennisTickEvent() {
+          moveRacket();
+          moveBall();
+          setupPositions();
+      }
+
+      var tick = null;
+      function tennisIntervalEvent() {
+          if (null != tick) {
+              tick();
+          }
+      }
+
+      function tennisSensorsEvent(jsonObj) {
+          var accY = null;
+          try {
+              accY = jsonObj['accelerometerY'];
+              r1dY = Math.round(parseFloat(jsonObj['accelerometerY'])*3.0);
+          } catch(ex) {}
+      }
+
+      var interval = null;
+      function startTennis() {
+          resetTennis();
+          tick = tennisTickEvent;
+          if (null == interval) {
+              interval = setInterval(tennisIntervalEvent, 30);
+          }
+          if ('undefined' != typeof RawSensors && null != RawSensors) {
+              RawSensors.setEMML("minimumInterval:200;sensorEvent:url('javascript:tennisSensorsEvent(%json);');");
+              RawSensors.setEMML("accelerometer:enabled;");
+          }
+      }
+
+      function stopTennis() {
+          tick = null;
+          //clearInterval(interval);
+          if ('undefined' != typeof RawSensors && null != RawSensors) {
+              RawSensors.setEMML("all:disabled;");
+          }
+      }
+
+      $('div.tennis').live('expand', startTennis);
+      $('div.tennis').live('collapse', stopTennis);
+
+      // compass demo ------------------
+
+      function directionToNorth(jsonObject) {
+          var x = parseFloat(jsonObject['magnetometerX']);
+          var y = parseFloat(jsonObject['magnetometerY']);
+          var dir = 0.0;
+
+          if (y>0) {
+              dir = 90.0 - (Math.atan(x/y) * (180.0/3.14159));
+          } else if (y<0) {
+              dir = 270.0 - (Math.atan(x/y) * (180.0/3.14159));
+          } else if (y==0 && x<0) {
+              dir = 180.0;
+          } else if (y==0 && x>0) {
+              dir = 0.0;
+          }
+          return dir;
+      }
+
+      function compassSensorsEvent(jsonObject) {
+          var container = $('div.compass div.placement');
+          if (null != container) {
+              drawArrow(-directionToNorth(jsonObject) /* * Math.PI / 180.0*/);
+          } else {
+              alert('compassSensorsEvent: container is undefined!');
+          }
+      }
+
+      function drawBody() {
+          var cBody = $('div.compass div.placement canvas.body')[0];
+          var bodyCtx = cBody.getContext('2d');
+          var bw = cBody.width;
+          var bh = cBody.height;
+          var bRadius = Math.round(Math.min(bw, bh) * 1.0) / 2;
+          var cx = bw / 2;
+          var cy = bh / 2;
+
+          bodyCtx.clearRect (0, 0, bw, bh);
+
+          bodyCtx.beginPath();
+          bodyCtx.arc(cx, cy, bRadius, 0 , 2 * Math.PI, false);
+          bodyCtx.strokeStyle = '#cccccc';
+          bodyCtx.lineWidth = 3;
+          bodyCtx.lineCap = 'round';
+          bodyCtx.stroke();
+
+          bodyCtx.beginPath();
+
+          for (var degree=0; degree < 360; degree += 5) {
+              var length = 4;
+              //if (0 == degree % 10) length = 7;
+              if (0 == degree % 45) length = 10;
+              if (0 == degree % 90) length = 20;
+
+              var x1 = cx + (bRadius-length) * Math.cos(degree * Math.PI / 180.0);
+              var y1 = cy + (bRadius-length) * Math.sin(degree * Math.PI / 180.0);
+              var x2 = cx + bRadius * Math.cos(degree * Math.PI / 180.0);
+              var y2 = cy + bRadius * Math.sin(degree * Math.PI / 180.0);
+
+              bodyCtx.moveTo(x1, y1);
+              bodyCtx.lineTo(x2, y2);
+          }
+
+          bodyCtx.lineWidth = 1;
+          bodyCtx.stroke();
+      }
+
+      function drawArrow(degree) {
+          var cArrow = $('div.compass div.placement canvas.arrow')[0];
+          var arrowCtx = cArrow.getContext('2d');
+          var aw = cArrow.width;
+          var ah = cArrow.height;
+          var aRadius = Math.round(Math.min(aw, ah) * 0.7) / 2;
+          var axisWidth = 20;
+
+          arrowCtx.save();
+          arrowCtx.clearRect (0, 0, aw, ah);
+
+          arrowCtx.strokeStyle = 'white';
+          arrowCtx.lineWidth = 3;
+          arrowCtx.lineCap = 'round';
+
+          arrowCtx.translate(aw/2, ah/2);
+          arrowCtx.rotate(degree * Math.PI / 180.0);
+
+          arrowCtx.beginPath();
+          arrowCtx.moveTo(-axisWidth/2, 0);
+          arrowCtx.lineTo(0, aRadius);
+          arrowCtx.lineTo(axisWidth/2, 0);
+          arrowCtx.lineTo(-axisWidth/2, 0);
+          arrowCtx.closePath();
+          arrowCtx.fillStyle = '#ff5555';
+          arrowCtx.fill();
+          arrowCtx.stroke();
+
+          arrowCtx.beginPath();
+          arrowCtx.moveTo(-axisWidth/2, 0);
+          arrowCtx.lineTo(0, -aRadius);
+          arrowCtx.lineTo(axisWidth/2, 0);
+          arrowCtx.lineTo(-axisWidth/2, 0);
+          arrowCtx.closePath();
+          arrowCtx.fillStyle = '#5555ff';
+          arrowCtx.fill();
+          arrowCtx.stroke();
+
+          arrowCtx.restore();
+      }
+
+      var compassInterval = null;
+      function startCompass() {
+          var degree = 0;
+          drawBody();
+          if ('undefined' != typeof RawSensors && null != RawSensors) {
+              RawSensors.setEMML("minimumInterval:200;sensorEvent:url('javascript:compassSensorsEvent(%json);');");
+              RawSensors.setEMML("magnetometer:enabled;");
+          }
+      }
+
+      function stopCompass() {
+          if ('undefined' != typeof RawSensors && null != RawSensors) {
+              RawSensors.setEMML("all:disabled;");
+          }
+      }
+
+      $('div.compass').live('expand', startCompass);
+      $('div.compass').live('collapse', stopCompass);
+
+
+      // VideoCapture demo ------------------
+
+      function videoCaptureEvent(result) {
+          alert('saveVideoObject: ' + dumpValue(result, 1));
+      }
+
+      function initVideoCaptureForFileSave() {
+          Rho.RhoApplication.get_blob_path('abc-123.mp4').done(function(absFilename){
+              videoCapture.destination = "url('file://" +absFilename + "')";
+          });
+          videoCapture.videoSaveEvent = "url('javascript:videoCaptureEvent(%json);')";
+          videoCapture.duration = '15000';
+      }
+
+      function initVideoCaptureForUpload() {
+          videoCapture.destination = "url('http://" + window.location.host +
+                  "<%= url_for :controller => :Settings, :action => :video_upload_test %>?file_name=')";
+          videoCapture.name = 'abc-123.mp4';
+          videoCapture.videoSaveEvent = "url('javascript:videoCaptureEvent(%json);')";
+          videoCapture.duration = '15000';
+      }
+
+  </script>
+
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <li data-role-off="list-divider">HOWTO samples
+          <ul data-role="listview">
+            <li><a href="#" onclick="Rho.RhoApplication.get_base_app_path().done(function(base){ Rho.File.join(base, 'rhoconfig.txt').done(function(fullPath){ reportResult(Rho.File.is_exist(fullPath)); }); });">File.is_exist rhoconfig.txt</a></li>
+            <li><a href="#" onclick="Rho.RhoApplication.get_base_app_path().done(function(base){ Rho.File.join(base, 'public', 'samples', 'sample.pdf').done(function(fullPath){ reportResult(Rho.File.is_exist(fullPath)); }); });">File.is_exist public/samples/sample.pdf</a></li>
+            <li><a href="#" onclick="Rho.RhoApplication.get_base_app_path().done(function(base){ Rho.File.join(base, 'app', 'testfile.txt').done(function(fullPath){ reportResult(Rho.File.is_exist(fullPath)); }); });">File.is_exist app/testfile.txt</a></li>
+            <li>---</li>
+            <li><a href="#" onclick="testFileWrite('TestFile_howto.txt', 'Hi, it is sample text.')">write string to file</a></li>
+            <li><a href="#" onclick="testFileRead('TestFile_howto.txt')">read string from file</a></li>
+            <li>---</li>
+            <li><a href="#" onclick="testCameraToBarcode()">Camera + Barcode</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">File API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.File.absolute_path('.'));">File.absolute_path('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.path('.'));">File.path('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.realdirpath('.'));">File.realdirpath('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.realpath('.'));">File.realpath('.')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.atime('.'));">File.atime('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.ctime('.'));">File.ctime('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.mtime('.'));">File.mtime('.')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.basename('./public/js/rho_javascript_api.js', '.js'));">File.basename('./public/js/rho_javascript_api.js', '.js')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.dirname('./public/js/rho_javascript_api.js'));">File.dirname('./public/js/rho_javascript_api.js')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.expand_path('./public/js/rho_javascript_api.js', '.js'));">File.expand_path('./public/js/rho_javascript_api.js', '.js')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.extname('./public/js/rho_javascript_api.js'));">File.extname('./public/js/rho_javascript_api.js')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.split('./public/js/rho_javascript_api.js'));">File.split('./public/js/rho_javascript_api.js')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.join('.', 'public'));">File.join('.', 'public')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.is_blockdev('.'));">File.is_blockdev('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_chardev('.'));">File.is_chardev('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_directory('.'));">File.is_directory('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_file('.'));">File.is_file('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_pipe('.'));">File.is_pipe('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_socket('.'));">File.is_socket('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_exist('.'));">File.is_exist('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_owned('.'));">File.is_owned('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_grpowned('.'));">File.is_grpowned('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_setgid('.'));">File.is_setgid('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_setuid('.'));">File.is_setuid('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_sticky('.'));">File.is_sticky('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_symlink('.'));">File.is_symlink('.')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.is_executable('.'));">File.is_executable('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_executable_real('.'));">File.is_executable_real('.')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.is_readable('.'));">File.is_readable('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_readable_real('.'));">File.is_readable_real('.')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.is_writable('.'));">File.is_writable('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_writable_real('.'));">File.is_writable_real('.')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.is_world_readable('.'));">File.is_world_readable('.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.is_world_writable('.'));">File.is_world_writable('.')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.is_zero('.'));">File.is_zero('.')</a></li>
+
+              <li><a href="#" onclick="setupTestFiles('TestFile_chown.txt', null, function(absFileName){reportResult(Rho.File.chown(1, 1, absFileName));});">File.chown</a></li>
+              <!-- NOTE: use octal notation for mode in chmod/lchmod calls-->
+              <li><a href="#" onclick="setupTestFiles('TestFile_chmod.txt', null, function(absFileName){reportResult(Rho.File.chmod(0644, absFileName));});">File.chmod</a></li>
+
+              <li><a href="#" onclick="setupTestFiles('TestFile_lchown.txt', null, function(absFileName){reportResult(Rho.File.lchown(1, 1, absFileName));});">File.lchown</a></li>
+              <!-- NOTE: use octal notation for mode in chmod/lchmod calls-->
+              <li><a href="#" onclick="setupTestFiles('TestFile_lchmod.txt', null, function(absFileName){reportResult(Rho.File.lchmod(0644, absFileName));});">File.lchmod</a></li>
+
+              <li><a href="#" onclick="setupTestFiles('TestFile_do_delete.txt', null, function(absFileName){reportResult(Rho.File.do_delete(absFileName));});">File.do_delete</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.is_fnmatch('./**/*.js', '.'));">File.is_fnmatch('./**/*.js', '.')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.ftype('.'));">File.ftype('.')</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.is_identical('.', '.'));">File.is_identical('.', '.')</a></li>
+
+              <li><a href="#" onclick="setupTestFiles('TestFile_link.txt', 'TestFile_link.txt-link', function(absFileName){reportResult(Rho.File.link(absFileName, absFileName+'-link'));});">File.link</a></li>
+              <li><a href="#" onclick="setupTestFiles('TestFile_symlink.txt', 'TestFile_symlink.txt-slink', function(absFileName){reportResult(Rho.File.symlink(absFileName, absFileName+'-slink'));});">File.symlink</a></li>
+
+              <li>NOTE: to use readlink you need to create symlink first</li>
+              <li><a href="#" onclick="Rho.RhoApplication.get_blob_folder().done(function(blobDir){Rho.File.join(blobDir, 'TestFile_symlink.txt-slink').done(function(absFileName){reportResult(Rho.File.readlink(absFileName));});});">File.readlink</a></li>
+              <li><a href="#" onclick="setupTestFiles('TestFile_rename.txt', 'TestFile_rename.txt-renamed', function(absFileName){reportResult(Rho.File.rename(absFileName, absFileName+'-renamed'));});">File.rename</a></li>
+
+              <li><a href="#" onclick="setupTestFiles('TestFile_size.txt', null, function(absFileName){reportResult(Rho.File.size(absFileName));});">File.size</a></li>
+              <li><a href="#" onclick="setupTestFiles('TestFile_is_size.txt', null, function(absFileName){reportResult(Rho.File.is_size(absFileName));});">File.is_size</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.stat('.'));">File.stat('.')</a></li>
+              <li><a href="#" onclick="setupTestFiles('TestFile_truncate.txt', null, function(absFileName){reportResult(Rho.File.truncate(absFileName, 5));});">File.truncate</a></li>
+
+              <li><a href="#" onclick="reportResult(Rho.File.umask());">File.umask()</a></li>
+              <li><a href="#" onclick="reportResult(Rho.File.umask(0222));">File.umask(0222)</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">System API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.System.get_property('platform'));">System.get_property('platform')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.System.get_property('webview_framework'));">System.get_property('webview_framework')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.System.zip_file('/sdcard/rhoconfig.zip', './apps/rhoconfig.txt', null));">System.zip_file</a></li>
+              <li><a href="#" onclick="reportResult(Rho.System.zip_files('/sdcard/bundle.zip', './', ['./apps/public/samples/sample.pdf', './apps/rhoconfig.txt'], null));">System.zip_files</a></li>
+              <li><a href="#" onclick="reportResult(Rho.System.unzip_file('/sdcard/bundle.zip'));">System.unzip_file</a></li>
+              <li><a href="#" onclick="Rho.RhoApplication.get_base_app_path().done(function(base){ Rho.File.join(base, 'public', 'samples', 'sample.pdf').done(function(fullPath){ reportResult(Rho.System.open_url(fullPath)); }); });">System.open_url sample.pdf</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">RhoApplication API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.RhoApplication.get_base_app_path());">RhoApplication.get_base_app_path</a></li>
+              <li><a href="#" onclick="reportResult(Rho.RhoApplication.get_app_path('app'));">RhoApplication.get_app_path</a></li>
+              <li><a href="#" onclick="reportResult(Rho.RhoApplication.get_user_path());">RhoApplication.get_user_path</a></li>
+              <li><a href="#" onclick="reportResult(Rho.RhoApplication.get_blob_path('app'));">RhoApplication.get_blob_path</a></li>
+              <li><a href="#" onclick="reportResult(Rho.RhoApplication.get_blob_folder());">RhoApplication.get_blob_folder</a></li>
+              <li><a href="#" onclick="reportResult(Rho.RhoApplication.get_model_path('app','someModel'));">RhoApplication.get_model_path</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">Camera API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.Camera.get_camera_info('default'));">Camera.get_camera_info('default')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.Camera.get_camera_info('main'));">Camera.get_camera_info('main')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.Camera.get_camera_info('front'));">Camera.get_camera_info('front')</a></li>
+              <li><a href="#" onclick="Rho.Camera.take_picture(function(){showValue(arguments[0]);});">Camera.take_picture</a></li>
+              <li><a href="#" onclick="Rho.Camera.take_picture(function(){showValue(arguments[0]);}, {enable_editing: true});">Camera.take_picture edit true</a></li>
+              <li><a href="#" onclick="Rho.Camera.take_picture(function(){showValue(arguments[0]);}, {enable_editing: false});">Camera.take_picture edit false</a></li>
+              <li><a href="#" onclick="Rho.Camera.take_picture(function(){showValue(arguments[0]);}, {format: 'png'});">Camera.take_picture PNG</a></li>
+              <li><a href="#" onclick="Rho.Camera.take_picture(function(){showValue(arguments[0]);}, {flash_mode: 'on'});">Camera.take_picture flash</a></li>
+              <li><a href="#" onclick="Rho.Camera.take_picture(function(){showValue(arguments[0]);}, {top: 100, left: 100, desired_width: 100, desired_height: 100});">Camera.take_picture @100x100</a></li>
+              <li><a href="#" onclick="Rho.Camera.take_picture(function(){showValue(arguments[0]);}, {camera_type: 'main'});">Camera.take_picture main</a></li>
+              <li><a href="#" onclick="Rho.Camera.take_picture(function(){showValue(arguments[0]);}, {camera_type: 'front'});">Camera.take_picture front</a></li>
+              <li><a href="#" onclick="Rho.Camera.choose_picture(function(){showValue(arguments[0]);});">Camera.choose_picture</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">GeoLocation API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.GeoLocation.latitude());">GeoLocation.latitude()</a></li>
+              <li><a href="#" onclick="reportResult(Rho.GeoLocation.longitude());">GeoLocation.longitude()</a></li>
+              <li><a href="#" onclick="reportResult(Rho.GeoLocation.is_known_position());">GeoLocation.is_known_position()</a></li>
+              <li><a href="#" onclick="reportResult(Rho.GeoLocation.turnoff());">GeoLocation.turnoff()</a></li>
+              <li>
+                <a href="#" onclick="reportResult(Rho.GeoLocation.set_notification(function(){showValue(arguments[0]);}, '', 3));">GeoLocation.set_notification</a>
+              </li>
+              <li><a href="#" onclick="reportResult(Rho.GeoLocation.haversine_distance(0,0,10,10));">GeoLocation.haversine_distance(0,0,10,10)</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">SignatureCapture API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.SignatureCapture.clear());">SignatureCapture.clear()</a></li>
+              <li><a href="#" onclick="reportResult(Rho.SignatureCapture.visible(true, {}));">SignatureCapture.visible(true, {})</a></li>
+              <li><a href="#" onclick="reportResult(Rho.SignatureCapture.visible(true, {penColor:0xFFFFFF, bgColor: 0x7777FF}));">SignatureCapture.visible bgColor penColor</a></li>
+              <li><a href="#" onclick="Rho.SignatureCapture.take(function(){showValue(arguments[0]);});">SignatureCapture.take</a></li>
+              <li><a href="#" onclick="Rho.SignatureCapture.take(function(){showValue(arguments[0]);}, {imageFormat: 'jpg', penColor: 0xFFFFFF, penWidth: 10, bgColor: 0xFF0000});">SignatureCapture.take JPG</a></li>
+              <li><a href="#" onclick="Rho.SignatureCapture.take(function(){showValue(arguments[0]);}, {imageFormat: 'png', penColor: 0xFFFFFF, penWidth: 10, bgColor: 0x00FF00});">SignatureCapture.take PNG</a></li>
+              <li><a href="#" onclick="Rho.SignatureCapture.take(function(){showValue(arguments[0]);}, {imageFormat: 'bmp', penColor: 0xFFFFFF, penWidth: 10, bgColor: 0x0000FF});">SignatureCapture.take BMP</a></li>
+              <li><a href="#" onclick="Rho.SignatureCapture.capture(function(){showValue(arguments[0]);});">SignatureCapture.capture(</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">Barcode API
+          <ul data-role="listview">
+              <li><a href="#" onclick="testBarcodeRecognize('./apps/public/samples/Barcode_UPC_01.png');">Barcode.barcode_recognize UPC 1</a></li>
+              <li><a href="#" onclick="testBarcodeRecognize('./apps/public/samples/Barcode_UPC_02.jpg');">Barcode.barcode_recognize UPC 2</a></li>
+              <li><a href="#" onclick="testBarcodeRecognize('./apps/public/samples/Barcode_QR_01.png');">Barcode.barcode_recognize QRCode</a></li>
+              <li>
+                <a href="#" onclick="Rho.Barcode.take_barcode(function(){showValue(arguments[0]);}, {});">Barcode.take_barcode</a>
+              </li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">RhoLog API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.Log.error('INDEX_ERB', 'sample error message'));">Rho.Log.error('INDEX_ERB', 'sample error message')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.Log.info('INDEX_ERB', 'sample info message'));">Rho.Log.info('INDEX_ERB', 'sample info message')</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">MapView API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.MapView.create(mapParams));">MapView.create(mapParams)</a></li>
+              <li><a href="#" onclick="reportResult(Rho.MapView.set_file_caching_enable(1));">MapView.set_file_caching_enable(1)</a></li>
+              <li>
+                <a href="#" onclick="reportResult(Rho.MapView.preload_map_tiles({}, function(){showValue(arguments[0]);}, '').done(function(n){alert((0==n)?'nothing to preload..':'starting, tiles to preload = '+n)}));">MapView.preload_map_tiles</a>
+              </li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">AudioCapture API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.AudioCapture.set_duration(5000));">AudioCapture.set_duration(5000)</a></li>
+              <li><a href="#" onclick="Rho.RhoApplication.get_blob_path('abc-123.wav').done(function(absFilename){ reportResult(Rho.AudioCapture.set_destination(absFilename)); });">AudioCapture.set_destination(absFilename)</a></li>
+              <li><a href="#" onclick="reportResult(Rho.AudioCapture.set_name('def-4567.wav'));">AudioCapture.set_name('def-4567.wav')</a></li>
+              <li><a href="#" onclick="reportResult(Rho.AudioCapture.set_audio_save_event(function(result){ showValue(result); }));">AudioCapture.set_audio_save_event()</a></li>
+              <li><a href="#" onclick="reportResult(Rho.AudioCapture.start());">AudioCapture.start()</a></li>
+              <li><a href="#" onclick="reportResult(Rho.AudioCapture.stop());">AudioCapture.stop()</a></li>
+              <li><a href="#" onclick="reportResult(Rho.AudioCapture.cancel());">AudioCapture.cancel()</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">VideoCapture API
+          <ul data-role="listview">
+            <li><a href="#" onclick="initVideoCaptureForFileSave(); return false;">init to save file</a></li>
+            <li><a href="#" onclick="initVideoCaptureForUpload(); return false;">init to upload file</a></li>
+            <li><a href="#" onclick="videoCapture.start(); return false;">VideoCapture start</a></li>
+            <li><a href="#" onclick="videoCapture.stop(); return false;">VideoCapture stop</a></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">AsyncHttp API
+          <ul data-role="listview">
+              <li><a href="#" onclick="reportResult(Rho.AsyncHttp.cancel());">AsyncHttp.cancel()</a></li>
+              <li>
+                <a href="#" onclick="Rho.AsyncHttp.get('http://www.apache.org/licenses/LICENSE-2.0', null, function(){showValue(arguments[0]);}, null);">AsyncHttp.get</a>
+              </li>
+              <li>
+                <a href="#" onclick="Rho.AsyncHttp.post('/app', null, 'body_param=123', function(){showValue(arguments[0]);}, null);">AsyncHttp.post</a>
+              </li>
+            <li>
+              <a href="#" onclick="Rho.AsyncHttp.download_file('http://www.rhomobile.com/wp-content/themes/rhomobile_theme/images/misc/ruby_app.jpg', null, './ruby_app.jpg', function(){showValue(arguments[0]);}, null);">AsyncHttp.download_file</a>
+            </li>
+              <li>
+                <a href="#" onclick="Rho.AsyncHttp.upload_file('/app', null, './wrong_file.txt', 'body_param=123', function(){showValue(arguments[0]);}, null);">AsyncHttp.upload_file</a>
+              </li>
+            </ul>
+      </li>
+      <li data-role-off="list-divider">Database API
+          <ul data-role="listview">
+            <li><a href="#" onclick="Rho.RhoApplication.get_blob_folder().done(function(uPath){ Rho.File.join(uPath, '..', 'syncdbuser').done(function(absPath){ testDatabaseOpen(absPath, 'div.sqlResult'); });});">Database read test</a></li>
+            <li><div class="sqlResult"></div></li>
+          </ul>
+      </li>
+      <li data-role-off="list-divider">Sensors API
+          <ul data-role="listview">
+            <li>To use this API you need to set "app_type: rhoelements" in build.yml</li>
+            <li>
+              <div data-role="collapsible-set" data-theme="a" data-content-theme="c">
+                <div data-role="collapsible"><h3>Usage samples</h3>
+                  <ul data-role="listview">
+                      <li><a href="#" onclick="enableAllSensorsApi();">Enable all sensors</a></li>
+                      <li><a href="#" onclick="enableAccelAndMagnetSensorsApi();">Enable Accel/Magnet sensors</a></li>
+                      <li><a href="#" onclick="disableAllSensorsApi();">Disable sensors</a></li>
+                      <li><a href="#" onclick="RawSensors.getSensorData();">Read sensors</a></li>
+                    <li><pre><div class="sensorsResult"></div></pre></li>
+                    <li><pre><div class="compass"></div></pre></li>
+                  </ul>
+                </div>
+                <div class="tennis" data-role="collapsible" data-content-theme="a"><h3>Tennis game</h3>
+                  <style type="text/css">
+                      div.tennis div.field { position: relative; height: 200px; }
+                      div.field div { position: absolute; }
+                      div.field div.note    { z-index: 1; color: gray;  top: 4px; left: 100px; font-size: 70%;}
+                      div.field div.score1  { z-index: 1; color: green; top: 4px; left: 10px; }
+                      div.field div.score2  { z-index: 1; color: green; top: 4px; right: 10px; }
+                      div.field div.racket1 { z-index: 2; background-color: yellow; left: 30px; }
+                      div.field div.racket2 { z-index: 2; border: 1px solid white; right: 30px; }
+                      div.field div.ball    { z-index: 3; border: 1px solid white; left: 100px; width: 10px; height: 10px; }
+                      div.field div.racket1,
+                      div.field div.racket2 { width: 10px; height: 40px; }
+                  </style>
+                  <div class="field">
+                    <div class="note">Tilt phone to control racket..</div>
+                    <div class="score1">0</div>
+                    <div class="score2">0</div>
+                    <div class="racket1"></div>
+                    <div class="ball">&nbsp;</div>
+                    <div class="racket2"></div>
+                  </div>
+                </div>
+                <div class="compass" data-role="collapsible" data-content-theme="a"><h3>Compass demo</h3>
+                  <style type="text/css">
+                      div.compass div.placement {
+                          position: relative; width: 200px; height: 200px;
+                          margin-left: auto; margin-right: auto;
+                      }
+                      div.placement canvas, div.placement div.degree { position: absolute; margin: 0px; }
+                      div.placement div.degree { left: 20px; top: 20px; }
+                  </style>
+                  <div class="placement">
+                    <div class="degree"></div>
+                    <canvas class="body" width="200" height="200"></canvas>
+                    <canvas class="arrow" width="200" height="200"></canvas>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+      </li>
+    </ul>
+  </div>
+
+</div>

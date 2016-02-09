@@ -1,0 +1,48 @@
+#sdk: "C:/projects/rhodes"
+sdkversion: 3.4.0
+name: rho-js-api-samples
+version: 1.0
+vendor: rhomobile
+build: debug
+bbver: 4.6
+applog: rholog.txt
+
+#app_type: rhoelements
+
+capabilities:
+# - native_browser
+#  - motorola_browser
+#  - non_motorola_device
+  - camera
+  - gps
+  - network_state
+  - sdcard
+
+iphone:
+  configuration: Release
+  sdk: iphonesimulator8.1
+  provisionprofile:
+  codesignidentity:
+  entitlements:
+  BundleIdentifier: com.rhomobile.rho-js-api-samples
+  BundleURLScheme: rho-js-api-samples
+  extensions: ["barcode"]
+
+wm:
+  extensions: ["barcode"]
+    
+wp:
+  productid: '791cd4f0-db03-012f-78db-3caec51bd50e'
+
+symbian:
+  uid: '0xe71df25a'
+
+android:
+  version: 2.3.3
+  mapping: yes
+  extensions: ["barcode"]
+
+extensions: ["json", "rho-javascript", "thread"]
+
+#motorola_license_company: "your license name goes here"
+#motorola_license: "your license code goes here"

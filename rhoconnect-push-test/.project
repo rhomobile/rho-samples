@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>rhoconnect-push-test</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.dltk.core.scriptbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>rhogenwizard.builder.RhogenBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.rhomobile.rhostudio.rhogenNature</nature>
+		<nature>org.eclipse.dltk.ruby.core.nature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>framework</name>
+			<type>2</type>
+			<location>C:/Ruby193/lib/ruby/gems/1.9.1/gems/rhodes-3.4/lib/framework</location>
+		</link>
+	</linkedResources>
+</projectDescription>

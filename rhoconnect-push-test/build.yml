@@ -1,0 +1,26 @@
+name: "rhoconnect-push-test"
+bbver: 6.0
+applog: "rholog.txt"
+version: "1.0.0"
+vendor: "rhomobile"
+capabilities:
+  - network_state
+  - vibrate
+
+extensions: ["rhoconnect-push", "rhoconnect-client"]
+
+paths:
+ extensions: 
+ - "C:/work/Motorola-Extensions/extensions"
+ - "C:/work/rhoconnect-client/ext"
+
+android:
+  version: 2.3.3
+  capabilities:
+    - sdcard
+    - phone
+  push:
+    notifications: background
+
+wm:
+  #sdk: "MC3000c50b (ARMV4I)"

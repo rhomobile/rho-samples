@@ -1,0 +1,50 @@
+<div data-role="page" data-add-back-btn="true">
+
+  <div data-role="header" data-position="inline">
+    <%= link_to "Back", :action => :index %>
+    <h1><%= @product.name %></h1>
+    <%= link_to "Edit", :action => :edit, :id => @product.object %>
+  </div>
+
+  <div data-role="content">
+    <table>
+      
+      <tr>
+    	<td class="itemLabel">Name</td>
+        <td class="itemValue"><%= @product.name%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Quantity</td>
+        <td class="itemValue"><%= @product.quantity%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Price</td>
+        <td class="itemValue"><%= @product.price%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Sku</td>
+        <td class="itemValue"><%= @product.sku%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Brand</td>
+        <td class="itemValue"><%= @product.brand%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">UpdatedAt</td>
+        <td class="itemValue"><%= @product.updated_at%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">CreatedAt</td>
+        <td class="itemValue"><%= @product.created_at%></td>
+      </tr>
+      
+    </table>
+  </div>
+
+</div>
