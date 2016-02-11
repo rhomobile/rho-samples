@@ -11,8 +11,6 @@ applog: rholog.txt
 
 capabilities:
 # - native_browser
-#  - motorola_browser
-#  - non_motorola_device
   - camera
   - gps
   - network_state
@@ -44,5 +42,4 @@ android:
 
 extensions: ["json", "rho-javascript", "thread"]
 
-#motorola_license_company: "your license name goes here"
-#motorola_license: "your license code goes here"
+
